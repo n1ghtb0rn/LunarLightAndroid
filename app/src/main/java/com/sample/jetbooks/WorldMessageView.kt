@@ -23,10 +23,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sample.jetbooks.data.Book
-import com.sample.jetbooks.data.LocalData
-import com.sample.jetbooks.repo.BooksRepo
-import com.sample.jetbooks.viewmodel.BooksViewModel
+import com.sample.jetbooks.data.WorldMessage
+import com.sample.jetbooks.repo.WorldMessagesRepo
+import com.sample.jetbooks.response.OnError
+import com.sample.jetbooks.response.OnSuccess
+import com.sample.jetbooks.viewmodel.WorldMessagesViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import java.lang.IllegalStateException
 import java.sql.Timestamp
@@ -34,12 +35,12 @@ import java.util.*
 
 @Composable
 fun WorldMessageView(
-    booksViewModel: BooksViewModel = viewModel(
-        factory = BookViewModelFactory(BooksRepo())
+    worldMessagesViewModel: WorldMessagesViewModel = viewModel(
+        factory = WorldMessageViewModelFactory(WorldMessagesRepo())
     )
 ) {
 
-    when (val booksList = booksViewModel.booksStateFlow.asStateFlow().collectAsState().value) {
+    when (val worldMessagesList = worldMessagesViewModel.worldMessagesStateFlow.asStateFlow().collectAsState().value) {
 
         is OnError -> {
             Text(text = "Please try after sometime")
@@ -83,18 +84,18 @@ fun WorldMessageView(
                     val message = inputMessage.value.text
 
 
-                    val newBook = Book(id, user_id,username, timestamp, avatar,month,day, message)
-                    val booksRepo = BooksRepo()
-                    booksRepo.addBook(newBook)
+                    val newWorldMessage = WorldMessage(id, user_id,username, timestamp, avatar,month,day, message)
+                    val worldMessagesRepo = WorldMessagesRepo()
+                    worldMessagesRepo.addWorldMessage(newWorldMessage)
                 }) {
                     Text("Add new book")
                 }
 
-                val listOfBooks = booksList.querySnapshot?.toObjects(Book::class.java)
-                listOfBooks?.let {
+                val listOfWorldMessages = worldMessagesList.querySnapshot?.toObjects(WorldMessage::class.java)
+                listOfWorldMessages?.let {
                     Column {
                         LazyColumn(modifier = Modifier.fillMaxHeight()) {
-                            items(listOfBooks) {
+                            items(listOfWorldMessages) {
 
                                 Card(
                                     modifier = Modifier
@@ -116,9 +117,9 @@ fun WorldMessageView(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun BookDetails(book: Book) {
-    var showBookDescription by remember { mutableStateOf(false) }
-    val bookCoverImageSize by animateDpAsState(
+fun WorldMessageDetails(worldMessage: WorldMessage) {
+    var showWorldMessageDescription by remember { mutableStateOf(false) }
+    val worldMessageCoverImageSize by animateDpAsState(
         targetValue =
         if (showBookDescription) 50.dp else 80.dp
     )
@@ -159,10 +160,10 @@ fun BookDetails(book: Book) {
 
 }
 
-class BookViewModelFactory(private val booksRepo: BooksRepo) : ViewModelProvider.Factory {
+class WorldMessageViewModelFactory(private val worldMessagesRepo: WorldMessagesRepo) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(BooksViewModel::class.java)) {
-            return BooksViewModel(booksRepo) as T
+        if (modelClass.isAssignableFrom(WorldMessagesViewModel::class.java)) {
+            return WorldMessagesViewModel(worldMessagesRepo) as T
         }
 
         throw IllegalStateException()

@@ -1,6 +1,6 @@
 package com.sample.jetbooks.data
 
-data class Book(
+data class WorldMessage(
     val id: String,
     val user_id: String,
     val username: String,
