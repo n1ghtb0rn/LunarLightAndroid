@@ -2,8 +2,6 @@ package com.sample.jetbooks.repo
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sample.jetbooks.OnError
-import com.sample.jetbooks.OnSuccess
 import com.sample.jetbooks.data.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
