@@ -33,6 +33,7 @@ import com.sample.jetbooks.Collections.UserOnlineModel
 import com.sample.jetbooks.Documents.WorldMessage
 import com.sample.jetbooks.Collections.WorldMessageModel
 import com.sample.jetbooks.Documents.UserOnline
+import com.sample.jetbooks.Factories.WorldMessageViewModelFactory
 import com.sample.jetbooks.Responses.OnError
 import com.sample.jetbooks.Responses.OnSuccess
 import com.sample.jetbooks.Utils.TimestampConverter
@@ -199,17 +200,6 @@ fun WorldMessageDetails(worldMessage: WorldMessage) {
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
             )
         }
-    }
-
-}
-
-class WorldMessageViewModelFactory(private val worldMessageModel: WorldMessageModel) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(WorldMessagesViewModel::class.java)) {
-            return WorldMessagesViewModel(worldMessageModel) as T
-        }
-
-        throw IllegalStateException()
     }
 
 }
