@@ -1,8 +1,5 @@
 package com.sample.jetbooks.data
 
-import com.google.protobuf.UInt64Value
-import java.util.*
-
 data class Book(
     val id: String,
     val user_id: String,

@@ -10,9 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.input.TextFieldValue
+import com.sample.jetbooks.repo.BooksRepo
+import com.sample.jetbooks.repo.UsersRepo
 
 @Composable
 fun LoginView() {
+
+    val usersRepo = UsersRepo()
+    usersRepo.listenToUsers()
 
     Column {
 
@@ -48,6 +53,8 @@ fun LoginView() {
         Button(onClick = {
 
             Log.d("Danne", "username: ${username.value}, password: ${password.value}")
+
+            Log.d("Danne", "Users count = ${usersRepo.users.size}")
 
             val success = true
 
