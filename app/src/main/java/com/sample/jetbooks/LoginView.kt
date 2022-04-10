@@ -29,19 +29,6 @@ fun LoginView() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Row {
-            Button(onClick = { /*TODO*/ }) {
-                Text("Login")
-            }
-
-            Text(" | ")
-
-            Button(onClick = { /*TODO*/ }) {
-                Text("Register")
-            }
-        }
-
-
         TextField(
             value = username.value,
             onValueChange = {
