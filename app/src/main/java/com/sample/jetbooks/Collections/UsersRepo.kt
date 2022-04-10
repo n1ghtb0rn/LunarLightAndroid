@@ -1,11 +1,8 @@
-package com.sample.jetbooks.repo
+package com.sample.jetbooks.Collections
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sample.jetbooks.data.User
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.callbackFlow
+import com.sample.jetbooks.Documents.User
 import java.util.ArrayList
 
 class UsersRepo {

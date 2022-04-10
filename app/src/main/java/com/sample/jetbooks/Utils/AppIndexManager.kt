@@ -2,7 +2,7 @@ package com.sample.jetbooks
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sample.jetbooks.data.User
+import com.sample.jetbooks.Documents.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

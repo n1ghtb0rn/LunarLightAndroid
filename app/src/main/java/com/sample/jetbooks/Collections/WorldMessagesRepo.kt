@@ -1,10 +1,10 @@
-package com.sample.jetbooks.repo
+package com.sample.jetbooks.Collections
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sample.jetbooks.data.WorldMessage
-import com.sample.jetbooks.response.OnError
-import com.sample.jetbooks.response.OnSuccess
+import com.sample.jetbooks.Documents.WorldMessage
+import com.sample.jetbooks.Responses.OnError
+import com.sample.jetbooks.Responses.OnSuccess
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow

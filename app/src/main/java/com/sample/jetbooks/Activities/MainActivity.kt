@@ -1,9 +1,10 @@
-package com.sample.jetbooks
+package com.sample.jetbooks.Activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.*
+import com.sample.jetbooks.ContentView
 import com.sample.jetbooks.ui.theme.JetBooksTheme
 
 class MainActivity : ComponentActivity() {

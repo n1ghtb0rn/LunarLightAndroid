@@ -1,9 +1,9 @@
-package com.sample.jetbooks.viewmodel
+package com.sample.jetbooks.ViewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sample.jetbooks.repo.WorldMessagesRepo
-import com.sample.jetbooks.response.WorldMessagesResponse
+import com.sample.jetbooks.Collections.WorldMessagesRepo
+import com.sample.jetbooks.Responses.WorldMessagesResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

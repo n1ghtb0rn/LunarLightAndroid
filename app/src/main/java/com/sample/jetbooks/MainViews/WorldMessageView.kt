@@ -1,4 +1,4 @@
-package com.sample.jetbooks
+package com.sample.jetbooks.MainViews
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -26,15 +26,16 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sample.jetbooks.data.WorldMessage
-import com.sample.jetbooks.repo.WorldMessagesRepo
-import com.sample.jetbooks.response.OnError
-import com.sample.jetbooks.response.OnSuccess
-import com.sample.jetbooks.utils.TimestampConverter
-import com.sample.jetbooks.viewmodel.WorldMessagesViewModel
+import com.sample.jetbooks.AppIndex
+import com.sample.jetbooks.AppIndexManager
+import com.sample.jetbooks.Documents.WorldMessage
+import com.sample.jetbooks.Collections.WorldMessagesRepo
+import com.sample.jetbooks.Responses.OnError
+import com.sample.jetbooks.Responses.OnSuccess
+import com.sample.jetbooks.Utils.TimestampConverter
+import com.sample.jetbooks.ViewModels.WorldMessagesViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import java.lang.IllegalStateException
-import java.sql.Timestamp
 import java.util.*
 
 @Composable

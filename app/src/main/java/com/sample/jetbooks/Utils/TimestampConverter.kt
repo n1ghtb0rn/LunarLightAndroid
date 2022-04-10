@@ -1,4 +1,4 @@
-package com.sample.jetbooks.utils
+package com.sample.jetbooks.Utils
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat

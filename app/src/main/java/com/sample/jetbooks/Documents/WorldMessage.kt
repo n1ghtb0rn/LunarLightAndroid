@@ -1,4 +1,4 @@
-package com.sample.jetbooks.data
+package com.sample.jetbooks.Documents
 
 data class WorldMessage(
     val id: String,

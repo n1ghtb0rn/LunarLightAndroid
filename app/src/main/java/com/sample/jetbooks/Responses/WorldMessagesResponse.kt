@@ -1,4 +1,4 @@
-package com.sample.jetbooks.response
+package com.sample.jetbooks.Responses
 
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
