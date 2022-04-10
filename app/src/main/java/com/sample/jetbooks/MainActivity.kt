@@ -75,6 +75,18 @@ fun BookList(
 
             Column() {
 
+                Text(
+                    text = "Lunar Light",
+                    style = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.ExtraBold),
+                    modifier = Modifier.padding(16.dp)
+                )
+
+                Text(
+                    text = "World Chat",
+                    style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
+                    modifier = Modifier.padding(16.dp)
+                )
+
                 val message = remember { mutableStateOf(TextFieldValue()) }
                 TextField(
                     value = message.value,
@@ -106,12 +118,6 @@ fun BookList(
                 val listOfBooks = booksList.querySnapshot?.toObjects(Book::class.java)
                 listOfBooks?.let {
                     Column {
-                        Text(
-                            text = "Bookish",
-                            style = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.ExtraBold),
-                            modifier = Modifier.padding(16.dp)
-                        )
-
                         LazyColumn(modifier = Modifier.fillMaxHeight()) {
                             items(listOfBooks) {
 
