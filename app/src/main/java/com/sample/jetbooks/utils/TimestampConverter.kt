@@ -10,7 +10,7 @@ class TimestampConverter {
     fun getDateTime(s: String): String? {
         try {
             val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-            val netDate = Date(s.toLong() * 1000)
+            val netDate = Date(s.toLong())
             return sdf.format(netDate)
         } catch (e: Exception) {
             return "Unknown timestamp"

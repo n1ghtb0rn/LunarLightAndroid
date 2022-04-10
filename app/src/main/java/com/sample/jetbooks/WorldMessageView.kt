@@ -78,7 +78,7 @@ fun WorldMessageView(
                     val id = UUID.randomUUID().toString()
                     val user_id = currentUser.id
                     val username = currentUser.username
-                    val timestamp: Long = Timestamp(System.currentTimeMillis()).time
+                    val timestamp: Long = System.currentTimeMillis()
                     val avatar = currentUser.avatar
                     val month: Long = currentUser.month
                     val day: Long = currentUser.day
