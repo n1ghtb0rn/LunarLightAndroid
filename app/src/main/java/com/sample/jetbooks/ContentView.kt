@@ -10,31 +10,11 @@ import androidx.compose.runtime.collectAsState
 @Composable
 fun ContentView() {
 
-    Column {
+    when (AppIndexManager.appIndex.collectAsState().value) {
 
-        Row {
-            Button(onClick = {
-                AppIndexManager.setIndex(AppIndex.startView)
-            }) {
-                Text("Start View")
-            }
+        AppIndex.startView -> StartView()
 
-            Button(onClick = {
-                AppIndexManager.setIndex(AppIndex.worldMessageView)
-            }) {
-                Text("World Message View")
-            }
-        }
-
-        when (AppIndexManager.appIndex.collectAsState().value) {
-
-            AppIndex.startView -> StartView()
-
-            AppIndex.worldMessageView -> WorldMessageView()
-
-        }
-
-
+        AppIndex.worldMessageView -> WorldMessageView()
 
     }
 

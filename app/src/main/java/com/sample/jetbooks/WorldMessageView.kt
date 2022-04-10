@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sample.jetbooks.data.Book
+import com.sample.jetbooks.data.LocalData
 import com.sample.jetbooks.repo.BooksRepo
 import com.sample.jetbooks.viewmodel.BooksViewModel
 import kotlinx.coroutines.flow.asStateFlow
@@ -60,12 +61,11 @@ fun WorldMessageView(
                     modifier = Modifier.padding(16.dp)
                 )
 
-                val message = remember { mutableStateOf(TextFieldValue()) }
+                val inputMessage = remember { mutableStateOf(TextFieldValue()) }
                 TextField(
-                    value = message.value,
+                    value = inputMessage.value,
                     onValueChange = {
-                        message.value = it
-                        LocalData.message = message.value.text
+                        inputMessage.value = it
                     }
                 )
 
@@ -80,7 +80,7 @@ fun WorldMessageView(
                     val avatar = currentUser.avatar
                     val month: Long = currentUser.month
                     val day: Long = currentUser.day
-                    val message = LocalData.message
+                    val message = inputMessage.value.text
 
 
                     val newBook = Book(id, user_id,username, timestamp, avatar,month,day, message)
