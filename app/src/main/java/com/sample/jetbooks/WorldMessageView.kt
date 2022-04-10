@@ -3,6 +3,7 @@ package com.sample.jetbooks
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +16,7 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -46,26 +48,29 @@ fun WorldMessageView(
 
     Column(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-        Text(
-            text = "Lunar Light",
-            style = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.ExtraBold),
-            modifier = Modifier.padding(16.dp)
-        )
+        Column(
+            modifier = Modifier.weight(0.6f),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        Text(
-            text = "World Chat",
-            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
-            modifier = Modifier.padding(16.dp)
-        )
+            Text(
+                text = "World Chat",
+                style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
+                modifier = Modifier.padding(16.dp)
+            )
 
-        Button(onClick = {
-            AppIndexManager.setIndex(AppIndex.startView)
-        }) {
-            Text("Logout")
+            Button(onClick = {
+                AppIndexManager.setIndex(AppIndex.startView)
+            }) {
+                Text("Logout")
+            }
+
         }
+
+
 
         when (val worldMessagesList = worldMessagesViewModel.worldMessagesStateFlow.asStateFlow().collectAsState().value) {
 
@@ -75,7 +80,35 @@ fun WorldMessageView(
 
             is OnSuccess -> {
 
-                Row {
+                val listOfWorldMessages = worldMessagesList.querySnapshot?.toObjects(WorldMessage::class.java)
+                listOfWorldMessages?.let {
+
+                    LazyColumn(
+                        modifier = Modifier.background(Color.LightGray).weight(3f)
+                               .padding(vertical = 8.dp)
+                        //modifier = Modifier
+                        //    .fillMaxHeight()
+                    ) {
+                        items(listOfWorldMessages) {
+
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                shape = RoundedCornerShape(16.dp)
+                            ) {
+                                WorldMessageDetails(it)
+                            }
+                        }
+                    }
+
+                }
+
+                Row(
+                    modifier = Modifier.weight(0.5f),
+                    verticalAlignment = Alignment.CenterVertically,
+
+                ) {
                     TextField(
                         value = inputMessage.value,
                         onValueChange = {
@@ -104,26 +137,6 @@ fun WorldMessageView(
                         Text("Send")
                     }
                 }
-
-                val listOfWorldMessages = worldMessagesList.querySnapshot?.toObjects(WorldMessage::class.java)
-                listOfWorldMessages?.let {
-                    Column {
-                        LazyColumn(modifier = Modifier.fillMaxHeight()) {
-                            items(listOfWorldMessages) {
-
-                                Card(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(16.dp),
-                                    shape = RoundedCornerShape(16.dp)
-                                ) {
-                                    WorldMessageDetails(it)
-                                }
-                            }
-                        }
-                    }
-                }
-
 
             }
         }
