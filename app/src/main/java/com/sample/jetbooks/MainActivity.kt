@@ -1,4 +1,4 @@
-package com.sample.jetbooks.Activities
+package com.sample.jetbooks
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

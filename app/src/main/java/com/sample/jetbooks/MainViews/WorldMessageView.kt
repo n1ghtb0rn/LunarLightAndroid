@@ -86,7 +86,7 @@ fun WorldMessageView(
 
                     LazyColumn(
                         modifier = Modifier.background(Color.LightGray).weight(3f)
-                               .padding(vertical = 8.dp)
+                               .padding(horizontal = 8.dp, vertical = 8.dp)
                         //modifier = Modifier
                         //    .fillMaxHeight()
                     ) {
