@@ -35,6 +35,15 @@ class UsersRepo {
                 users.clear()
 
                 for (document in value) {
+
+                    /* Auto-mapping: */
+                    val user: User = document.toObject(User::class.java)
+
+                    users.add(user)
+
+                    /* Manual mapping: */
+
+                    /*
                     val id = document.getString("id")
                     val username = document.getString("username")
                     val password = document.getString("password")
@@ -48,6 +57,8 @@ class UsersRepo {
                         val user = User(id, username, password, email, avatar, year, month, day)
                         users.add(user)
                     }
+
+                     */
 
                 }
 

@@ -52,14 +52,15 @@ fun LoginView() {
 
         Button(onClick = {
 
-            Log.d("Danne", "username: ${username.value}, password: ${password.value}")
+            val users = usersRepo.users
 
-            Log.d("Danne", "Users count = ${usersRepo.users.size}")
-
-            val success = true
-
-            if (success) {
-                AppIndexManager.setIndex(AppIndex.worldMessageView)
+            for (user in users) {
+                if ( (user.username == username.value.text || user.email == username.value.text)
+                        && user.password == password.value.text
+                ) {
+                    AppIndexManager.setIndex(AppIndex.worldMessageView)
+                    break
+                }
             }
 
         }) {
