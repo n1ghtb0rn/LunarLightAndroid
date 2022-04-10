@@ -37,7 +37,6 @@ fun LoginView() {
             value = username.value,
             onValueChange = {
                 username.value = it
-                LocalData.message = username.value.text
             }
         )
 
