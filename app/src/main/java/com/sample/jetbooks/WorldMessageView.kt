@@ -71,13 +71,15 @@ fun WorldMessageView(
 
                 Button(onClick = {
 
+                    val currentUser = AppIndexManager.currentUser
+
                     val id = UUID.randomUUID().toString()
-                    val user_id = "116F1A78-9272-47F8-8C17-533F11FD6240"
-                    val username = "danne"
+                    val user_id = currentUser.id
+                    val username = currentUser.username
                     val timestamp: Long = Timestamp(System.currentTimeMillis()).time
-                    val avatar = "gemeni_2"
-                    val month: Long = 6
-                    val day: Long = 17
+                    val avatar = currentUser.avatar
+                    val month: Long = currentUser.month
+                    val day: Long = currentUser.day
                     val message = LocalData.message
 
 
