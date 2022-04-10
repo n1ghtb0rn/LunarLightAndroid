@@ -42,6 +42,8 @@ fun WorldMessageView(
     )
 ) {
 
+    val inputMessage = remember { mutableStateOf(TextFieldValue()) }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -69,7 +71,6 @@ fun WorldMessageView(
                     modifier = Modifier.padding(16.dp)
                 )
 
-                val inputMessage = remember { mutableStateOf(TextFieldValue()) }
                 TextField(
                     value = inputMessage.value,
                     onValueChange = {
