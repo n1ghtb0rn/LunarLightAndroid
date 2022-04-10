@@ -152,6 +152,9 @@ fun WorldMessageView(
                 }
 
             }
+            else -> {
+                Text(text = "Please try after sometime")
+            }
         }
 
     }

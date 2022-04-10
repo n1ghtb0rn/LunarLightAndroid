@@ -24,7 +24,7 @@ class WorldMessageModel {
                 OnError(error)
             }
 
-            offer(response)
+            this.trySend(response).isSuccess
         }
 
         awaitClose {
