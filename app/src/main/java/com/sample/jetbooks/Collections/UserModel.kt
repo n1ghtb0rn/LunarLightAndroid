@@ -5,7 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sample.jetbooks.Documents.User
 import java.util.ArrayList
 
-class UsersRepo {
+class UserModel {
 
     private val firestore = FirebaseFirestore.getInstance()
 

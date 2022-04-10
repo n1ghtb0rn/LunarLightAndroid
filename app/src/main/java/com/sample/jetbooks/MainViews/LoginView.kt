@@ -11,12 +11,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import com.sample.jetbooks.Collections.UsersRepo
+import com.sample.jetbooks.Collections.UserModel
+import com.sample.jetbooks.Collections.UserOnlineModel
+import com.sample.jetbooks.Documents.UserOnline
 
 @Composable
 fun LoginView() {
 
-    val usersRepo = UsersRepo()
+    val usersRepo = UserModel()
     usersRepo.listenToUsers()
 
     val username = remember { mutableStateOf(TextFieldValue("danne")) }
@@ -49,6 +51,11 @@ fun LoginView() {
                 if ( (user.username == username.value.text || user.email == username.value.text)
                         && user.password == password.value.text
                 ) {
+
+                    val userOnline = UserOnline(user.id, true, user.username)
+                    val userOnlineModel = UserOnlineModel()
+                    userOnlineModel.updateUserOnline(userOnline)
+
                     AppIndexManager.currentUser = user
                     AppIndexManager.setIndex(AppIndex.worldMessageView)
                     break

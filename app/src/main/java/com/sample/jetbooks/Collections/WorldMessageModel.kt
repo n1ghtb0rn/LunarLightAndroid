@@ -9,7 +9,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 
-class WorldMessagesRepo {
+class WorldMessageModel {
 
     private val firestore = FirebaseFirestore.getInstance()
 
@@ -32,7 +32,7 @@ class WorldMessagesRepo {
         }
     }
 
-    fun addWorldMessage(newWorldMessage: WorldMessage) {
+    fun createWorldMessage(newWorldMessage: WorldMessage) {
         val dataToStore = HashMap<String, Any>()
 
         dataToStore.put("avatar", newWorldMessage.avatar as Any)

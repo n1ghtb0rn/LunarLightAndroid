@@ -28,8 +28,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sample.jetbooks.AppIndex
 import com.sample.jetbooks.AppIndexManager
+import com.sample.jetbooks.Collections.UserOnlineModel
 import com.sample.jetbooks.Documents.WorldMessage
-import com.sample.jetbooks.Collections.WorldMessagesRepo
+import com.sample.jetbooks.Collections.WorldMessageModel
+import com.sample.jetbooks.Documents.UserOnline
 import com.sample.jetbooks.Responses.OnError
 import com.sample.jetbooks.Responses.OnSuccess
 import com.sample.jetbooks.Utils.TimestampConverter
@@ -41,7 +43,7 @@ import java.util.*
 @Composable
 fun WorldMessageView(
     worldMessagesViewModel: WorldMessagesViewModel = viewModel(
-        factory = WorldMessageViewModelFactory(WorldMessagesRepo())
+        factory = WorldMessageViewModelFactory(WorldMessageModel())
     )
 ) {
 
@@ -64,6 +66,12 @@ fun WorldMessageView(
             )
 
             Button(onClick = {
+
+                val currentUser = AppIndexManager.currentUser
+                val userOnline = UserOnline(currentUser.id, false, currentUser.username)
+                val userOnlineModel = UserOnlineModel()
+                userOnlineModel.updateUserOnline(userOnline)
+
                 AppIndexManager.setIndex(AppIndex.startView)
             }) {
                 Text("Logout")
@@ -132,8 +140,8 @@ fun WorldMessageView(
 
 
                         val newWorldMessage = WorldMessage(id, userId, username, timestamp, avatar,month,day, message)
-                        val worldMessagesRepo = WorldMessagesRepo()
-                        worldMessagesRepo.addWorldMessage(newWorldMessage)
+                        val worldMessagesRepo = WorldMessageModel()
+                        worldMessagesRepo.createWorldMessage(newWorldMessage)
                     }) {
                         Text("Send")
                     }
@@ -192,10 +200,10 @@ fun WorldMessageDetails(worldMessage: WorldMessage) {
 
 }
 
-class WorldMessageViewModelFactory(private val worldMessagesRepo: WorldMessagesRepo) : ViewModelProvider.Factory {
+class WorldMessageViewModelFactory(private val worldMessageModel: WorldMessageModel) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(WorldMessagesViewModel::class.java)) {
-            return WorldMessagesViewModel(worldMessagesRepo) as T
+            return WorldMessagesViewModel(worldMessageModel) as T
         }
 
         throw IllegalStateException()
