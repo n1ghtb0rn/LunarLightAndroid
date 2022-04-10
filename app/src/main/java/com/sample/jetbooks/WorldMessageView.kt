@@ -13,6 +13,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -41,15 +42,20 @@ fun WorldMessageView(
     )
 ) {
 
-    when (val worldMessagesList = worldMessagesViewModel.worldMessagesStateFlow.asStateFlow().collectAsState().value) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
-        is OnError -> {
-            Text(text = "Please try after sometime")
-        }
+        when (val worldMessagesList = worldMessagesViewModel.worldMessagesStateFlow.asStateFlow().collectAsState().value) {
 
-        is OnSuccess -> {
+            is OnError -> {
+                Text(text = "Please try after sometime")
+            }
 
-            Column() {
+            is OnSuccess -> {
+
+
 
                 Text(
                     text = "Lunar Light",
@@ -111,8 +117,10 @@ fun WorldMessageView(
                     }
                 }
 
+
             }
         }
+
     }
 }
 
