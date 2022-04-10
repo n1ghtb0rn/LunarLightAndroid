@@ -21,6 +21,9 @@ fun LoginView() {
     val usersRepo = UsersRepo()
     usersRepo.listenToUsers()
 
+    val username = remember { mutableStateOf(TextFieldValue("danne")) }
+    val password = remember { mutableStateOf(TextFieldValue("12345")) }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -38,7 +41,7 @@ fun LoginView() {
             }
         }
 
-        val username = remember { mutableStateOf(TextFieldValue()) }
+
         TextField(
             value = username.value,
             onValueChange = {
@@ -46,7 +49,6 @@ fun LoginView() {
             }
         )
 
-        val password = remember { mutableStateOf(TextFieldValue()) }
         TextField(
             value = password.value,
             onValueChange = {
