@@ -27,6 +27,7 @@ import com.sample.jetbooks.data.WorldMessage
 import com.sample.jetbooks.repo.WorldMessagesRepo
 import com.sample.jetbooks.response.OnError
 import com.sample.jetbooks.response.OnSuccess
+import com.sample.jetbooks.utils.TimestampConverter
 import com.sample.jetbooks.viewmodel.WorldMessagesViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import java.lang.IllegalStateException
@@ -88,7 +89,7 @@ fun WorldMessageView(
                     val worldMessagesRepo = WorldMessagesRepo()
                     worldMessagesRepo.addWorldMessage(newWorldMessage)
                 }) {
-                    Text("Add new book")
+                    Text("Send")
                 }
 
                 val listOfWorldMessages = worldMessagesList.querySnapshot?.toObjects(WorldMessage::class.java)
@@ -103,7 +104,7 @@ fun WorldMessageView(
                                         .padding(16.dp),
                                     shape = RoundedCornerShape(16.dp)
                                 ) {
-                                    BookDetails(it)
+                                    WorldMessageDetails(it)
                                 }
                             }
                         }
@@ -121,25 +122,27 @@ fun WorldMessageDetails(worldMessage: WorldMessage) {
     var showWorldMessageDescription by remember { mutableStateOf(false) }
     val worldMessageCoverImageSize by animateDpAsState(
         targetValue =
-        if (showBookDescription) 50.dp else 80.dp
+        if (showWorldMessageDescription) 50.dp else 80.dp
     )
 
+    val timestampConverter = TimestampConverter()
+
     Column(modifier = Modifier.clickable {
-        showBookDescription = showBookDescription.not()
+        showWorldMessageDescription = showWorldMessageDescription.not()
     }) {
         Row(modifier = Modifier.padding(12.dp)) {
 
 
             Column {
                 Text(
-                    text = book.username, style = TextStyle(
+                    text = worldMessage.username, style = TextStyle(
                         fontWeight = FontWeight.Light,
                         fontSize = 12.sp
                     )
                 )
 
                 Text(
-                    text = book.message, style = TextStyle(
+                    text = worldMessage.message, style = TextStyle(
                         fontWeight = FontWeight.Light,
                         fontSize = 12.sp
                     )
@@ -147,9 +150,9 @@ fun WorldMessageDetails(worldMessage: WorldMessage) {
             }
         }
 
-        AnimatedVisibility(visible = showBookDescription) {
+        AnimatedVisibility(visible = showWorldMessageDescription) {
             Text(
-                text = book.avatar, style = TextStyle(
+                text = timestampConverter.getDateTime(worldMessage.timestamp.toString())!!, style = TextStyle(
                     fontWeight = FontWeight.SemiBold,
                     fontStyle = FontStyle.Italic
                 ),
