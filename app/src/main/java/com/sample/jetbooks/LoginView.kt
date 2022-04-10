@@ -58,6 +58,7 @@ fun LoginView() {
                 if ( (user.username == username.value.text || user.email == username.value.text)
                         && user.password == password.value.text
                 ) {
+                    AppIndexManager.currentUser = user
                     AppIndexManager.setIndex(AppIndex.worldMessageView)
                     break
                 }
