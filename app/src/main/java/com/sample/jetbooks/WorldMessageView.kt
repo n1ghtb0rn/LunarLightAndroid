@@ -49,6 +49,24 @@ fun WorldMessageView(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        Text(
+            text = "Lunar Light",
+            style = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.ExtraBold),
+            modifier = Modifier.padding(16.dp)
+        )
+
+        Text(
+            text = "World Chat",
+            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
+            modifier = Modifier.padding(16.dp)
+        )
+
+        Button(onClick = {
+            AppIndexManager.setIndex(AppIndex.startView)
+        }) {
+            Text("Logout")
+        }
+
         when (val worldMessagesList = worldMessagesViewModel.worldMessagesStateFlow.asStateFlow().collectAsState().value) {
 
             is OnError -> {
@@ -57,46 +75,34 @@ fun WorldMessageView(
 
             is OnSuccess -> {
 
+                Row {
+                    TextField(
+                        value = inputMessage.value,
+                        onValueChange = {
+                            inputMessage.value = it
+                        }
+                    )
+
+                    Button(onClick = {
+
+                        val currentUser = AppIndexManager.currentUser
+
+                        val id = UUID.randomUUID().toString()
+                        val userId = currentUser.id
+                        val username = currentUser.username
+                        val timestamp: Long = System.currentTimeMillis()
+                        val avatar = currentUser.avatar
+                        val month: Long = currentUser.month
+                        val day: Long = currentUser.day
+                        val message = inputMessage.value.text
 
 
-                Text(
-                    text = "Lunar Light",
-                    style = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.ExtraBold),
-                    modifier = Modifier.padding(16.dp)
-                )
-
-                Text(
-                    text = "World Chat",
-                    style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
-                    modifier = Modifier.padding(16.dp)
-                )
-
-                TextField(
-                    value = inputMessage.value,
-                    onValueChange = {
-                        inputMessage.value = it
+                        val newWorldMessage = WorldMessage(id, userId, username, timestamp, avatar,month,day, message)
+                        val worldMessagesRepo = WorldMessagesRepo()
+                        worldMessagesRepo.addWorldMessage(newWorldMessage)
+                    }) {
+                        Text("Send")
                     }
-                )
-
-                Button(onClick = {
-
-                    val currentUser = AppIndexManager.currentUser
-
-                    val id = UUID.randomUUID().toString()
-                    val user_id = currentUser.id
-                    val username = currentUser.username
-                    val timestamp: Long = System.currentTimeMillis()
-                    val avatar = currentUser.avatar
-                    val month: Long = currentUser.month
-                    val day: Long = currentUser.day
-                    val message = inputMessage.value.text
-
-
-                    val newWorldMessage = WorldMessage(id, user_id,username, timestamp, avatar,month,day, message)
-                    val worldMessagesRepo = WorldMessagesRepo()
-                    worldMessagesRepo.addWorldMessage(newWorldMessage)
-                }) {
-                    Text("Send")
                 }
 
                 val listOfWorldMessages = worldMessagesList.querySnapshot?.toObjects(WorldMessage::class.java)
