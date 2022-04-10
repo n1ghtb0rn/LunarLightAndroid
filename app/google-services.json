@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:708061894243:android:64f6fab439eb4dbe514a56",
+        "mobilesdk_app_id": "1:708061894243:android:a99d01578daee98e514a56",
         "android_client_info": {
-          "package_name": "com.sample.jetbooks"
+          "package_name": "com.danielfalkedal.lunarlight"
         }
       },
       "oauth_client": [
