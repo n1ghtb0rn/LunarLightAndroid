@@ -16,6 +16,7 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -50,8 +51,8 @@ fun WorldMessageView(
     val inputMessage = remember { mutableStateOf(TextFieldValue()) }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(horizontal = 8.dp).fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Column(
@@ -93,8 +94,10 @@ fun WorldMessageView(
                 listOfWorldMessages?.let {
 
                     LazyColumn(
-                        modifier = Modifier.background(Color.LightGray).weight(3f)
-                               .padding(horizontal = 8.dp, vertical = 8.dp)
+                        modifier = Modifier.clip(RoundedCornerShape(12.dp))
+                            .background(Color.LightGray)
+                            .weight(3f)
+                            .padding(vertical = 8.dp)
                         //modifier = Modifier
                         //    .fillMaxHeight()
                     ) {
