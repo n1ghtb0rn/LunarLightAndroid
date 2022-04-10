@@ -52,7 +52,7 @@ fun LoginView() {
             val success = true
 
             if (success) {
-
+                AppIndexManager.setIndex(AppIndex.worldMessageView)
             }
 
         }) {
