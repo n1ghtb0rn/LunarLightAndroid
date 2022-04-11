@@ -1,5 +1,6 @@
 package com.danielfalkedal.lunarlight.MainViews
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateDpAsState
@@ -32,6 +33,7 @@ import com.danielfalkedal.lunarlight.Documents.WorldMessage
 import com.danielfalkedal.lunarlight.Collections.WorldMessageModel
 import com.danielfalkedal.lunarlight.Documents.UserOnline
 import com.danielfalkedal.lunarlight.Factories.WorldMessageViewModelFactory
+import com.danielfalkedal.lunarlight.Realm.RealmUserDao
 import com.danielfalkedal.lunarlight.Responses.OnError
 import com.danielfalkedal.lunarlight.Responses.OnSuccess
 import com.danielfalkedal.lunarlight.Utils.TimestampConverter
@@ -65,6 +67,10 @@ fun WorldMessageView(
             )
 
             Button(onClick = {
+
+                AppIndexManager.realmUserDao.deleteAllUsers()
+                val users = AppIndexManager.realmUserDao.getUsers()
+                Log.d("Danne", "realm users count = ${users.size}")
 
                 val currentUser = AppIndexManager.currentUser
                 val userOnline = UserOnline(currentUser.id, false, currentUser.username)

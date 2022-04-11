@@ -7,16 +7,16 @@ import io.realm.annotations.RealmClass
 import java.util.*
 
 @RealmClass
-open class UserRealm: RealmObject() {
+open class UserRealm(
 
     @PrimaryKey
-    val id: String = ""
-    val username: String = ""
-    val password: String = ""
-    val email: String = ""
-    var avatar: String = ""
-    val year: Long = 2010
-    val month: Long = 1
-    val day: Long = 1
+    var id: String = "",
+    var username: String = "",
+    var password: String = "",
+    var email: String = "",
+    var avatar: String = "",
+    var year: Long = 2010,
+    var month: Long = 1,
+    var day: Long = 1
 
-}
+): RealmObject() {}

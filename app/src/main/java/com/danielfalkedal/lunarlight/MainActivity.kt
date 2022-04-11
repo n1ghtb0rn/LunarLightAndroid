@@ -15,6 +15,8 @@ class MainActivity : ComponentActivity() {
 
         AppIndexManager.initRealm(this)
 
+        Realm.init(this)
+
         setContent {
             LunarLightTheme {
                 // A surface container using the 'background' color from the theme
@@ -24,8 +26,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-
 }
 
 

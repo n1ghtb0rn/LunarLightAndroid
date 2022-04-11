@@ -17,7 +17,9 @@ object AppIndexManager: ViewModel() {
 
     val appIndex = _appIndex.asStateFlow()
 
-    val realmUserDao = RealmUserDao()
+    lateinit var realmUserDao: RealmUserDao
+
+    lateinit var config: RealmConfiguration
 
     var currentUser: User = User(
         "7D59D875-E3F4-4396-91DC-20309FD68195",
@@ -39,12 +41,7 @@ object AppIndexManager: ViewModel() {
     fun initRealm(context: MainActivity) {
 
         Realm.init(context)
-        val config = RealmConfiguration.Builder()
-            .name("users.db")
-            .allowWritesOnUiThread(true)
-            .schemaVersion(1)
-            .build()
-        Realm.setDefaultConfiguration(config)
+        realmUserDao = RealmUserDao()
 
     }
 

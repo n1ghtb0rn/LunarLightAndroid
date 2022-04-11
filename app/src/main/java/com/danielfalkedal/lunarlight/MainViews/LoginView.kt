@@ -14,9 +14,12 @@ import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
 import com.danielfalkedal.lunarlight.Documents.UserOnline
+import com.danielfalkedal.lunarlight.Realm.UserRealm
 
 @Composable
 fun LoginView() {
+
+    LoginViewExtenstion().checkAutoLogin()
 
     val usersRepo = UserModel()
     usersRepo.listenToUsers()
@@ -60,6 +63,19 @@ fun LoginView() {
                         && user.password == password.value.text
                     ) {
 
+                        //Update Realm database
+                        val userRealm = UserRealm(
+                            user.id,
+                            user.username,
+                            user.password,
+                            user.email,
+                            user.avatar,
+                            user.year,
+                            user.month,
+                            user.day,
+                        )
+                        AppIndexManager.realmUserDao.addUser(userRealm)
+
                         val userOnline = UserOnline(user.id, true, user.username)
                         val userOnlineModel = UserOnlineModel()
                         userOnlineModel.updateUserOnline(userOnline)
@@ -77,6 +93,16 @@ fun LoginView() {
 
     }
 
+}
 
+class LoginViewExtenstion {
+
+    fun checkAutoLogin() {
+
+        if (AppIndexManager.realmUserDao.getUsers().size >= 1) {
+            AppIndexManager.setIndex(AppIndex.lobbyTabView)
+        }
+
+    }
 
 }

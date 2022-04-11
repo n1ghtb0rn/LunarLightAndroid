@@ -1,10 +1,26 @@
 package com.danielfalkedal.lunarlight.Realm
 
+import android.util.Log
+import com.danielfalkedal.lunarlight.AppIndexManager
 import io.realm.Realm
+import io.realm.RealmConfiguration
 
 class RealmUserDao {
 
-    val database = Realm.getDefaultInstance()
+    val database: Realm
+
+    init {
+
+        AppIndexManager.config = RealmConfiguration.Builder()
+            .name("users.db")
+            .allowWritesOnUiThread(true)
+            .schemaVersion(1)
+            .build()
+
+        Realm.setDefaultConfiguration(AppIndexManager.config)
+
+        database = Realm.getDefaultInstance()
+    }
 
     fun addUser(newUser: UserRealm) {
 
