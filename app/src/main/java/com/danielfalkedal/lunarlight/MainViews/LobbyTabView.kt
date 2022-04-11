@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Utils.LocalData
@@ -28,19 +29,19 @@ fun LobbyTabView() {
 
         Row {
             Button(onClick = {
-
+                tabIndex.value = 1
             }) {
                 Text("Lobby")
             }
 
             Button(onClick = {
-
+                tabIndex.value = 2
             }) {
                 Text("Friends")
             }
 
             Button(onClick = {
-
+                tabIndex.value = 3
             }) {
                 Text("Profile")
             }
@@ -49,6 +50,10 @@ fun LobbyTabView() {
         when (tabIndex.value) {
 
             1 -> WorldMessageView()
+
+            2 -> FriendsView()
+
+            3 -> ProfileView(AppIndexManager.currentUser)
 
         }
 
