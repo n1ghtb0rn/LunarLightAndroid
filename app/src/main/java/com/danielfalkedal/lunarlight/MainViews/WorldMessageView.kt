@@ -50,13 +50,10 @@ fun WorldMessageView(
 
     val inputMessage = remember { mutableStateOf(TextFieldValue()) }
 
-    Column(
-        modifier = Modifier.padding(horizontal = 8.dp).fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    Column() {
 
         Column(
-            modifier = Modifier.weight(0.6f),
+            modifier = Modifier.weight(0.6f).fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -66,20 +63,31 @@ fun WorldMessageView(
                 modifier = Modifier.padding(16.dp)
             )
 
-            Button(onClick = {
+            Row() {
 
-                AppIndexManager.realmUserDao.deleteAllUsers()
-                val users = AppIndexManager.realmUserDao.getUsers()
-                Log.d("Danne", "realm users count = ${users.size}")
+                Button(onClick = {
+                    AppIndexManager.setIndex(AppIndex.onlineUsersView)
+                }) {
+                    Text("Online Users")
+                }
 
-                val currentUser = AppIndexManager.currentUser
-                val userOnline = UserOnline(currentUser.id, false, currentUser.username)
-                val userOnlineModel = UserOnlineModel()
-                userOnlineModel.updateUserOnline(userOnline)
+                Spacer(modifier = Modifier.width(100.dp))
 
-                AppIndexManager.setIndex(AppIndex.startView)
-            }) {
-                Text("Logout")
+                Button(onClick = {
+
+                    AppIndexManager.realmUserDao.deleteAllUsers()
+                    val users = AppIndexManager.realmUserDao.getUsers()
+                    Log.d("Danne", "realm users count = ${users.size}")
+
+                    val currentUser = AppIndexManager.currentUser
+                    val userOnline = UserOnline(currentUser.id, false, currentUser.username)
+                    val userOnlineModel = UserOnlineModel()
+                    userOnlineModel.updateUserOnline(userOnline)
+
+                    AppIndexManager.setIndex(AppIndex.startView)
+                }) {
+                    Text("Logout")
+                }
             }
 
         }

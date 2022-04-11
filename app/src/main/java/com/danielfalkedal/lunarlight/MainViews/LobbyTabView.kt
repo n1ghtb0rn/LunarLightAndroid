@@ -1,7 +1,6 @@
 package com.danielfalkedal.lunarlight.MainViews
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -12,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.User
@@ -24,21 +24,26 @@ fun LobbyTabView() {
     val tabIndex = remember { mutableStateOf(1) }
 
     Column(
+        modifier = Modifier.padding(horizontal = 8.dp).fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Row {
+        Row() {
             Button(onClick = {
                 tabIndex.value = 1
             }) {
                 Text("Lobby")
             }
 
+            Spacer(modifier = Modifier.width(16.dp))
+
             Button(onClick = {
                 tabIndex.value = 2
             }) {
                 Text("Friends")
             }
+
+            Spacer(modifier = Modifier.width(16.dp))
 
             Button(onClick = {
                 tabIndex.value = 3
