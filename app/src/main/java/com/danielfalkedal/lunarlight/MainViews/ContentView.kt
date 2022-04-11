@@ -2,6 +2,7 @@ package com.danielfalkedal.lunarlight
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import com.danielfalkedal.lunarlight.MainViews.LobbyTabView
 import com.danielfalkedal.lunarlight.MainViews.WorldMessageView
 
 @Composable
@@ -11,7 +12,7 @@ fun ContentView() {
 
         AppIndex.startView -> StartView()
 
-        AppIndex.worldMessageView -> WorldMessageView()
+        AppIndex.lobbyTabView -> LobbyTabView()
 
     }
 

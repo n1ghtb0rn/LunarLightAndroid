@@ -35,6 +35,6 @@ object AppIndexManager: ViewModel() {
 object AppIndex {
 
     val startView = 0
-    val worldMessageView = 1
+    val lobbyTabView = 1
 
 }

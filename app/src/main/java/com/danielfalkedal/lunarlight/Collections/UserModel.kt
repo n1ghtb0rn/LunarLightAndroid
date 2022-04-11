@@ -11,6 +11,14 @@ class UserModel {
 
     var users = ArrayList<User>()
 
+    fun createUser(newUser: User) {
+
+        firestore.collection("users").document(newUser.id).set(newUser)
+            .addOnSuccessListener { Log.d("Danne", "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w("Danne", "Error writing document", e) }
+
+    }
+
     fun listenToUsers() {
 
         FirebaseFirestore

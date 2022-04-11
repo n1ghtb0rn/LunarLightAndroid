@@ -65,7 +65,7 @@ fun LoginView() {
                         userOnlineModel.updateUserOnline(userOnline)
 
                         AppIndexManager.currentUser = user
-                        AppIndexManager.setIndex(AppIndex.worldMessageView)
+                        AppIndexManager.setIndex(AppIndex.lobbyTabView)
                         break
                     }
                 }
