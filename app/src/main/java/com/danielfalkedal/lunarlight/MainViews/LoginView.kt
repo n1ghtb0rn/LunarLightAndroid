@@ -13,13 +13,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
+import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Documents.UserOnline
 import com.danielfalkedal.lunarlight.Realm.UserRealm
 
 @Composable
 fun LoginView() {
 
-    LoginViewExtenstion().checkAutoLogin()
+    LoginViewExtention().checkAutoLogin()
 
     val usersRepo = UserModel()
     usersRepo.listenToUsers()
@@ -58,32 +59,18 @@ fun LoginView() {
 
                 val users = usersRepo.users
 
+                var loginUser: User? = null
+
                 for (user in users) {
                     if ( (user.username == username.value.text || user.email == username.value.text)
                         && user.password == password.value.text
                     ) {
-
-                        //Update Realm database
-                        val userRealm = UserRealm(
-                            user.id,
-                            user.username,
-                            user.password,
-                            user.email,
-                            user.avatar,
-                            user.year,
-                            user.month,
-                            user.day,
-                        )
-                        AppIndexManager.realmUserDao.addUser(userRealm)
-
-                        val userOnline = UserOnline(user.id, true, user.username)
-                        val userOnlineModel = UserOnlineModel()
-                        userOnlineModel.updateUserOnline(userOnline)
-
-                        AppIndexManager.currentUser = user
-                        AppIndexManager.setIndex(AppIndex.lobbyTabView)
+                        loginUser = user
                         break
                     }
+                }
+                if (loginUser != null) {
+                    LoginViewExtention().loginIn(loginUser)
                 }
 
             }) {
@@ -95,14 +82,53 @@ fun LoginView() {
 
 }
 
-class LoginViewExtenstion {
+class LoginViewExtention {
+
+    fun loginIn(user: User) {
+
+        //Update Realm database
+        val userRealm = UserRealm(
+            user.id,
+            user.username,
+            user.password,
+            user.email,
+            user.avatar,
+            user.year,
+            user.month,
+            user.day,
+        )
+        AppIndexManager.realmUserDao.addUser(userRealm)
+
+        val userOnline = UserOnline(user.id, true, user.username)
+        val userOnlineModel = UserOnlineModel()
+        userOnlineModel.updateUserOnline(userOnline)
+
+        AppIndexManager.currentUser = user
+        AppIndexManager.setIndex(AppIndex.lobbyTabView)
+
+    }
 
     fun checkAutoLogin() {
 
-        if (AppIndexManager.realmUserDao.getUsers().size >= 1) {
-            AppIndexManager.setIndex(AppIndex.lobbyTabView)
+        val users = AppIndexManager.realmUserDao.getUsers()
+        if (users.isEmpty()) {
+            return
         }
 
+        val userRealm = users[0]
+
+        val user = User(
+            userRealm.id,
+            userRealm.username,
+            userRealm.password,
+            userRealm.email,
+            userRealm.avatar,
+            userRealm.year,
+            userRealm.month,
+            userRealm.day,
+        )
+
+        loginIn(user)
     }
 
 }

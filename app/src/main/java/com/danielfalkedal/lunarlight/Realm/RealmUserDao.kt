@@ -36,7 +36,9 @@ class RealmUserDao {
         val users = getUsers()
 
         for (user in users) {
-            user.deleteFromRealm()
+            database.executeTransaction{
+                user.deleteFromRealm()
+            }
         }
     }
 
