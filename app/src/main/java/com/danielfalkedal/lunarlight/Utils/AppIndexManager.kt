@@ -4,6 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Realm.RealmUserDao
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,8 @@ object AppIndexManager: ViewModel() {
     private var _appIndex: MutableStateFlow<Int> = MutableStateFlow(AppIndex.startView)
 
     val appIndex = _appIndex.asStateFlow()
+
+    val realmUserDao = RealmUserDao()
 
     var currentUser: User = User(
         "7D59D875-E3F4-4396-91DC-20309FD68195",

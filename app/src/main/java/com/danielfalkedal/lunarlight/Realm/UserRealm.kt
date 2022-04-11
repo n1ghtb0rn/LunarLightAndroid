@@ -1,9 +1,12 @@
 package com.danielfalkedal.lunarlight.Realm
 
+import io.realm.RealmModel
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
 import java.util.*
 
+@RealmClass
 open class UserRealm: RealmObject() {
 
     @PrimaryKey
