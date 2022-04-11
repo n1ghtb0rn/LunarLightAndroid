@@ -1,8 +1,16 @@
 package com.danielfalkedal.lunarlight.Collections
 
 import android.util.Log
+import com.danielfalkedal.lunarlight.AppIndexManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Responses.OnError
+import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
+import com.danielfalkedal.lunarlight.Responses.OnSuccess
+import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
 import java.util.ArrayList
 
 class UserModel {
@@ -10,6 +18,33 @@ class UserModel {
     private val firestore = FirebaseFirestore.getInstance()
 
     var users = ArrayList<User>()
+    var onlineUsers = ArrayList<User>()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun getUserDetails() = callbackFlow {
+
+        val usersOnlineIds = mutableListOf<String>()
+
+        val usersOnline = AppIndexManager.userOnlineModel.usersOnline
+        for (userOnline in usersOnline) {
+            usersOnlineIds.add(userOnline.id)
+        }
+
+        val collection = firestore.collection("users").whereIn("id", usersOnlineIds)
+        val snapshotListener = collection.addSnapshotListener { value, error ->
+            val response = if (error == null) {
+                OnSuccessUsers(value)
+            } else {
+                OnErrorUsers(error)
+            }
+
+            this.trySend(response).isSuccess
+        }
+
+        awaitClose {
+            snapshotListener.remove()
+        }
+    }
 
     fun createUser(newUser: User) {
 
@@ -21,8 +56,7 @@ class UserModel {
 
     fun listenToUsers() {
 
-        FirebaseFirestore
-            .getInstance()
+        firestore
             .collection("users")
             .addSnapshotListener { value, error ->
                 if (error != null) {

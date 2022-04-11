@@ -3,6 +3,7 @@ package com.danielfalkedal.lunarlight
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Realm.RealmUserDao
 import io.realm.Realm
@@ -14,12 +15,18 @@ import kotlinx.coroutines.launch
 object AppIndexManager: ViewModel() {
 
     private var _appIndex: MutableStateFlow<Int> = MutableStateFlow(AppIndex.startView)
-
     val appIndex = _appIndex.asStateFlow()
 
     lateinit var realmUserDao: RealmUserDao
-
     lateinit var config: RealmConfiguration
+
+    val userOnlineModel = UserOnlineModel()
+
+    var profileUser: User? = null
+
+    init {
+        userOnlineModel.listenToUsersOnline()
+    }
 
     var currentUser: User = User(
         "7D59D875-E3F4-4396-91DC-20309FD68195",
