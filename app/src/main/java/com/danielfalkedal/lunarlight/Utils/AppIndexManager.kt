@@ -1,8 +1,11 @@
 package com.danielfalkedal.lunarlight
 
+import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.danielfalkedal.lunarlight.Documents.User
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -28,6 +31,18 @@ object AppIndexManager: ViewModel() {
         viewModelScope.launch {
             _appIndex.value = newIndex
         }
+    }
+
+    fun initRealm(context: MainActivity) {
+
+        Realm.init(context)
+        val config = RealmConfiguration.Builder()
+            .name("users.db")
+            .allowWritesOnUiThread(true)
+            .schemaVersion(1)
+            .build()
+        Realm.setDefaultConfiguration(config)
+
     }
 
 }

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id 'org.jetbrains.kotlin.kapt'
 }
 
 android {
@@ -42,6 +43,8 @@ android {
     }
 }
 
+apply plugin: 'realm-android'
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -64,4 +67,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation "io.grpc:grpc-okhttp:1.44.1"
+
+    implementation 'io.realm:realm-gradle-plugin:10.10.1'
 }
