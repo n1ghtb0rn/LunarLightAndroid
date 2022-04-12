@@ -32,8 +32,21 @@ class UserModel {
         }
 
         if (usersOnlineIds.isEmpty()) {
-            val response = FirebaseFirestoreException("", FirebaseFirestoreException.Code.CANCELLED)
-            this.trySend(response).isSuccess
+
+            val collection = firestore.collection("unkown")
+            val snapshotListener = collection.addSnapshotListener { value, error ->
+                val response = if (error == null) {
+                    OnSuccessUsers(value)
+                } else {
+                    OnErrorUsers(error)
+                }
+
+                this.trySend(response).isSuccess
+            }
+
+            awaitClose {
+                snapshotListener.remove()
+            }
         }
 
         else {
@@ -108,8 +121,6 @@ class UserModel {
                      */
 
                 }
-
-                Log.d("danne", "Updated users list")
 
             }
 

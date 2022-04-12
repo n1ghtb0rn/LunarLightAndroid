@@ -101,11 +101,13 @@ fun OnlineUsersView(
                             ) {
                                 items(listOfUsers) {
 
-                                    Button(onClick = {
-                                        AppIndexManager.profileUser = it
-                                        showProfileViewSheet.value = true
-                                    }) {
-                                        Text(it.username)
+                                    if (it.id != AppIndexManager.currentUser.id) {
+                                        Button(onClick = {
+                                            AppIndexManager.profileUser = it
+                                            showProfileViewSheet.value = true
+                                        }) {
+                                            Text(it.username)
+                                        }
                                     }
 
                                 }
