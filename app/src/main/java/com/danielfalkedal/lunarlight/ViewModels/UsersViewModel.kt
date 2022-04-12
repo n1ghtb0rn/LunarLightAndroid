@@ -10,17 +10,21 @@ import com.danielfalkedal.lunarlight.Responses.WorldMessagesResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
+val ONLINE_USERS = 0
+val USER_FRIENDS = 1
+
+var userCategory = ONLINE_USERS
+
 class UsersViewModel(val userModel: UserModel): ViewModel() {
 
-    val usersOnlineStateFlow = MutableStateFlow<UsersResponse?>(null)
+    val usersStateFlow = MutableStateFlow<UsersResponse?>(null)
 
     init {
+
         viewModelScope.launch {
             userModel.getUserDetails().collect {
-                usersOnlineStateFlow.value = it
+                usersStateFlow.value = it
             }
         }
     }
-
-    fun getBooksInfo() = userModel.getUserDetails()
 }

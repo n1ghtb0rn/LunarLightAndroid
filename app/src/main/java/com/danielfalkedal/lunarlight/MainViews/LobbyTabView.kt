@@ -3,23 +3,20 @@ package com.danielfalkedal.lunarlight.MainViews
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.UserModel
-import com.danielfalkedal.lunarlight.Documents.User
-import com.danielfalkedal.lunarlight.Utils.LocalData
-import java.util.*
+import com.danielfalkedal.lunarlight.Collections.FriendModel
 
 @Composable
 fun LobbyTabView() {
+
+    AppIndexManager.friendModel = FriendModel()
+    AppIndexManager.friendModel.listenToUserFriends()
 
     val tabIndex = remember { mutableStateOf(1) }
 

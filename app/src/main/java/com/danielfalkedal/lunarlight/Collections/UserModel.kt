@@ -8,6 +8,8 @@ import com.danielfalkedal.lunarlight.Responses.OnError
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccess
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
+import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
+import com.danielfalkedal.lunarlight.ViewModels.userCategory
 import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -19,19 +21,27 @@ class UserModel {
     private val firestore = FirebaseFirestore.getInstance()
 
     var users = ArrayList<User>()
-    var userFriends = ArrayList<User>()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     fun getUserDetails() = callbackFlow {
 
-        val usersOnlineIds = mutableListOf<String>()
 
-        val usersOnline = AppIndexManager.userOnlineModel.usersOnline
-        for (userOnline in usersOnline) {
-            usersOnlineIds.add(userOnline.id)
+        val userIds = ArrayList<String>()
+
+        if (userCategory == ONLINE_USERS) {
+            val usersOnline = AppIndexManager.userOnlineModel.usersOnline
+            for (userOnline in usersOnline) {
+                userIds.add(userOnline.id)
+            }
+        }
+        else {
+            val userFriends = AppIndexManager.friendModel.friends
+            for (userFriend in userFriends) {
+                userIds.add(userFriend.id)
+            }
         }
 
-        if (usersOnlineIds.isEmpty()) {
+        if (userIds.isEmpty()) {
 
             val collection = firestore.collection("unkown")
             val snapshotListener = collection.addSnapshotListener { value, error ->
@@ -51,7 +61,7 @@ class UserModel {
 
         else {
 
-            val collection = firestore.collection("users").whereIn("id", usersOnlineIds)
+            val collection = firestore.collection("users").whereIn("id", userIds)
             val snapshotListener = collection.addSnapshotListener { value, error ->
                 val response = if (error == null) {
                     OnSuccessUsers(value)

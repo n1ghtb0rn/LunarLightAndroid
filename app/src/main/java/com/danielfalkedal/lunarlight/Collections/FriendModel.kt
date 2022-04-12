@@ -15,7 +15,7 @@ class FriendModel {
 
     private val currentUserId = AppIndexManager.currentUser.id
 
-    fun listenToUsersOnline() {
+    fun listenToUserFriends() {
 
         firestore
             .collection("users").document(currentUserId).collection("friends")
