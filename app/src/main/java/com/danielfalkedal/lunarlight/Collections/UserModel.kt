@@ -8,6 +8,7 @@ import com.danielfalkedal.lunarlight.Responses.OnError
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccess
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
+import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -30,19 +31,28 @@ class UserModel {
             usersOnlineIds.add(userOnline.id)
         }
 
-        val collection = firestore.collection("users").whereIn("id", usersOnlineIds)
-        val snapshotListener = collection.addSnapshotListener { value, error ->
-            val response = if (error == null) {
-                OnSuccessUsers(value)
-            } else {
-                OnErrorUsers(error)
-            }
-
+        if (usersOnlineIds.isEmpty()) {
+            val response = FirebaseFirestoreException("", FirebaseFirestoreException.Code.CANCELLED)
             this.trySend(response).isSuccess
         }
 
-        awaitClose {
-            snapshotListener.remove()
+        else {
+
+            val collection = firestore.collection("users").whereIn("id", usersOnlineIds)
+            val snapshotListener = collection.addSnapshotListener { value, error ->
+                val response = if (error == null) {
+                    OnSuccessUsers(value)
+                } else {
+                    OnErrorUsers(error)
+                }
+
+                this.trySend(response).isSuccess
+            }
+
+            awaitClose {
+                snapshotListener.remove()
+            }
+
         }
     }
 
