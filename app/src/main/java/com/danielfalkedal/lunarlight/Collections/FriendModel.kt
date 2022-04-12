@@ -34,29 +34,12 @@ class FriendModel {
 
                 for (document in value) {
 
+                    Log.d("Danne", "document = $document")
+
                     /* Auto-mapping: */
                     val friend: Friend = document.toObject(Friend::class.java)
 
                     friends.add(friend)
-
-                    /* Manual mapping: */
-
-                    /*
-                    val id = document.getString("id")
-                    val username = document.getString("username")
-                    val password = document.getString("password")
-                    val email = document.getString("email")
-                    val avatar = document.getString("avatar")
-                    val year = document.getLong("year")
-                    val month = document.getLong("month")
-                    val day = document.getLong("day")
-
-                    if (id != null && username != null && password != null && email != null && avatar != null && year != null && month != null && day != null) {
-                        val user = User(id, username, password, email, avatar, year, month, day)
-                        users.add(user)
-                    }
-
-                     */
 
                 }
 

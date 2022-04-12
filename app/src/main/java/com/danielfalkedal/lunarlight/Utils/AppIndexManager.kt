@@ -22,7 +22,7 @@ object AppIndexManager: ViewModel() {
     lateinit var config: RealmConfiguration
 
     val userOnlineModel = UserOnlineModel()
-    var friendModel = FriendModel()
+    lateinit var friendModel: FriendModel
 
     var profileUser: User? = null
 
