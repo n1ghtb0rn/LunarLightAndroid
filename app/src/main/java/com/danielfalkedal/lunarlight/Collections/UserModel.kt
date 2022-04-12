@@ -19,7 +19,7 @@ class UserModel {
     private val firestore = FirebaseFirestore.getInstance()
 
     var users = ArrayList<User>()
-    var onlineUsers = ArrayList<User>()
+    var userFriends = ArrayList<User>()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     fun getUserDetails() = callbackFlow {
