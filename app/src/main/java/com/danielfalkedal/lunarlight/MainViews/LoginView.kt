@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.danielfalkedal.lunarlight.Collections.FriendModel
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
 import com.danielfalkedal.lunarlight.Documents.User
@@ -70,7 +71,7 @@ fun LoginView() {
                     }
                 }
                 if (loginUser != null) {
-                    LoginViewExtention().loginIn(loginUser)
+                    LoginViewExtention().login(loginUser)
                 }
 
             }) {
@@ -84,7 +85,7 @@ fun LoginView() {
 
 class LoginViewExtention {
 
-    fun loginIn(user: User) {
+    fun login(user: User) {
 
         //Update Realm database
         val userRealm = UserRealm(
@@ -104,6 +105,10 @@ class LoginViewExtention {
         userOnlineModel.updateUserOnline(userOnline)
 
         AppIndexManager.currentUser = user
+
+        AppIndexManager.friendModel = FriendModel()
+        AppIndexManager.friendModel.listenToUserFriends()
+
         AppIndexManager.setIndex(AppIndex.lobbyTabView)
 
     }
@@ -128,7 +133,7 @@ class LoginViewExtention {
             userRealm.day,
         )
 
-        loginIn(user)
+        login(user)
     }
 
 }

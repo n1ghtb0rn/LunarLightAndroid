@@ -34,10 +34,12 @@ class FriendModel {
 
                 for (document in value) {
 
-                    Log.d("Danne", "document = $document")
+                    Log.d("Danne", "document = ${document.data.keys}")
 
                     /* Auto-mapping: */
                     val friend: Friend = document.toObject(Friend::class.java)
+                    
+                    Log.d("Danne", "$friend")
 
                     friends.add(friend)
 

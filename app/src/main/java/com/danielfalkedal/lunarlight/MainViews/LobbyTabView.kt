@@ -15,9 +15,6 @@ import com.danielfalkedal.lunarlight.Collections.FriendModel
 @Composable
 fun LobbyTabView() {
 
-    AppIndexManager.friendModel = FriendModel()
-    AppIndexManager.friendModel.listenToUserFriends()
-
     val tabIndex = remember { mutableStateOf(1) }
 
     Column(
