@@ -19,3 +19,41 @@ val Sagittarius = Color(255, 249, 146, 255)
 val Scorpio = Color(73, 228, 66, 255)
 val Taurus = Color(130, 255, 142, 255)
 val Virgo = Color(255, 177, 165, 255)
+
+fun getColorByString(colorName: String): Color {
+
+    var returnColor = Color.White
+
+    when (colorName) {
+
+
+        "Aquarius" -> returnColor = Aquarius
+
+        "Aries" -> returnColor = Aries
+
+        "Cancer" -> returnColor = Cancer
+
+        "Capricorn" -> returnColor = Capricorn
+
+        "Gemeni" -> returnColor = Gemeni
+
+        "Leo"	 -> returnColor = Leo
+
+        "Libra" -> returnColor = Libra
+
+        "Pisces" -> returnColor = Pisces
+
+        "Sagittarius" -> returnColor = Sagittarius
+
+        "Scorpio" -> returnColor = Scorpio
+
+        "Taurus" -> returnColor = Taurus
+
+        "Virgo" -> returnColor = Virgo
+
+
+    }
+
+    return returnColor
+
+}
