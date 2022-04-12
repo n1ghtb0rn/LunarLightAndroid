@@ -10,10 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
+import com.danielfalkedal.lunarlight.AppIndexManager.currentUser
 import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
 import com.danielfalkedal.lunarlight.Documents.WorldMessage
 import com.danielfalkedal.lunarlight.Collections.WorldMessageModel
@@ -116,6 +114,7 @@ fun WorldMessageView(
                     ) {
                         items(listOfWorldMessages) {
 
+
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -124,6 +123,8 @@ fun WorldMessageView(
                             ) {
                                 WorldMessageDetails(it)
                             }
+
+
                         }
                     }
 
@@ -148,7 +149,7 @@ fun WorldMessageView(
                         val id = UUID.randomUUID().toString()
                         val userId = currentUser.id
                         val username = currentUser.username
-                        val timestamp: Long = System.currentTimeMillis()
+                        val timestamp: Double = System.currentTimeMillis().toDouble()
                         val avatar = currentUser.avatar
                         val month: Long = currentUser.month
                         val day: Long = currentUser.day

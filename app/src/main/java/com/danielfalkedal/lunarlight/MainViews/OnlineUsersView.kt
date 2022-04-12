@@ -2,10 +2,7 @@ package com.danielfalkedal.lunarlight.MainViews
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -50,7 +47,10 @@ fun OnlineUsersView(
 
     val showProfileViewSheet = remember { mutableStateOf(false) }
 
-    Column() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
         when (showProfileViewSheet.value) {
 
@@ -93,7 +93,9 @@ fun OnlineUsersView(
                                     .clip(RoundedCornerShape(12.dp))
                                     .background(Color.LightGray)
                                     .weight(3f)
-                                    .padding(vertical = 8.dp)
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
                                 //modifier = Modifier
                                 //    .fillMaxHeight()
                             ) {

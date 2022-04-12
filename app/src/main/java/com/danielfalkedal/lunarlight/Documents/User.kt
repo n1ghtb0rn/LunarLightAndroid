@@ -1,6 +1,9 @@
 package com.danielfalkedal.lunarlight.Documents
 
 import android.util.Log
+import androidx.compose.ui.graphics.Color
+import com.danielfalkedal.lunarlight.Utils.LocalData
+import com.danielfalkedal.lunarlight.ui.theme.getColorByString
 
 data class User(
     val id: String,
@@ -14,6 +17,14 @@ data class User(
 
 ){
     constructor() : this("", "", "", "", "", 2010, 1, 1)
+
+    fun getColor(): Color {
+
+        val colorIndex = getStoneIndex(this.month.toInt(), this.day.toInt())
+        val colorName = LocalData.profileBackground[colorIndex]
+        val backgroundColor = getColorByString(colorName)
+        return backgroundColor
+    }
 
     companion object {
         fun getStoneIndex(month: Int, day: Int): Int {
