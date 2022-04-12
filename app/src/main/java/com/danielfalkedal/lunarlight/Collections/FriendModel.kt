@@ -15,6 +15,14 @@ class FriendModel {
 
     private val currentUserId = AppIndexManager.currentUser.id
 
+    fun addFriend(newFriend: Friend){
+
+        firestore.collection("users").document(newFriend.id).set(newFriend)
+            .addOnSuccessListener { Log.d("Danne", "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w("Danne", "Error writing document", e) }
+
+    }
+
     fun listenToUserFriends() {
 
         firestore

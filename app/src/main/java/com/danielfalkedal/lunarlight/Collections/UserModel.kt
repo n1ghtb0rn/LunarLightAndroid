@@ -25,7 +25,6 @@ class UserModel {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun getUserDetails() = callbackFlow {
 
-
         val userIds = ArrayList<String>()
 
         if (userCategory == ONLINE_USERS) {
@@ -40,6 +39,8 @@ class UserModel {
                 userIds.add(userFriend.id)
             }
         }
+
+        Log.d("Danne", "Searching for friends: $userIds")
 
         if (userIds.isEmpty()) {
 
@@ -64,8 +65,10 @@ class UserModel {
             val collection = firestore.collection("users").whereIn("id", userIds)
             val snapshotListener = collection.addSnapshotListener { value, error ->
                 val response = if (error == null) {
+                    Log.d("Danne", "value = ${value!!.documents.size}")
                     OnSuccessUsers(value)
                 } else {
+                    Log.d("Danne", "error = $error")
                     OnErrorUsers(error)
                 }
 
