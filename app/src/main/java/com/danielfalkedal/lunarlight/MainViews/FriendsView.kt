@@ -48,7 +48,7 @@ fun FriendsView(
     Column() {
         Text("Friends")
 
-        when (val userFriendsList = usersViewModel.usersStateFlow.asStateFlow().collectAsState().value) {
+        when (val userFriendsList = usersViewModel.getUsersInfo().collectAsState(initial = null).value) {
 
             is OnErrorUsers -> {
                 Text(text = "Please try after sometime")

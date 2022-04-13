@@ -9,6 +9,7 @@ import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccess
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
+import com.danielfalkedal.lunarlight.ViewModels.USER_FRIENDS
 import com.danielfalkedal.lunarlight.ViewModels.userCategory
 import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,10 +21,11 @@ class UserModel {
 
     private val firestore = FirebaseFirestore.getInstance()
 
+    //Only for "background" data (not a state-var)
     var users = ArrayList<User>()
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun getUserDetails() = callbackFlow {
+    fun getUsersDetails() = callbackFlow {
 
         val userIds = ArrayList<String>()
 
@@ -32,12 +34,14 @@ class UserModel {
             for (userOnline in usersOnline) {
                 userIds.add(userOnline.id)
             }
+            Log.d("Danne", "Users category = ONLINE_USERS")
         }
         else {
             val userFriends = AppIndexManager.friendModel.friends
             for (userFriend in userFriends) {
                 userIds.add(userFriend.id)
             }
+            Log.d("Danne", "Users category = USER_FRIENDS")
         }
 
         Log.d("Danne", "Searching for friends: $userIds")
