@@ -1,9 +1,13 @@
 package com.danielfalkedal.lunarlight.Collections
 
+import android.os.Handler
 import android.util.Log
+import com.danielfalkedal.lunarlight.AppIndex
+import com.danielfalkedal.lunarlight.AppIndexManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.danielfalkedal.lunarlight.Documents.UserOnline
-import java.util.ArrayList
+import kotlinx.coroutines.flow.toSet
+import java.util.*
 
 class UserOnlineModel {
 
@@ -50,28 +54,17 @@ class UserOnlineModel {
                         usersOnlineIds.add(user.id)
                     }
 
-                    /* Manual mapping: */
-
-                    /*
-                    val id = document.getString("id")
-                    val username = document.getString("username")
-                    val password = document.getString("password")
-                    val email = document.getString("email")
-                    val avatar = document.getString("avatar")
-                    val year = document.getLong("year")
-                    val month = document.getLong("month")
-                    val day = document.getLong("day")
-
-                    if (id != null && username != null && password != null && email != null && avatar != null && year != null && month != null && day != null) {
-                        val user = User(id, username, password, email, avatar, year, month, day)
-                        users.add(user)
-                    }
-
-                     */
-
                 }
 
-                Log.d("danne", "Updated users list")
+                if (AppIndexManager.appIndex.value == AppIndex.onlineUsersView) {
+                    AppIndexManager.setIndex(AppIndex.lobbyTabView)
+                    Timer().schedule(object : TimerTask() {
+                        override fun run() {
+                            AppIndexManager.setIndex(AppIndex.onlineUsersView)
+                        }
+                    }, 10)
+
+                }
 
             }
 

@@ -25,7 +25,7 @@ import com.danielfalkedal.lunarlight.ui.theme.getColorByString
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MessageView(message: WorldMessage) {
+fun MessageView(username: String, message: String, timestamp: Long, month: Long, day: Long) {
     var showMessageDescription by remember { mutableStateOf(false) }
     val worldMessageCoverImageSize by animateDpAsState(
         targetValue =
@@ -34,9 +34,9 @@ fun MessageView(message: WorldMessage) {
 
     val timestampConverter = TimestampConverter()
 
-    val backgroundColor: Color = MessageExtension().getBackgroundColor(message)
+    val backgroundColor: Color = MessageExtension().getUserBackgroundColor(month, day)
 
-    Column(modifier = Modifier.background(MessageExtension().getBackgroundColor(message)).clickable {
+    Column(modifier = Modifier.background(MessageExtension().getUserBackgroundColor(month, day)).clickable {
         showMessageDescription = showMessageDescription.not()
     }) {
         Row(modifier = Modifier.padding(12.dp)) {
@@ -44,14 +44,14 @@ fun MessageView(message: WorldMessage) {
 
             Column {
                 Text(
-                    text = message.username, style = TextStyle(
+                    text = username, style = TextStyle(
                         fontWeight = FontWeight.Light,
                         fontSize = 12.sp
                     )
                 )
 
                 Text(
-                    text = message.message, style = TextStyle(
+                    text = message, style = TextStyle(
                         fontWeight = FontWeight.Light,
                         fontSize = 12.sp
                     )
@@ -61,7 +61,7 @@ fun MessageView(message: WorldMessage) {
 
         AnimatedVisibility(visible = showMessageDescription) {
             Text(
-                text = timestampConverter.getDateTime(message.timestamp.toString())!!, style = TextStyle(
+                text = timestampConverter.getDateTime(timestamp.toString())!!, style = TextStyle(
                     fontWeight = FontWeight.SemiBold,
                     fontStyle = FontStyle.Italic
                 ),
@@ -74,9 +74,8 @@ fun MessageView(message: WorldMessage) {
 
 class MessageExtension {
 
-    fun getBackgroundColor(worldMessage: WorldMessage): Color {
-
-        val colorIndex = User.getStoneIndex(worldMessage.month.toInt(), worldMessage.day.toInt())
+    fun getUserBackgroundColor(month: Long, day: Long): Color {
+        val colorIndex = User.getStoneIndex(month.toInt(), day.toInt())
         val colorName = LocalData.profileBackground[colorIndex]
         val color = getColorByString(colorName)
         return color

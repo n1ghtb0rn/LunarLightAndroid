@@ -113,7 +113,7 @@ fun WorldChatView(
                                     .padding(16.dp),
                                 shape = RoundedCornerShape(16.dp)
                             ) {
-                                MessageView(it)
+                                MessageView(it.username, it.message, it.timestamp, it.month, it.day)
                             }
 
 
@@ -141,7 +141,7 @@ fun WorldChatView(
                         val id = UUID.randomUUID().toString()
                         val userId = currentUser.id
                         val username = currentUser.username
-                        val timestamp: ULong = System.currentTimeMillis().toULong()
+                        val timestamp: Long = System.currentTimeMillis().toLong()
                         val avatar = currentUser.avatar
                         val month: Long = currentUser.month
                         val day: Long = currentUser.day

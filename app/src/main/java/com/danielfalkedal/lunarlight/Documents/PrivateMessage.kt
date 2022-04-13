@@ -4,8 +4,8 @@ data class PrivateMessage(
     val id: String,
     val sender_id: String,
     val my_message: String,
-    val timestamp: ULong
+    val timestamp: Long
 
 ){
-    constructor() : this("", "", "", 0.toULong())
+    constructor() : this("", "", "", 0.toLong())
 }

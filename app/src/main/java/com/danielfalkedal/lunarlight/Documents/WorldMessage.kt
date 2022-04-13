@@ -4,7 +4,7 @@ data class WorldMessage(
     val id: String,
     val user_id: String,
     val username: String,
-    val timestamp: ULong,
+    val timestamp: Long,
     val avatar: String,
     val month: Long,
     val day: Long,
@@ -13,5 +13,5 @@ data class WorldMessage(
 
 
 ){
-    constructor() : this("", "", "", 0.toULong(), "", 1, 1, "")
+    constructor() : this("", "", "", 0.toLong(), "", 1, 1, "")
 }
