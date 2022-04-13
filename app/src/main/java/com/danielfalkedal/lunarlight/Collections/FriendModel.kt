@@ -49,7 +49,7 @@ class FriendModel {
                     
                     Log.d("Danne", "$friend")
 
-                    friendsIds.add(friend.id)
+                    friendsIds.add(friend.user_id)
 
                 }
 

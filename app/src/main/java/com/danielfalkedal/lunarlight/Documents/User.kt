@@ -27,6 +27,7 @@ data class User(
     }
 
     companion object {
+
         fun getStoneIndex(month: Int, day: Int): Int {
 
             when (month) {
