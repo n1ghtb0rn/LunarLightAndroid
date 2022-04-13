@@ -10,7 +10,6 @@ import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.Friend
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Utils.LocalData
-import com.danielfalkedal.lunarlight.ui.theme.getColorByString
 import java.util.*
 
 @Composable

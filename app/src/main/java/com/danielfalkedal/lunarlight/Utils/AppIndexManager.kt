@@ -4,6 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.danielfalkedal.lunarlight.Collections.FriendModel
+import com.danielfalkedal.lunarlight.Collections.PrivateMessageModel
 import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Realm.RealmUserDao
@@ -23,6 +24,7 @@ object AppIndexManager: ViewModel() {
 
     val userOnlineModel = UserOnlineModel()
     lateinit var friendModel: FriendModel
+    lateinit var privateMessageModel: PrivateMessageModel
 
     var profileUser: User
     var privateChatUser: User
@@ -58,6 +60,12 @@ object AppIndexManager: ViewModel() {
         Realm.init(context)
         realmUserDao = RealmUserDao()
 
+    }
+
+    fun initPrivateMessageModel() {
+        privateMessageModel = PrivateMessageModel()
+        privateMessageModel.listenToUserPrivateMsgs()
+        privateMessageModel.listenToFriendPrivateMsgs()
     }
 
 }

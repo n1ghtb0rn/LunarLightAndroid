@@ -3,7 +3,7 @@ package com.danielfalkedal.lunarlight.Documents
 import android.util.Log
 import androidx.compose.ui.graphics.Color
 import com.danielfalkedal.lunarlight.Utils.LocalData
-import com.danielfalkedal.lunarlight.ui.theme.getColorByString
+import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 
 data class User(
     val id: String,
@@ -22,7 +22,7 @@ data class User(
 
         val colorIndex = getStoneIndex(this.month.toInt(), this.day.toInt())
         val colorName = LocalData.profileBackground[colorIndex]
-        val backgroundColor = getColorByString(colorName)
+        val backgroundColor = getColorByUser(this)
         return backgroundColor
     }
 

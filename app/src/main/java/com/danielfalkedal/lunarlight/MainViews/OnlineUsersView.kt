@@ -8,8 +8,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -30,9 +30,8 @@ import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
 import com.danielfalkedal.lunarlight.ViewModels.UsersViewModel
-import com.danielfalkedal.lunarlight.ui.theme.getColorByString
+import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 import kotlinx.coroutines.flow.asStateFlow
-import java.util.*
 
 @Composable
 fun OnlineUsersView(
@@ -100,18 +99,14 @@ fun OnlineUsersView(
                                 items(listOfUsers) {
                                     if (it.id != AppIndexManager.currentUser.id &&
                                             AppIndexManager.userOnlineModel.usersOnlineIds.contains(it.id)) {
-                                        Box(modifier = Modifier
-                                            .padding(8.dp)
-                                            .background(getColorByString(it.avatar))) {
 
-                                            ClickableText(
-                                                text = AnnotatedString(it.username),
-                                                onClick = { offset ->
-                                                    AppIndexManager.profileUser = it
-                                                    showProfileViewSheet.value = true
-                                                }
-                                            )
-
+                                        Button(onClick = {
+                                            AppIndexManager.profileUser = it
+                                            showProfileViewSheet.value = true
+                                        }, colors = ButtonDefaults.buttonColors(
+                                            backgroundColor = getColorByUser(it)
+                                        )) {
+                                            Text(it.username)
                                         }
                                     }
 

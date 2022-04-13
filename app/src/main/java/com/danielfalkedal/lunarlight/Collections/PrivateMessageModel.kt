@@ -4,6 +4,7 @@ import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.PrivateMessage
 import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Documents.WorldMessage
 import com.danielfalkedal.lunarlight.Responses.OnErrorPrivateMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessPrivateMsgs
 import com.danielfalkedal.lunarlight.Utils.LocalData
@@ -22,9 +23,24 @@ class PrivateMessageModel {
     val userPrivateMessages = ArrayList<PrivateMessage>()
     val friendPrivateMessages = ArrayList<PrivateMessage>()
 
-    init {
-        listenToFriendPrivateMsgs()
-        listenToFriendPrivateMsgs()
+    fun createPrivateMessage(newPrivateMessage: PrivateMessage) {
+
+        val userId = AppIndexManager.currentUser.id
+        val friendId = AppIndexManager.privateChatUser.id
+
+        if (userId == friendId) {
+            Log.d("Danne", "Error: Cannot create private message. user id and friend id are the same.")
+            return
+        }
+
+        FirebaseFirestore
+            .getInstance()
+            .collection(LocalData.USERS_COLLECTION_KEY).document(userId)
+            .collection(LocalData.FRIENDS_COLLECTION_KEY).document(friendId)
+            .collection(LocalData.PRIVATE_MESSAGES_COLLECTION_KEY).document(newPrivateMessage.id)
+            .set(newPrivateMessage)
+            .addOnSuccessListener { log -> Log.d("Danne", "Private message added to firestore with id ${newPrivateMessage.id}.") }
+            .addOnFailureListener { log -> Log.e("Danne", "Error: Could not add new user to database.") }
     }
 
     fun listenToUserPrivateMsgs() {

@@ -27,6 +27,7 @@ import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.ViewModels.USER_FRIENDS
 import com.danielfalkedal.lunarlight.ViewModels.UsersViewModel
+import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 import kotlinx.coroutines.flow.asStateFlow
 
 @Composable
@@ -76,8 +77,11 @@ fun FriendsView(
 
                                 Button(onClick = {
                                     AppIndexManager.privateChatUser = it
+                                    AppIndexManager.initPrivateMessageModel()
                                     AppIndexManager.setIndex(AppIndex.privateChatView)
-                                }) {
+                                }, colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = getColorByUser(it)
+                                )) {
                                     Text(it.username)
                                 }
                             }

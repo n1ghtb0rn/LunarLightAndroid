@@ -21,7 +21,7 @@ import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Documents.WorldMessage
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import com.danielfalkedal.lunarlight.Utils.TimestampConverter
-import com.danielfalkedal.lunarlight.ui.theme.getColorByString
+import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -77,7 +77,7 @@ class MessageExtension {
     fun getUserBackgroundColor(month: Long, day: Long): Color {
         val colorIndex = User.getStoneIndex(month.toInt(), day.toInt())
         val colorName = LocalData.profileBackground[colorIndex]
-        val color = getColorByString(colorName)
+        val color = getColorByUser(null, colorName)
         return color
 
     }

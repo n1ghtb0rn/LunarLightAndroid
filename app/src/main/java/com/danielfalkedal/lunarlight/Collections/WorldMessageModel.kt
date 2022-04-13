@@ -34,28 +34,13 @@ class WorldMessageModel {
 
     fun createWorldMessage(newWorldMessage: WorldMessage) {
 
-        /* Manual Mapping:
-
-        val dataToStore = HashMap<String, Any>()
-
-        dataToStore.put("avatar", newWorldMessage.avatar as Any)
-        dataToStore.put("day", newWorldMessage.day as Any)
-        dataToStore.put("id", newWorldMessage.id as Any)
-        dataToStore.put("message", newWorldMessage.message as Any)
-        dataToStore.put("month", newWorldMessage.month as Any)
-        dataToStore.put("timestamp", newWorldMessage.timestamp as Any)
-        dataToStore.put("user_id", newWorldMessage.user_id as Any)
-        dataToStore.put("username", newWorldMessage.username as Any)
-
-         */
-
         val id = newWorldMessage.id
 
         FirebaseFirestore
             .getInstance()
             .collection("world_messages").document(id)
             .set(newWorldMessage)
-            .addOnSuccessListener { log -> Log.d("Danne", "User added to firestore with id ${newWorldMessage.id}.") }
+            .addOnSuccessListener { log -> Log.d("Danne", "World message added to firestore with id ${newWorldMessage.id}.") }
             .addOnFailureListener { log -> Log.e("Danne", "Error: Could not add new user to database.") }
     }
 

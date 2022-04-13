@@ -1,6 +1,9 @@
 package com.danielfalkedal.lunarlight.ui.theme
 
+import android.util.Log
 import androidx.compose.ui.graphics.Color
+import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Utils.LocalData
 
 val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)
@@ -20,9 +23,19 @@ val Scorpio = Color(73, 228, 66, 255)
 val Taurus = Color(130, 255, 142, 255)
 val Virgo = Color(255, 177, 165, 255)
 
-fun getColorByString(colorName: String): Color {
+fun getColorByUser(user: User? = null, string: String? = null): Color {
 
     var returnColor = Color.White
+
+    var colorName = ""
+
+    if (user != null ) {
+        val colorIndex = User.getStoneIndex(user.month.toInt(), user.day.toInt())
+        colorName = LocalData.profileBackground[colorIndex]
+    }
+    else if (string != null) {
+        colorName = string
+    }
 
     when (colorName) {
 

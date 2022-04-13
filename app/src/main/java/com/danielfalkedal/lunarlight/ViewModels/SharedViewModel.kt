@@ -4,7 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.PrivateMessage
+import kotlinx.coroutines.launch
 
 object SharedViewModel: ViewModel() {
 
@@ -12,8 +15,9 @@ object SharedViewModel: ViewModel() {
         private set
 
     fun updatePrivateMessages(newPrivateMessages: ArrayList<PrivateMessage>) {
-
-        privateMessages = privateMessages
+        viewModelScope.launch {
+            privateMessages = newPrivateMessages
+        }
 
     }
 
