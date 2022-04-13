@@ -60,6 +60,8 @@ fun PrivateChatView(
 
         }
 
+        Text("Messages to be shown = ${privateMessages?.size}")
+
         LazyColumn(
             modifier = Modifier.clip(RoundedCornerShape(12.dp))
                 .background(Color.LightGray)
@@ -68,6 +70,7 @@ fun PrivateChatView(
             //modifier = Modifier
             //    .fillMaxHeight()
         ) {
+
             if (privateMessages != null) {
                 items(privateMessages) {
                     Card(

@@ -3,6 +3,7 @@ package com.danielfalkedal.lunarlight.MainViews
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -10,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -34,7 +36,10 @@ fun FriendsView(
     )
 ) {
 
-    Column() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text("Friends")
 
         when (val userFriendsList = usersViewModel.usersStateFlow.asStateFlow().collectAsState().value) {
@@ -54,7 +59,9 @@ fun FriendsView(
                             .clip(RoundedCornerShape(12.dp))
                             .background(Color.LightGray)
                             .weight(3f)
-                            .padding(vertical = 8.dp)
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
                         //modifier = Modifier
                         //    .fillMaxHeight()
                     ) {
