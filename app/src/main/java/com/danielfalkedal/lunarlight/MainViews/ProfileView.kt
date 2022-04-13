@@ -16,7 +16,7 @@ import java.util.*
 fun ProfileView(user: User) {
 
     Column(
-        modifier = Modifier.background(user.getColor())
+        modifier = Modifier.background(User.getColor(user))
     ) {
 
         Button(onClick = {
