@@ -28,8 +28,10 @@ class UserOnlineModel {
 
     fun listenToUsersOnline() {
 
+        Log.d("DanneX", "Activating listener...")
+
         firestore
-            .collection("users_online").whereEqualTo("is_online", true)
+            .collection("users_online")
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     Log.e("Danne", "Database listener error")
@@ -41,12 +43,16 @@ class UserOnlineModel {
                     return@addSnapshotListener
                 }
 
+                Log.d("DanneX", "Online users was changed in firestore!")
+
                 usersOnlineIds.clear()
 
                 for (document in value) {
 
                     /* Auto-mapping: */
                     val user: UserOnline = document.toObject(UserOnline::class.java)
+
+                    Log.d("DanneX", "${user.is_online}")
 
                     usersOnlineIds.add(user.id)
 

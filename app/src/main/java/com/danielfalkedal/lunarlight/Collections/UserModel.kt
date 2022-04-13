@@ -38,9 +38,8 @@ class UserModel {
             Log.d("Danne", "Users category = USER_FRIENDS")
         }
 
-        Log.d("Danne", "Searching for friends: $userIds")
-
-        if (userIds.isEmpty()) {
+        //if (userIds.isEmpty()) {
+        if (false) {
 
             val collection = firestore.collection("unkown")
             val snapshotListener = collection.addSnapshotListener { value, error ->
@@ -60,15 +59,22 @@ class UserModel {
 
         else {
 
+            Log.d("DanneX", "User listener started!")
+
             val collection = firestore.collection("users")//.whereIn("id", userIds)
             val snapshotListener = collection.addSnapshotListener { value, error ->
+
+                Log.d("DanneX", "Response:")
+
                 val response = if (error == null) {
-                    Log.d("Danne", "value = ${value!!.documents.size}")
+                    Log.d("DanneX", "value = ${value!!.documents.size}")
                     OnSuccessUsers(value)
                 } else {
-                    Log.d("Danne", "error = $error")
+                    Log.d("DanneX", "error = $error")
                     OnErrorUsers(error)
                 }
+
+                Log.d("DanneX", "Sending response.")
 
                 this.trySend(response).isSuccess
             }

@@ -41,7 +41,7 @@ fun OnlineUsersView(
     )
 ) {
 
-    Log.d("Danne", "Users online count = ${AppIndexManager.userOnlineModel.usersOnlineIds.size}")
+    Log.d("DanneX", "Users online count = ${AppIndexManager.userOnlineModel.usersOnlineIds.size}")
 
     val showProfileViewSheet = remember { mutableStateOf(false) }
 
