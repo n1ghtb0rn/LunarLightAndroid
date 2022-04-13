@@ -9,15 +9,13 @@ import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.PrivateMessage
 import kotlinx.coroutines.launch
 
-object SharedViewModel: ViewModel() {
+object SharedPrivateMessagesViewModel: ViewModel() {
 
     var privateMessages by mutableStateOf<MutableList<PrivateMessage>?>(null)
         private set
 
     fun updatePrivateMessages(newPrivateMessages: ArrayList<PrivateMessage>) {
-        viewModelScope.launch {
-            privateMessages = newPrivateMessages
-        }
+        privateMessages = newPrivateMessages
 
     }
 

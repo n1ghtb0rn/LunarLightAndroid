@@ -3,12 +3,10 @@ package com.danielfalkedal.lunarlight.Collections
 import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.PrivateMessage
-import com.danielfalkedal.lunarlight.Documents.User
-import com.danielfalkedal.lunarlight.Documents.WorldMessage
 import com.danielfalkedal.lunarlight.Responses.OnErrorPrivateMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessPrivateMsgs
 import com.danielfalkedal.lunarlight.Utils.LocalData
-import com.danielfalkedal.lunarlight.ViewModels.SharedViewModel
+import com.danielfalkedal.lunarlight.ViewModels.SharedPrivateMessagesViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,8 +31,7 @@ class PrivateMessageModel {
             return
         }
 
-        FirebaseFirestore
-            .getInstance()
+        firestore
             .collection(LocalData.USERS_COLLECTION_KEY).document(userId)
             .collection(LocalData.FRIENDS_COLLECTION_KEY).document(friendId)
             .collection(LocalData.PRIVATE_MESSAGES_COLLECTION_KEY).document(newPrivateMessage.id)
@@ -78,7 +75,8 @@ class PrivateMessageModel {
                 totalPrivateMessages.addAll(userPrivateMessages)
                 totalPrivateMessages.addAll(friendPrivateMessages)
 
-                SharedViewModel.updatePrivateMessages(totalPrivateMessages)
+                totalPrivateMessages.sortBy {it.timestamp}
+                SharedPrivateMessagesViewModel.updatePrivateMessages(totalPrivateMessages)
 
             }
 
@@ -119,7 +117,8 @@ class PrivateMessageModel {
                 totalPrivateMessages.addAll(friendPrivateMessages)
                 totalPrivateMessages.addAll(userPrivateMessages)
 
-                SharedViewModel.updatePrivateMessages(totalPrivateMessages)
+                totalPrivateMessages.sortBy {it.timestamp}
+                SharedPrivateMessagesViewModel.updatePrivateMessages(totalPrivateMessages)
 
             }
 

@@ -19,5 +19,4 @@ class PrivateMessagesViewModel(val privateMessageModel: PrivateMessageModel): Vi
         }
     }
 
-    fun getPrivateMessagesInfo() = privateMessageModel.getPrivateMessageDetails()
 }

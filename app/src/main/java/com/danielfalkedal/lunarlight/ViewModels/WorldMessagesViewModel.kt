@@ -19,5 +19,4 @@ class WorldMessagesViewModel(val worldMessageModel: WorldMessageModel): ViewMode
         }
     }
 
-    fun getWorldMessagesInfo() = worldMessageModel.getWorldMessageDetails()
 }

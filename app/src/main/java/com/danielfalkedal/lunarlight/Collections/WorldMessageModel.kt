@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.danielfalkedal.lunarlight.Documents.WorldMessage
 import com.danielfalkedal.lunarlight.Responses.OnErrorWorldMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessWorldMsgs
+import com.danielfalkedal.lunarlight.Utils.LocalData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -12,6 +13,15 @@ import kotlinx.coroutines.flow.callbackFlow
 class WorldMessageModel {
 
     private val firestore = FirebaseFirestore.getInstance()
+
+    fun createWorldMessage(newWorldMessage: WorldMessage) {
+
+        firestore
+            .collection(LocalData.WORLD_MESSAGES_COLLECTION_KEY).document(newWorldMessage.id)
+            .set(newWorldMessage)
+            .addOnSuccessListener { log -> Log.d("Danne", "World message added to firestore with id ${newWorldMessage.id}.") }
+            .addOnFailureListener { log -> Log.e("Danne", "Error: Could not add new user to database.") }
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     fun getWorldMessageDetails() = callbackFlow {
@@ -31,19 +41,5 @@ class WorldMessageModel {
             snapshotListener.remove()
         }
     }
-
-    fun createWorldMessage(newWorldMessage: WorldMessage) {
-
-        val id = newWorldMessage.id
-
-        FirebaseFirestore
-            .getInstance()
-            .collection("world_messages").document(id)
-            .set(newWorldMessage)
-            .addOnSuccessListener { log -> Log.d("Danne", "World message added to firestore with id ${newWorldMessage.id}.") }
-            .addOnFailureListener { log -> Log.e("Danne", "Error: Could not add new user to database.") }
-    }
-
-
 
 }

@@ -18,11 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Documents.WorldMessage
-import com.danielfalkedal.lunarlight.Collections.WorldMessageModel
 import com.danielfalkedal.lunarlight.Documents.PrivateMessage
 import com.danielfalkedal.lunarlight.SubViews.MessageView
-import com.danielfalkedal.lunarlight.ViewModels.SharedViewModel
+import com.danielfalkedal.lunarlight.ViewModels.SharedPrivateMessagesViewModel
 import java.util.*
 
 @Composable
@@ -30,7 +28,7 @@ fun PrivateChatView(
 
 ) {
 
-    val privateMessages: MutableList<PrivateMessage>? = SharedViewModel.privateMessages
+    val privateMessages: MutableList<PrivateMessage>? = SharedPrivateMessagesViewModel.privateMessages
 
     val currentUser = AppIndexManager.currentUser
     val friend = AppIndexManager.privateChatUser
@@ -108,18 +106,14 @@ fun PrivateChatView(
                 val currentUser = AppIndexManager.currentUser
 
                 val id = UUID.randomUUID().toString()
-                val userId = currentUser.id
-                val username = currentUser.username
-                val timestamp: Long = System.currentTimeMillis().toLong()
-                val avatar = currentUser.avatar
-                val month: Long = currentUser.month
-                val day: Long = currentUser.day
+                val sender_id = currentUser.id
                 val message = inputMessage.value.text
+                val timestamp: Long = System.currentTimeMillis().toLong()
 
+                val newPrivateMessage = PrivateMessage(id, sender_id, message, timestamp)
+                AppIndexManager.privateMessageModel.createPrivateMessage(newPrivateMessage)
 
-                val newWorldMessage = WorldMessage(id, userId, username, timestamp, avatar,month,day, message)
-                val worldMessagesRepo = WorldMessageModel()
-                worldMessagesRepo.createWorldMessage(newWorldMessage)
+                inputMessage.value = TextFieldValue("")
             }) {
                 Text("Send")
             }

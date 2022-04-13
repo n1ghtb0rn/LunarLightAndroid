@@ -151,6 +151,8 @@ fun WorldChatView(
                         val newWorldMessage = WorldMessage(id, userId, username, timestamp, avatar,month,day, message)
                         val worldMessagesRepo = WorldMessageModel()
                         worldMessagesRepo.createWorldMessage(newWorldMessage)
+
+                        inputMessage.value = TextFieldValue("")
                     }) {
                         Text("Send")
                     }

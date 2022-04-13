@@ -25,5 +25,4 @@ class UsersViewModel(val userModel: UserModel): ViewModel() {
         }
     }
 
-    fun getUsersInfo() = userModel.getUsersDetails()
 }
