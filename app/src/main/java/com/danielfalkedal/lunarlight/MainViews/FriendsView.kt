@@ -72,14 +72,14 @@ fun FriendsView(
                     ) {
                         items(listOfUserFriends) {
 
-
-                            Button(onClick = {
-                                AppIndexManager.profileUser = it
-                                Log.d("Danne", "PrivateChatView(${it.username})")
-                            }) {
-                                Text(it.username)
+                            if (it.id != AppIndexManager.currentUser.id) {
+                                Button(onClick = {
+                                    AppIndexManager.profileUser = it
+                                    Log.d("Danne", "PrivateChatView(${it.username})")
+                                }) {
+                                    Text(it.username)
+                                }
                             }
-
 
                         }
                     }

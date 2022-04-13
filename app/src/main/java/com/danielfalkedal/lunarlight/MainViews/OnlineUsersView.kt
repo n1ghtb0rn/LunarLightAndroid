@@ -1,12 +1,15 @@
 package com.danielfalkedal.lunarlight.MainViews
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
@@ -26,7 +30,9 @@ import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
 import com.danielfalkedal.lunarlight.ViewModels.UsersViewModel
+import com.danielfalkedal.lunarlight.ui.theme.getColorByString
 import kotlinx.coroutines.flow.asStateFlow
+import java.util.*
 
 @Composable
 fun OnlineUsersView(
@@ -34,6 +40,8 @@ fun OnlineUsersView(
         factory = UserViewModelFactory(UserModel(), ONLINE_USERS)
     )
 ) {
+
+    Log.d("Danne", "Users online count = ${AppIndexManager.userOnlineModel.usersOnline.size}")
 
     val showProfileViewSheet = remember { mutableStateOf(false) }
 
@@ -90,13 +98,19 @@ fun OnlineUsersView(
                                 //    .fillMaxHeight()
                             ) {
                                 items(listOfUsers) {
-
                                     if (it.id != AppIndexManager.currentUser.id) {
-                                        Button(onClick = {
-                                            AppIndexManager.profileUser = it
-                                            showProfileViewSheet.value = true
-                                        }) {
-                                            Text(it.username)
+                                        Box(modifier = Modifier
+                                            .padding(8.dp)
+                                            .background(getColorByString(it.avatar))) {
+
+                                            ClickableText(
+                                                text = AnnotatedString(it.username),
+                                                onClick = { offset ->
+                                                    AppIndexManager.profileUser = it
+                                                    showProfileViewSheet.value = true
+                                                }
+                                            )
+
                                         }
                                     }
 
