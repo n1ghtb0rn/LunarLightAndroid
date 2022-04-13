@@ -65,6 +65,12 @@ fun PrivateChatView(
                 modifier = Modifier.padding(16.dp)
             )
 
+            Button(onClick = {
+                AppIndexManager.setIndex(AppIndex.lobbyTabView)
+            }) {
+                Text("Back")
+            }
+
         }
 
         when (val worldMessagesList = worldMessagesViewModel.worldMessagesStateFlow.asStateFlow().collectAsState().value) {
