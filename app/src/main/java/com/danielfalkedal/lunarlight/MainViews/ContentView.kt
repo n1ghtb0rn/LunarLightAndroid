@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import com.danielfalkedal.lunarlight.MainViews.LobbyTabView
 import com.danielfalkedal.lunarlight.MainViews.OnlineUsersView
-import com.danielfalkedal.lunarlight.MainViews.WorldMessageView
+import com.danielfalkedal.lunarlight.MainViews.PrivateChatView
 
 @Composable
 fun ContentView() {
@@ -16,6 +16,8 @@ fun ContentView() {
         AppIndex.lobbyTabView -> LobbyTabView()
 
         AppIndex.onlineUsersView -> OnlineUsersView()
+
+        AppIndex.privateChatView -> PrivateChatView()
 
     }
 

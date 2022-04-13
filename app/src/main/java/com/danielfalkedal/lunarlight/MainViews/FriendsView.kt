@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.Friend
@@ -67,8 +68,8 @@ fun FriendsView(
                                     it.id in AppIndexManager.friendModel.friendsIds) {
 
                                 Button(onClick = {
-                                    AppIndexManager.profileUser = it
-                                    Log.d("Danne", "PrivateChatView(${it.username})")
+                                    AppIndexManager.privateChatUser = it
+                                    AppIndexManager.setIndex(AppIndex.privateChatView)
                                 }) {
                                     Text(it.username)
                                 }

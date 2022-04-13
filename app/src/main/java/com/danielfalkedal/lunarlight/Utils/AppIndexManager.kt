@@ -24,13 +24,12 @@ object AppIndexManager: ViewModel() {
     val userOnlineModel = UserOnlineModel()
     lateinit var friendModel: FriendModel
 
-    var profileUser: User? = null
+    var profileUser: User
+    var privateChatUser: User
 
-    init {
-        userOnlineModel.listenToUsersOnline()
-    }
+    var currentUser: User
 
-    var currentUser: User = User(
+    val testUser: User = User(
         "7D59D875-E3F4-4396-91DC-20309FD68195",
         "test",
         "12345",
@@ -40,6 +39,13 @@ object AppIndexManager: ViewModel() {
         1,
         1,
     )
+
+    init {
+        currentUser = testUser
+        profileUser = testUser
+        privateChatUser = testUser
+        userOnlineModel.listenToUsersOnline()
+    }
 
     fun setIndex(newIndex: Int) {
         viewModelScope.launch {
@@ -61,5 +67,6 @@ object AppIndex {
     val startView = 0
     val lobbyTabView = 1
     val onlineUsersView = 2
+    val privateChatView = 3
 
 }

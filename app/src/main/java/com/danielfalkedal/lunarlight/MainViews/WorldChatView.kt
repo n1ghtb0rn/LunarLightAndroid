@@ -41,7 +41,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import java.util.*
 
 @Composable
-fun WorldMessageView(
+fun WorldChatView(
     worldMessagesViewModel: WorldMessagesViewModel = viewModel(
         factory = WorldMessageViewModelFactory(WorldMessageModel())
     )

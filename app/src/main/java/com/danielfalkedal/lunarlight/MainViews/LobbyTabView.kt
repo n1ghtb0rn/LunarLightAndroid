@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.FriendModel
 
 @Composable
 fun LobbyTabView() {
@@ -48,7 +47,7 @@ fun LobbyTabView() {
 
         when (tabIndex.value) {
 
-            1 -> WorldMessageView()
+            1 -> WorldChatView()
 
             2 -> FriendsView()
 
