@@ -1,14 +1,8 @@
 package com.danielfalkedal.lunarlight.Collections
 
 import android.util.Log
-import com.danielfalkedal.lunarlight.Documents.User
 import com.google.firebase.firestore.FirebaseFirestore
 import com.danielfalkedal.lunarlight.Documents.UserOnline
-import com.danielfalkedal.lunarlight.Responses.OnError
-import com.danielfalkedal.lunarlight.Responses.OnSuccess
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.callbackFlow
 import java.util.ArrayList
 
 class UserOnlineModel {

@@ -1,11 +1,6 @@
 package com.danielfalkedal.lunarlight.MainViews
 
-import android.util.Log
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -25,17 +19,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.AppIndexManager.currentUser
-import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
 import com.danielfalkedal.lunarlight.Documents.WorldMessage
 import com.danielfalkedal.lunarlight.Collections.WorldMessageModel
-import com.danielfalkedal.lunarlight.Documents.UserOnline
 import com.danielfalkedal.lunarlight.Factories.WorldMessageViewModelFactory
-import com.danielfalkedal.lunarlight.Realm.RealmUserDao
-import com.danielfalkedal.lunarlight.Responses.OnError
-import com.danielfalkedal.lunarlight.Responses.OnSuccess
-import com.danielfalkedal.lunarlight.SubViews.WorldMessageDetails
-import com.danielfalkedal.lunarlight.Utils.TimestampConverter
+import com.danielfalkedal.lunarlight.Responses.OnErrorWorldMsgs
+import com.danielfalkedal.lunarlight.Responses.OnSuccessWorldMsgs
+import com.danielfalkedal.lunarlight.SubViews.MessageView
 import com.danielfalkedal.lunarlight.ViewModels.WorldMessagesViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.*
@@ -75,11 +64,11 @@ fun PrivateChatView(
 
         when (val worldMessagesList = worldMessagesViewModel.worldMessagesStateFlow.asStateFlow().collectAsState().value) {
 
-            is OnError -> {
+            is OnErrorWorldMsgs -> {
                 Text(text = "Please try after sometime")
             }
 
-            is OnSuccess -> {
+            is OnSuccessWorldMsgs -> {
 
                 val listOfWorldMessages = worldMessagesList.querySnapshot?.toObjects(WorldMessage::class.java)
                 listOfWorldMessages?.let {
@@ -101,7 +90,7 @@ fun PrivateChatView(
                                     .padding(16.dp),
                                 shape = RoundedCornerShape(16.dp)
                             ) {
-                                WorldMessageDetails(it)
+                                MessageView(it)
                             }
 
 

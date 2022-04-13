@@ -3,8 +3,8 @@ package com.danielfalkedal.lunarlight.Collections
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.danielfalkedal.lunarlight.Documents.WorldMessage
-import com.danielfalkedal.lunarlight.Responses.OnError
-import com.danielfalkedal.lunarlight.Responses.OnSuccess
+import com.danielfalkedal.lunarlight.Responses.OnErrorWorldMsgs
+import com.danielfalkedal.lunarlight.Responses.OnSuccessWorldMsgs
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -19,9 +19,9 @@ class WorldMessageModel {
         val collection = firestore.collection("world_messages").orderBy("timestamp")
         val snapshotListener = collection.addSnapshotListener { value, error ->
             val response = if (error == null) {
-                OnSuccess(value)
+                OnSuccessWorldMsgs(value)
             } else {
-                OnError(error)
+                OnErrorWorldMsgs(error)
             }
 
             this.trySend(response).isSuccess

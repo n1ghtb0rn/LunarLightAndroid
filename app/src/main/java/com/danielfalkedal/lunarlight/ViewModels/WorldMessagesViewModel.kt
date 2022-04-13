@@ -19,5 +19,5 @@ class WorldMessagesViewModel(val worldMessageModel: WorldMessageModel): ViewMode
         }
     }
 
-    fun getBooksInfo() = worldMessageModel.getWorldMessageDetails()
+    fun getWorldMessagesInfo() = worldMessageModel.getWorldMessageDetails()
 }

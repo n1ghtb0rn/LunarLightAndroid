@@ -25,33 +25,33 @@ import com.danielfalkedal.lunarlight.ui.theme.getColorByString
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun WorldMessageDetails(worldMessage: WorldMessage) {
-    var showWorldMessageDescription by remember { mutableStateOf(false) }
+fun MessageView(message: WorldMessage) {
+    var showMessageDescription by remember { mutableStateOf(false) }
     val worldMessageCoverImageSize by animateDpAsState(
         targetValue =
-        if (showWorldMessageDescription) 50.dp else 80.dp
+        if (showMessageDescription) 50.dp else 80.dp
     )
 
     val timestampConverter = TimestampConverter()
 
-    val backgroundColor: Color = WorldMessageDetailsExtension().getBackgroundColor(worldMessage)
+    val backgroundColor: Color = MessageExtension().getBackgroundColor(message)
 
-    Column(modifier = Modifier.background(WorldMessageDetailsExtension().getBackgroundColor(worldMessage)).clickable {
-        showWorldMessageDescription = showWorldMessageDescription.not()
+    Column(modifier = Modifier.background(MessageExtension().getBackgroundColor(message)).clickable {
+        showMessageDescription = showMessageDescription.not()
     }) {
         Row(modifier = Modifier.padding(12.dp)) {
 
 
             Column {
                 Text(
-                    text = worldMessage.username, style = TextStyle(
+                    text = message.username, style = TextStyle(
                         fontWeight = FontWeight.Light,
                         fontSize = 12.sp
                     )
                 )
 
                 Text(
-                    text = worldMessage.message, style = TextStyle(
+                    text = message.message, style = TextStyle(
                         fontWeight = FontWeight.Light,
                         fontSize = 12.sp
                     )
@@ -59,9 +59,9 @@ fun WorldMessageDetails(worldMessage: WorldMessage) {
             }
         }
 
-        AnimatedVisibility(visible = showWorldMessageDescription) {
+        AnimatedVisibility(visible = showMessageDescription) {
             Text(
-                text = timestampConverter.getDateTime(worldMessage.timestamp.toString())!!, style = TextStyle(
+                text = timestampConverter.getDateTime(message.timestamp.toString())!!, style = TextStyle(
                     fontWeight = FontWeight.SemiBold,
                     fontStyle = FontStyle.Italic
                 ),
@@ -72,7 +72,7 @@ fun WorldMessageDetails(worldMessage: WorldMessage) {
 
 }
 
-class WorldMessageDetailsExtension {
+class MessageExtension {
 
     fun getBackgroundColor(worldMessage: WorldMessage): Color {
 

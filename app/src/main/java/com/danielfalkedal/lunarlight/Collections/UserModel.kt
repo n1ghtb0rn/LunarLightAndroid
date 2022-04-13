@@ -4,14 +4,10 @@ import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.danielfalkedal.lunarlight.Documents.User
-import com.danielfalkedal.lunarlight.Responses.OnError
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
-import com.danielfalkedal.lunarlight.Responses.OnSuccess
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
-import com.danielfalkedal.lunarlight.ViewModels.USER_FRIENDS
 import com.danielfalkedal.lunarlight.ViewModels.userCategory
-import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
