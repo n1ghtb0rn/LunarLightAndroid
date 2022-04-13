@@ -20,8 +20,7 @@ fun ProfileView(user: User) {
     ) {
 
         Button(onClick = {
-            val id = UUID.randomUUID().toString()
-            val friend = Friend(id, user.id)
+            val friend = Friend(user.id)
             AppIndexManager.friendModel.addFriend(friend)
         }) {
             Text("Add friend")
