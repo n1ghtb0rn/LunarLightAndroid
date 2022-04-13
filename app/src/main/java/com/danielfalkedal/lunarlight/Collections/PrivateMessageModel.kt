@@ -127,21 +127,15 @@ class PrivateMessageModel {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun getPrivateMessageDetails() = callbackFlow {
 
-        val friendId = AppIndexManager.privateChatUser.id
-        val userId = AppIndexManager.currentUser.id
 
-        val documents1 = ""
-        val documents2 = ""
+        val collection = firestore
+            .collectionGroup(LocalData.PRIVATE_MESSAGES_COLLECTION_KEY).orderBy("timestamp", Query.Direction.ASCENDING)
+        val snapshotListener = collection.addSnapshotListener { value, error ->
 
-        val collection1 = firestore.collection(LocalData.USERS_COLLECTION_KEY).document(friendId)
-            .collection(LocalData.FRIENDS_COLLECTION_KEY).document(userId)
-            .collection(LocalData.PRIVATE_MESSAGES_COLLECTION_KEY).orderBy("timestamp", Query.Direction.ASCENDING)
-        val snapshotListener1 = collection1.addSnapshotListener { value1, error1 ->
-
-            val response = if (error1 == null) {
-                OnSuccessPrivateMsgs(value1)
+            val response = if (error == null) {
+                OnSuccessPrivateMsgs(value)
             } else {
-                OnErrorPrivateMsgs(error1)
+                OnErrorPrivateMsgs(error)
             }
 
             this.trySend(response).isSuccess
@@ -149,7 +143,7 @@ class PrivateMessageModel {
         }
 
         awaitClose {
-            snapshotListener1.remove()
+            snapshotListener.remove()
         }
     }
 

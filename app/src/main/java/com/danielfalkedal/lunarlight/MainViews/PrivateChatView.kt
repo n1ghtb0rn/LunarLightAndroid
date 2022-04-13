@@ -16,16 +16,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
+import com.danielfalkedal.lunarlight.Collections.PrivateMessageModel
+import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.PrivateMessage
+import com.danielfalkedal.lunarlight.Documents.WorldMessage
+import com.danielfalkedal.lunarlight.Factories.PrivateMessageViewModelFactory
+import com.danielfalkedal.lunarlight.Factories.UserViewModelFactory
+import com.danielfalkedal.lunarlight.Responses.OnErrorPrivateMsgs
+import com.danielfalkedal.lunarlight.Responses.OnErrorWorldMsgs
+import com.danielfalkedal.lunarlight.Responses.OnSuccessPrivateMsgs
+import com.danielfalkedal.lunarlight.Responses.OnSuccessWorldMsgs
 import com.danielfalkedal.lunarlight.SubViews.MessageView
+import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
+import com.danielfalkedal.lunarlight.ViewModels.PrivateMessagesViewModel
 import com.danielfalkedal.lunarlight.ViewModels.SharedPrivateMessagesViewModel
+import com.danielfalkedal.lunarlight.ViewModels.UsersViewModel
+import kotlinx.coroutines.flow.asStateFlow
 import java.util.*
 
 @Composable
 fun PrivateChatView(
-
+    privateMessagesViewModel: PrivateMessagesViewModel = viewModel(
+        factory = PrivateMessageViewModelFactory(PrivateMessageModel())
+    )
 ) {
 
     val privateMessages: MutableList<PrivateMessage>? = SharedPrivateMessagesViewModel.privateMessages
@@ -58,36 +74,50 @@ fun PrivateChatView(
 
         }
 
-        Text("Messages to be shown = ${privateMessages?.size}")
+        when (val privateMessagesList = privateMessagesViewModel.privateMessagesStateFlow.asStateFlow().collectAsState().value) {
 
-        LazyColumn(
-            modifier = Modifier.clip(RoundedCornerShape(12.dp))
-                .background(Color.LightGray)
-                .weight(3f)
-                .padding(vertical = 8.dp)
-            //modifier = Modifier
-            //    .fillMaxHeight()
-        ) {
+            is OnErrorPrivateMsgs -> {
+                Text(text = "Please try after sometime")
+            }
 
-            if (privateMessages != null) {
-                items(privateMessages) {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        shape = RoundedCornerShape(16.dp)
+            is OnSuccessPrivateMsgs -> {
+
+                val listOfPrivateMessages = privateMessagesList.querySnapshot?.toObjects(PrivateMessage::class.java)
+                listOfPrivateMessages?.let {
+
+                    LazyColumn(
+                        modifier = Modifier.clip(RoundedCornerShape(12.dp))
+                            .background(Color.LightGray)
+                            .weight(3f)
+                            .padding(vertical = 8.dp)
+                        //modifier = Modifier
+                        //    .fillMaxHeight()
                     ) {
-                        if (it.sender_id == currentUser.id) {
-                            MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.month, currentUser.day)
-                        }
-                        else {
-                            MessageView(friend.username, it.my_message, it.timestamp, friend.month, friend.day)
-                        }
 
+                        items(listOfPrivateMessages) {
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                shape = RoundedCornerShape(16.dp)
+                            ) {
+                                if (it.sender_id == currentUser.id) {
+                                    MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.month, currentUser.day)
+                                }
+                                else {
+                                    MessageView(friend.username, it.my_message, it.timestamp, friend.month, friend.day)
+                                }
+
+                            }
+                        }
                     }
+
                 }
+
             }
         }
+
+
 
         Row(
             modifier = Modifier.weight(0.5f),
@@ -103,14 +133,13 @@ fun PrivateChatView(
 
             Button(onClick = {
 
-                val currentUser = AppIndexManager.currentUser
-
                 val id = UUID.randomUUID().toString()
-                val sender_id = currentUser.id
+                val senderId = currentUser.id
+                val receiverId = friend.id
                 val message = inputMessage.value.text
                 val timestamp: Long = System.currentTimeMillis().toLong()
 
-                val newPrivateMessage = PrivateMessage(id, sender_id, message, timestamp)
+                val newPrivateMessage = PrivateMessage(id, senderId, receiverId, message, timestamp)
                 AppIndexManager.privateMessageModel.createPrivateMessage(newPrivateMessage)
 
                 inputMessage.value = TextFieldValue("")
