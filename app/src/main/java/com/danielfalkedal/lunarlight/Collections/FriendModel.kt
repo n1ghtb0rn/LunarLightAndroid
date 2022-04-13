@@ -11,7 +11,7 @@ class FriendModel {
 
     private val firestore = FirebaseFirestore.getInstance()
 
-    var friends = ArrayList<Friend>()
+    var friendsIds = ArrayList<String>()
 
     private val currentUserId = AppIndexManager.currentUser.id
 
@@ -38,7 +38,7 @@ class FriendModel {
                     return@addSnapshotListener
                 }
 
-                friends.clear()
+                friendsIds.clear()
 
                 for (document in value) {
 
@@ -49,7 +49,7 @@ class FriendModel {
                     
                     Log.d("Danne", "$friend")
 
-                    friends.add(friend)
+                    friendsIds.add(friend.id)
 
                 }
 

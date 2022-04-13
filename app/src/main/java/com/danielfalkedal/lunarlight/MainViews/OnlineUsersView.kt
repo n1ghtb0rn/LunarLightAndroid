@@ -41,7 +41,7 @@ fun OnlineUsersView(
     )
 ) {
 
-    Log.d("Danne", "Users online count = ${AppIndexManager.userOnlineModel.usersOnline.size}")
+    Log.d("Danne", "Users online count = ${AppIndexManager.userOnlineModel.usersOnlineIds.size}")
 
     val showProfileViewSheet = remember { mutableStateOf(false) }
 
@@ -98,7 +98,8 @@ fun OnlineUsersView(
                                 //    .fillMaxHeight()
                             ) {
                                 items(listOfUsers) {
-                                    if (it.id != AppIndexManager.currentUser.id) {
+                                    if (it.id != AppIndexManager.currentUser.id &&
+                                            AppIndexManager.userOnlineModel.usersOnlineIds.contains(it.id)) {
                                         Box(modifier = Modifier
                                             .padding(8.dp)
                                             .background(getColorByString(it.avatar))) {

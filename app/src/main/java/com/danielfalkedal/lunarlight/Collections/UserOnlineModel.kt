@@ -15,7 +15,7 @@ class UserOnlineModel {
 
     private val firestore = FirebaseFirestore.getInstance()
 
-    var usersOnline = ArrayList<UserOnline>()
+    var usersOnlineIds = ArrayList<String>()
 
     fun updateUserOnline(userOnline: UserOnline) {
 
@@ -41,14 +41,14 @@ class UserOnlineModel {
                     return@addSnapshotListener
                 }
 
-                usersOnline.clear()
+                usersOnlineIds.clear()
 
                 for (document in value) {
 
                     /* Auto-mapping: */
                     val user: UserOnline = document.toObject(UserOnline::class.java)
 
-                    usersOnline.add(user)
+                    usersOnlineIds.add(user.id)
 
                     /* Manual mapping: */
 

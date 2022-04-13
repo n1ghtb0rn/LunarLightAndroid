@@ -43,12 +43,12 @@ fun FriendsView(
     )
 ) {
 
-    Log.d("Danne", "Friends count = ${AppIndexManager.friendModel.friends.size}")
+    Log.d("Danne", "Friends count = ${AppIndexManager.friendModel.friendsIds.size}")
 
     Column() {
         Text("Friends")
 
-        when (val userFriendsList = usersViewModel.getUsersInfo().collectAsState(initial = null).value) {
+        when (val userFriendsList = usersViewModel.usersStateFlow.asStateFlow().collectAsState().value) {
 
             is OnErrorUsers -> {
                 Text(text = "Please try after sometime")
@@ -72,7 +72,11 @@ fun FriendsView(
                     ) {
                         items(listOfUserFriends) {
 
-                            if (it.id != AppIndexManager.currentUser.id) {
+                            Log.d("Danne", "${AppIndexManager.friendModel.friendsIds}")
+                            Log.d("Danne", "$listOfUserFriends")
+
+                            if (it.id != AppIndexManager.currentUser.id &&
+                                AppIndexManager.friendModel.friendsIds.contains(it.id)) {
                                 Button(onClick = {
                                     AppIndexManager.profileUser = it
                                     Log.d("Danne", "PrivateChatView(${it.username})")

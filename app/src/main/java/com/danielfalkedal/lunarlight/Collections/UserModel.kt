@@ -27,20 +27,14 @@ class UserModel {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun getUsersDetails() = callbackFlow {
 
-        val userIds = ArrayList<String>()
+        var userIds = ArrayList<String>()
 
         if (userCategory == ONLINE_USERS) {
-            val usersOnline = AppIndexManager.userOnlineModel.usersOnline
-            for (userOnline in usersOnline) {
-                userIds.add(userOnline.id)
-            }
+            userIds = AppIndexManager.userOnlineModel.usersOnlineIds
             Log.d("Danne", "Users category = ONLINE_USERS")
         }
         else {
-            val userFriends = AppIndexManager.friendModel.friends
-            for (userFriend in userFriends) {
-                userIds.add(userFriend.id)
-            }
+            userIds = AppIndexManager.friendModel.friendsIds
             Log.d("Danne", "Users category = USER_FRIENDS")
         }
 
@@ -66,7 +60,7 @@ class UserModel {
 
         else {
 
-            val collection = firestore.collection("users").whereIn("id", userIds)
+            val collection = firestore.collection("users")//.whereIn("id", userIds)
             val snapshotListener = collection.addSnapshotListener { value, error ->
                 val response = if (error == null) {
                     Log.d("Danne", "value = ${value!!.documents.size}")
