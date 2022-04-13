@@ -52,9 +52,9 @@ class UserOnlineModel {
                     /* Auto-mapping: */
                     val user: UserOnline = document.toObject(UserOnline::class.java)
 
-                    Log.d("DanneX", "${user.is_online}")
-
-                    usersOnlineIds.add(user.id)
+                    if (user.is_online) {
+                        usersOnlineIds.add(user.id)
+                    }
 
                     /* Manual mapping: */
 
