@@ -4,6 +4,7 @@ import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.Friend
 import com.danielfalkedal.lunarlight.Documents.UserOnline
+import com.danielfalkedal.lunarlight.Utils.LocalData
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.ArrayList
 
@@ -13,17 +14,21 @@ class FriendModel {
 
     var friendsIds = ArrayList<String>()
 
-    private val currentUserId = AppIndexManager.currentUser.id
-
     fun addFriend(newFriend: Friend){
 
-        firestore.collection("users").document(newFriend.id).set(newFriend)
+        val currentUserId = AppIndexManager.currentUser.id
+
+        firestore
+            .collection(LocalData.USERS_COLLECTION_KEY).document(currentUserId)
+            .collection(LocalData.FRIENDS_COLLECTION_KEY).document(newFriend.id).set(newFriend)
             .addOnSuccessListener { Log.d("Danne", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w("Danne", "Error writing document", e) }
 
     }
 
     fun listenToUserFriends() {
+
+        val currentUserId = AppIndexManager.currentUser.id
 
         firestore
             .collection("users").document(currentUserId).collection("friends")

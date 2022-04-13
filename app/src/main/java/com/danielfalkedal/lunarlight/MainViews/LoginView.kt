@@ -1,5 +1,6 @@
 package com.danielfalkedal.lunarlight
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -23,8 +24,8 @@ fun LoginView() {
 
     LoginViewExtention().checkAutoLogin()
 
-    val usersRepo = UserModel()
-    usersRepo.listenToUsers()
+    val userModel = UserModel()
+    userModel.listenToUsers()
 
     val username = remember { mutableStateOf(TextFieldValue("danne")) }
     val password = remember { mutableStateOf(TextFieldValue("12345")) }
@@ -57,8 +58,8 @@ fun LoginView() {
         ) {
 
             Button(onClick = {
-
-                val users = usersRepo.users
+                Log.d("DanneA", "1")
+                val users = userModel.users
 
                 var loginUser: User? = null
 
@@ -71,6 +72,7 @@ fun LoginView() {
                     }
                 }
                 if (loginUser != null) {
+                    Log.d("DanneA", "2")
                     LoginViewExtention().login(loginUser)
                 }
 

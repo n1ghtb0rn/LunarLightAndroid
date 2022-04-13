@@ -18,15 +18,15 @@ data class User(
 ){
     constructor() : this("", "", "", "", "", 2010, 1, 1)
 
-    fun getColor(): Color {
-
-        val colorIndex = getStoneIndex(this.month.toInt(), this.day.toInt())
-        val colorName = LocalData.profileBackground[colorIndex]
-        val backgroundColor = getColorByUser(this)
-        return backgroundColor
-    }
-
     companion object {
+
+        fun getColor(user: User): Color {
+
+            val colorIndex = getStoneIndex(user.month.toInt(), user.day.toInt())
+            val colorName = LocalData.profileBackground[colorIndex]
+            val backgroundColor = getColorByUser(user)
+            return backgroundColor
+        }
 
         fun getStoneIndex(month: Int, day: Int): Int {
 
