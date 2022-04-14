@@ -19,15 +19,24 @@ fun WelcomeView() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Welcome, ${AppIndexManager.currentUser}!")
 
-        Spacer(modifier = Modifier.width(30.dp))
-
-        Button(onClick = {
-            AppIndexManager.setIndex(AppIndex.lobbyTabView)
-        }) {
-            Text("Enter the world of Lunar Light")
+        Column(
+            modifier = Modifier.weight(3.0f)
+        ) {
+            Text(text = "Welcome, ${AppIndexManager.currentUser.username}!")
         }
+
+        Column(
+            modifier = Modifier.weight(0.3f)
+        ) {
+            Button(onClick = {
+                AppIndexManager.setIndex(AppIndex.lobbyTabView)
+            }) {
+                Text("Enter the world of Lunar Light")
+            }
+        }
+
+
 
     }
 
