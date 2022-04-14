@@ -69,5 +69,6 @@ object AppIndex {
     val lobbyTabView = 1
     val onlineUsersView = 2
     val privateChatView = 3
+    val welcomeView = 4
 
 }

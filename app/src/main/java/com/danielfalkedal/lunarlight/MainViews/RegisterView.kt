@@ -12,6 +12,7 @@ import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import java.util.*
+import javax.security.auth.login.LoginException
 
 @Composable
 fun RegisterView() {
@@ -90,6 +91,8 @@ fun RegisterView() {
                 day.value.toLong()
             )
             RegisterViewExtension().createUser(newUser)
+            LoginViewExtention().login(newUser)
+            AppIndexManager.setIndex(AppIndex.welcomeView)
         }) {
             Text("Sign up")
         }

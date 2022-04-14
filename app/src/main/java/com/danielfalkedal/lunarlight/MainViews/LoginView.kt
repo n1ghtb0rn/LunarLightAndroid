@@ -74,6 +74,7 @@ fun LoginView() {
                 if (loginUser != null) {
                     Log.d("DanneA", "2")
                     LoginViewExtention().login(loginUser)
+                    AppIndexManager.setIndex(AppIndex.lobbyTabView)
                 }
 
             }) {
@@ -111,7 +112,7 @@ class LoginViewExtention {
         AppIndexManager.friendModel = FriendModel()
         AppIndexManager.friendModel.listenToUserFriends()
 
-        AppIndexManager.setIndex(AppIndex.lobbyTabView)
+
 
     }
 
