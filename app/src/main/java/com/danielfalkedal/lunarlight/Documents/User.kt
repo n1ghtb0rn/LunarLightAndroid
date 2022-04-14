@@ -22,9 +22,18 @@ data class User(
 
     companion object {
 
-        fun getAvatarResource(user: User): Int {
+        fun getStoneImages(user: User): Array<String> {
 
-            val uri = "drawable/" + user.avatar
+            val stoneIndex = getStoneIndex(user.month.toInt(), user.day.toInt())
+            val stoneCategory = LocalData.profileBackground[stoneIndex]
+            val stoneImages = LocalData.stoneImages[stoneCategory]
+
+            return stoneImages!!
+        }
+
+        fun getAvatarResource(name: String): Int {
+
+            val uri = "drawable/" + name
             val imageResource: Int = MainActivity.resources!!.getIdentifier(uri, null, MainActivity.packageName)
 
             return imageResource

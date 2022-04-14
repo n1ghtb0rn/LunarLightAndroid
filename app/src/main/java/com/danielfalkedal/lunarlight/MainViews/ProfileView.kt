@@ -47,7 +47,7 @@ fun ProfileView(user: User) {
         Text(user.username)
 
         Image(
-            painter = painterResource(User.getAvatarResource(user)),
+            painter = painterResource(User.getAvatarResource(user.avatar)),
             contentDescription = "Contact profile picture",
         )
 
