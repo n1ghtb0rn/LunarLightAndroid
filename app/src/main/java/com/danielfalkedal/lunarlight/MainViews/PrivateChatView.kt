@@ -1,6 +1,5 @@
 package com.danielfalkedal.lunarlight.MainViews
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,21 +20,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Collections.PrivateMessageModel
-import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.PrivateMessage
-import com.danielfalkedal.lunarlight.Documents.User
-import com.danielfalkedal.lunarlight.Documents.WorldMessage
 import com.danielfalkedal.lunarlight.Factories.PrivateMessageViewModelFactory
-import com.danielfalkedal.lunarlight.Factories.UserViewModelFactory
 import com.danielfalkedal.lunarlight.Responses.OnErrorPrivateMsgs
-import com.danielfalkedal.lunarlight.Responses.OnErrorWorldMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessPrivateMsgs
-import com.danielfalkedal.lunarlight.Responses.OnSuccessWorldMsgs
 import com.danielfalkedal.lunarlight.SubViews.MessageView
-import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
 import com.danielfalkedal.lunarlight.ViewModels.PrivateMessagesViewModel
-import com.danielfalkedal.lunarlight.ViewModels.SharedPrivateMessagesViewModel
-import com.danielfalkedal.lunarlight.ViewModels.UsersViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.*
 
@@ -146,7 +136,7 @@ fun PrivateChatView(
                 val timestamp: Long = System.currentTimeMillis().toLong()
 
                 val newPrivateMessage = PrivateMessage(id, senderId, receiverId, message, timestamp)
-                AppIndexManager.privateMessageModel.createPrivateMessage(newPrivateMessage)
+                PrivateMessageModel().createPrivateMessage(newPrivateMessage)
 
                 inputMessage.value = TextFieldValue("")
             }) {

@@ -88,7 +88,7 @@ fun WorldChatView(
         when (val worldMessagesList = worldMessagesViewModel.worldMessagesStateFlow.asStateFlow().collectAsState().value) {
 
             is OnErrorWorldMsgs -> {
-                Text(text = "Please try after sometime")
+                Text(text = "Please try after sometime (OnErrorWorldMsgs)")
             }
 
             is OnSuccessWorldMsgs -> {
@@ -124,7 +124,7 @@ fun WorldChatView(
 
             }
             else -> {
-                Text(text = "Please try after sometime")
+                Text(text = "PrivateChatView: Unknown response type")
             }
 
         }

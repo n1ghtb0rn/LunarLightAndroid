@@ -77,7 +77,6 @@ fun FriendsView(
 
                                 Button(onClick = {
                                     AppIndexManager.privateChatUser = it
-                                    AppIndexManager.initPrivateMessageModel()
                                     AppIndexManager.setIndex(AppIndex.privateChatView)
                                 }, colors = ButtonDefaults.buttonColors(
                                     backgroundColor = getColorByUser(it)

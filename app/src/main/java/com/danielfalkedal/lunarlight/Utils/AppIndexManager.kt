@@ -24,7 +24,6 @@ object AppIndexManager: ViewModel() {
 
     val userOnlineModel = UserOnlineModel()
     lateinit var friendModel: FriendModel
-    lateinit var privateMessageModel: PrivateMessageModel
 
     var profileUser: User
     var privateChatUser: User
@@ -60,12 +59,6 @@ object AppIndexManager: ViewModel() {
         Realm.init(context)
         realmUserDao = RealmUserDao()
 
-    }
-
-    fun initPrivateMessageModel() {
-        privateMessageModel = PrivateMessageModel()
-        privateMessageModel.listenToUserPrivateMsgs()
-        privateMessageModel.listenToFriendPrivateMsgs()
     }
 
 }
