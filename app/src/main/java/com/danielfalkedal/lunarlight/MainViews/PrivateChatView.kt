@@ -52,8 +52,8 @@ fun PrivateChatView(
         modifier = Modifier
             .background(brush = Brush.verticalGradient(
                 colors = listOf(
-                    getUserBackgroundColor(currentUser.month, currentUser.day),
-                    getUserBackgroundColor(friend.month, friend.day)
+                    getUserBackgroundColor(friend.month, friend.day),
+                    getUserBackgroundColor(currentUser.month, currentUser.day)
                 )
             ))
             .padding(8.dp)
