@@ -3,12 +3,14 @@ package com.danielfalkedal.lunarlight.Collections
 import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.PrivateMessage
+import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Responses.OnErrorPrivateMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessPrivateMsgs
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import com.danielfalkedal.lunarlight.ViewModels.SharedPrivateMessagesViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -133,7 +135,11 @@ class PrivateMessageModel {
         val snapshotListener = collection.addSnapshotListener { value, error ->
 
             val response = if (error == null) {
-                OnSuccessPrivateMsgs(value)
+
+                //Filter to get only relevant chat dialogue (between current user and current friend)
+                val filteredMessages = PrivateMessageModel.getFilteredMessages(value!!)
+
+                OnSuccessPrivateMsgs(filteredMessages)
             } else {
                 OnErrorPrivateMsgs(error)
             }
@@ -145,6 +151,34 @@ class PrivateMessageModel {
         awaitClose {
             snapshotListener.remove()
         }
+    }
+
+    companion object {
+
+        fun getFilteredMessages(value: QuerySnapshot): MutableList<PrivateMessage> {
+
+            val filteredMessages = ArrayList<PrivateMessage>()
+
+            val userId = AppIndexManager.currentUser.id
+            val friendId = AppIndexManager.privateChatUser.id
+
+            for (document in value) {
+
+                /* Auto-mapping: */
+                val message: PrivateMessage = document.toObject(PrivateMessage::class.java)
+
+                if (message.sender_id == userId && message.receiver_id == friendId) {
+                    filteredMessages.add(message)
+                }
+                else if (message.sender_id == friendId && message.receiver_id == userId) {
+                    filteredMessages.add(message)
+                }
+            }
+
+            return filteredMessages
+
+        }
+
     }
 
 }

@@ -122,45 +122,46 @@ fun WorldChatView(
 
                 }
 
-                Row(
-                    modifier = Modifier.weight(0.5f),
-                    verticalAlignment = Alignment.CenterVertically,
-
-                ) {
-                    TextField(
-                        value = inputMessage.value,
-                        onValueChange = {
-                            inputMessage.value = it
-                        }
-                    )
-
-                    Button(onClick = {
-
-                        val currentUser = AppIndexManager.currentUser
-
-                        val id = UUID.randomUUID().toString()
-                        val userId = currentUser.id
-                        val username = currentUser.username
-                        val timestamp: Long = System.currentTimeMillis().toLong()
-                        val avatar = currentUser.avatar
-                        val month: Long = currentUser.month
-                        val day: Long = currentUser.day
-                        val message = inputMessage.value.text
-
-
-                        val newWorldMessage = WorldMessage(id, userId, username, timestamp, avatar,month,day, message)
-                        val worldMessagesRepo = WorldMessageModel()
-                        worldMessagesRepo.createWorldMessage(newWorldMessage)
-
-                        inputMessage.value = TextFieldValue("")
-                    }) {
-                        Text("Send")
-                    }
-                }
-
             }
             else -> {
                 Text(text = "Please try after sometime")
+            }
+
+        }
+
+        Row(
+            modifier = Modifier.weight(0.5f),
+            verticalAlignment = Alignment.CenterVertically,
+
+            ) {
+            TextField(
+                value = inputMessage.value,
+                onValueChange = {
+                    inputMessage.value = it
+                }
+            )
+
+            Button(onClick = {
+
+                val currentUser = AppIndexManager.currentUser
+
+                val id = UUID.randomUUID().toString()
+                val userId = currentUser.id
+                val username = currentUser.username
+                val timestamp: Long = System.currentTimeMillis().toLong()
+                val avatar = currentUser.avatar
+                val month: Long = currentUser.month
+                val day: Long = currentUser.day
+                val message = inputMessage.value.text
+
+
+                val newWorldMessage = WorldMessage(id, userId, username, timestamp, avatar,month,day, message)
+                val worldMessagesRepo = WorldMessageModel()
+                worldMessagesRepo.createWorldMessage(newWorldMessage)
+
+                inputMessage.value = TextFieldValue("")
+            }) {
+                Text("Send")
             }
         }
 

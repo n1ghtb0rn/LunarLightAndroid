@@ -46,16 +46,14 @@ fun PrivateChatView(
     )
 ) {
 
-    val privateMessages: MutableList<PrivateMessage>? = SharedPrivateMessagesViewModel.privateMessages
+    //val privateMessages: MutableList<PrivateMessage>? = SharedPrivateMessagesViewModel.privateMessages
 
-    Log.d("DanneB", "privateMessages = ${privateMessages?.size}")
+    //Log.d("DanneB", "privateMessages = ${privateMessages?.size}")
 
     val currentUser = AppIndexManager.currentUser
     val friend = AppIndexManager.privateChatUser
 
     val inputMessage = remember { mutableStateOf(TextFieldValue()) }
-
-
 
     Column() {
 
@@ -78,39 +76,54 @@ fun PrivateChatView(
 
         }
 
+        when (val privateMessagesList = privateMessagesViewModel.privateMessagesStateFlow.asStateFlow().collectAsState().value) {
 
-        LazyColumn(
-            modifier = Modifier.clip(RoundedCornerShape(12.dp))
-                .background(Color.LightGray)
-                .weight(3f)
-                .padding(vertical = 8.dp)
-            //modifier = Modifier
-            //    .fillMaxHeight()
-        ) {
-            if (privateMessages != null) {
-
-                val filteredMessages = PrivateChatViewExtension.getFilteredMessages(privateMessages, currentUser, friend)
-
-                items(filteredMessages) {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        shape = RoundedCornerShape(16.dp)
-                    ) {
-                        if (it.sender_id == currentUser.id) {
-                            MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.month, currentUser.day)
-                        }
-                        else {
-                            MessageView(friend.username, it.my_message, it.timestamp, friend.month, friend.day)
-                        }
-
-                    }
-                }
+            is OnErrorPrivateMsgs -> {
+                Text(text = "Please try after sometime")
             }
+
+            is OnSuccessPrivateMsgs -> {
+
+                val listOfPrivateMessages = privateMessagesList.privateMessages
+                listOfPrivateMessages?.let {
+
+                    LazyColumn(
+                        modifier = Modifier.clip(RoundedCornerShape(12.dp))
+                            .background(Color.LightGray)
+                            .weight(3f)
+                            .padding(vertical = 8.dp)
+                        //modifier = Modifier
+                        //    .fillMaxHeight()
+                    ) {
+                        items(listOfPrivateMessages) {
+
+
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                shape = RoundedCornerShape(16.dp)
+                            ) {
+                                if (it.sender_id == currentUser.id) {
+                                    MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.month, currentUser.day)
+                                }
+                                else {
+                                    MessageView(friend.username, it.my_message, it.timestamp, friend.month, friend.day)
+                                }
+                            }
+
+
+                        }
+                    }
+
+                }
+
+            }
+            else -> {
+                Text(text = "Please try after sometime")
+            }
+
         }
-
-
 
         Row(
             modifier = Modifier.weight(0.5f),
@@ -142,29 +155,4 @@ fun PrivateChatView(
         }
 
     }
-}
-
-class PrivateChatViewExtension {
-
-    companion object {
-
-        fun getFilteredMessages(messages: MutableList<PrivateMessage>, user: User, friend: User): MutableList<PrivateMessage> {
-
-            val filteredMessages = ArrayList<PrivateMessage>()
-
-            for (message in messages) {
-                if (message.sender_id == user.id && message.receiver_id == friend.id) {
-                    filteredMessages.add(message)
-                }
-                else if (message.sender_id == friend.id && message.receiver_id == user.id) {
-                    filteredMessages.add(message)
-                }
-            }
-
-            return filteredMessages
-
-        }
-
-    }
-
 }
