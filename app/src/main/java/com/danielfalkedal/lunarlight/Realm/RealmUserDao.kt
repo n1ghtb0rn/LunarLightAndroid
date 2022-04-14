@@ -24,8 +24,6 @@ class RealmUserDao {
 
     fun addUser(newUser: UserRealm) {
 
-        deleteAllUsers()
-
         database.executeTransaction{
             it.insert(newUser)
         }

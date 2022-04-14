@@ -22,7 +22,7 @@ import com.danielfalkedal.lunarlight.Realm.UserRealm
 @Composable
 fun LoginView() {
 
-    //LoginViewExtention().checkAutoLogin()
+    LoginViewExtention().checkAutoLogin()
 
     val userModel = UserModel()
     userModel.listenToUsers()
@@ -102,6 +102,7 @@ class LoginViewExtention {
             user.day,
             user.profile_info
         )
+        AppIndexManager.realmUserDao.deleteAllUsers()
         AppIndexManager.realmUserDao.addUser(userRealm)
 
         val userOnline = UserOnline(user.id, true, user.username)
@@ -113,18 +114,23 @@ class LoginViewExtention {
         AppIndexManager.friendModel = FriendModel()
         AppIndexManager.friendModel.listenToUserFriends()
 
-
+        AppIndexManager.setIndex(AppIndex.lobbyTabView)
 
     }
 
     fun checkAutoLogin() {
 
+        Log.d("Danne1", "1")
+
         val users = AppIndexManager.realmUserDao.getUsers()
         if (users.isEmpty()) {
+            Log.d("Danne1", "2: empty")
             return
         }
 
         val userRealm = users[0]
+
+        Log.d("Danne1", "3: ${userRealm}")
 
         val user = User(
             userRealm.id,
