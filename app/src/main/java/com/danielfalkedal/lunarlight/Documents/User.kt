@@ -2,6 +2,7 @@ package com.danielfalkedal.lunarlight.Documents
 
 import android.util.Log
 import androidx.compose.ui.graphics.Color
+import com.danielfalkedal.lunarlight.MainActivity
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 
@@ -19,6 +20,14 @@ data class User(
     constructor() : this("", "", "", "", "", 2010, 1, 1)
 
     companion object {
+
+        fun getAvatarResource(user: User): Int {
+
+            val uri = "drawable/" + user.avatar
+            val imageResource: Int = MainActivity.resources!!.getIdentifier(uri, null, MainActivity.packageName)
+
+            return imageResource
+        }
 
         fun getColor(user: User): Color {
 

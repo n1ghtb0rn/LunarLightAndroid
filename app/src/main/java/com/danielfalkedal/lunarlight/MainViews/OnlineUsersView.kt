@@ -26,6 +26,7 @@ import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Factories.UserViewModelFactory
+import com.danielfalkedal.lunarlight.MainActivity
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
