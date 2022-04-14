@@ -30,15 +30,15 @@ object AppIndexManager: ViewModel() {
     var currentUser: User
 
     val testUser: User = User(
-        "DEBD7D8A-83CF-48A8-9312-87BB897D4DC8",
-        "test",
+        "02ea7ee1-571d-40fb-9c90-4e12a6b7ba69",
+        "android",
         "12345",
-        "test@email.se",
-        "capricorn_5",
-        2010,
-        1,
-        1,
-        "This is me dude"
+        "android@email.se",
+        "taurus_1",
+        2000,
+        5,
+        5,
+        "My profile info."
     )
 
     init {
