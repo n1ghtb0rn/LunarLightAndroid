@@ -6,6 +6,7 @@ import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.danielfalkedal.lunarlight.Documents.UserOnline
+import com.danielfalkedal.lunarlight.Utils.LocalData
 import kotlinx.coroutines.flow.toSet
 import java.util.*
 
@@ -18,7 +19,7 @@ class UserOnlineModel {
     fun updateUserOnline(userOnline: UserOnline) {
 
         firestore
-            .collection("users_online").document(userOnline.id)
+            .collection(LocalData.USERS_ONLINE_COLLECTION_KEY).document(userOnline.id)
             .set(userOnline)
             .addOnSuccessListener { log -> Log.d("Danne", "User online updated in firestore with id ${userOnline.id}.") }
             .addOnFailureListener { log -> Log.e("Danne", "Error: Could not update user online in database.") }
@@ -29,7 +30,7 @@ class UserOnlineModel {
         Log.d("DanneX", "Activating listener...")
 
         firestore
-            .collection("users_online")
+            .collection(LocalData.USERS_ONLINE_COLLECTION_KEY)
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     Log.e("Danne", "Database listener error")

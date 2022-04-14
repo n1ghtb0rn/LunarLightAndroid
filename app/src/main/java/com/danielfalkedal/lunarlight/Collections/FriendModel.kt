@@ -31,7 +31,7 @@ class FriendModel {
         val currentUserId = AppIndexManager.currentUser.id
 
         firestore
-            .collection("users").document(currentUserId).collection("friends")
+            .collection(LocalData.USERS_COLLECTION_KEY).document(currentUserId).collection(LocalData.FRIENDS_COLLECTION_KEY)
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     Log.e("Danne", "Database listener error")

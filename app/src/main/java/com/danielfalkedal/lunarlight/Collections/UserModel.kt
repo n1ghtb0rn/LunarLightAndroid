@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
+import com.danielfalkedal.lunarlight.Utils.LocalData
 import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
 import com.danielfalkedal.lunarlight.ViewModels.userCategory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +23,7 @@ class UserModel {
 
     fun createUser(newUser: User) {
 
-        firestore.collection("users").document(newUser.id).set(newUser)
+        firestore.collection(LocalData.USERS_COLLECTION_KEY).document(newUser.id).set(newUser)
             .addOnSuccessListener { Log.d("Danne", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w("Danne", "Error writing document", e) }
 
@@ -65,7 +66,7 @@ class UserModel {
 
             Log.d("DanneX", "User listener started!")
 
-            val collection = firestore.collection("users")//.whereIn("id", userIds)
+            val collection = firestore.collection(LocalData.USERS_COLLECTION_KEY)//.whereIn("id", userIds)
             val snapshotListener = collection.addSnapshotListener { value, error ->
 
                 Log.d("DanneX", "Response:")
@@ -93,7 +94,7 @@ class UserModel {
     fun listenToUsers() {
 
         firestore
-            .collection("users")
+            .collection(LocalData.USERS_COLLECTION_KEY)
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     Log.e("Danne", "Database listener error")
@@ -113,25 +114,6 @@ class UserModel {
                     val user: User = document.toObject(User::class.java)
 
                     users.add(user)
-
-                    /* Manual mapping: */
-
-                    /*
-                    val id = document.getString("id")
-                    val username = document.getString("username")
-                    val password = document.getString("password")
-                    val email = document.getString("email")
-                    val avatar = document.getString("avatar")
-                    val year = document.getLong("year")
-                    val month = document.getLong("month")
-                    val day = document.getLong("day")
-
-                    if (id != null && username != null && password != null && email != null && avatar != null && year != null && month != null && day != null) {
-                        val user = User(id, username, password, email, avatar, year, month, day)
-                        users.add(user)
-                    }
-
-                     */
 
                 }
 
