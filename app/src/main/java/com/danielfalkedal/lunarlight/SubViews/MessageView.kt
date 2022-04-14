@@ -3,6 +3,7 @@ package com.danielfalkedal.lunarlight.SubViews
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -26,7 +28,7 @@ import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MessageView(username: String, message: String, timestamp: Long, month: Long, day: Long, isPrivate: Boolean) {
+fun MessageView(username: String, message: String, timestamp: Long, avatar: String, month: Long, day: Long, isPrivate: Boolean) {
     var showMessageDescription by remember { mutableStateOf(false) }
     val worldMessageCoverImageSize by animateDpAsState(
         targetValue =
@@ -34,8 +36,6 @@ fun MessageView(username: String, message: String, timestamp: Long, month: Long,
     )
 
     val timestampConverter = TimestampConverter()
-
-    val backgroundColor: Color = getUserBackgroundColor(month, day)
 
     Card(
         modifier = Modifier
@@ -51,11 +51,23 @@ fun MessageView(username: String, message: String, timestamp: Long, month: Long,
             }) {
             Row(modifier = Modifier.padding(12.dp)) {
 
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(0.12f)
+                        .padding(8.dp)
+                ) {
+                    Image(
+                        painter = painterResource(User.getAvatarResource(avatar)),
+                        contentDescription = "Profile avatar"
+                    )
+                }
 
                 Column {
                     if (!isPrivate) {
                         Text(
-                            text = username, style = TextStyle(
+                            modifier = Modifier
+                                .padding(0.dp, 0.dp, 16.dp),
+                            text = "$username:", style = TextStyle(
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 16.sp
                             )
@@ -63,6 +75,8 @@ fun MessageView(username: String, message: String, timestamp: Long, month: Long,
                     }
 
                     Text(
+                        modifier = Modifier
+                            .padding(0.dp, 8.dp, 16.dp, 8.dp),
                         text = message, style = TextStyle(
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 14.sp

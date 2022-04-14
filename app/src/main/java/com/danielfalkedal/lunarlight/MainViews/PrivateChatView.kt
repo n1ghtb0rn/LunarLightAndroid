@@ -103,10 +103,10 @@ fun PrivateChatView(
                         items(listOfPrivateMessages) {
 
                             if (it.sender_id == currentUser.id) {
-                                MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.month, currentUser.day, true)
+                                MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.avatar, currentUser.month, currentUser.day, true)
                             }
                             else {
-                                MessageView(friend.username, it.my_message, it.timestamp, friend.month, friend.day, true)
+                                MessageView(friend.username, it.my_message, it.timestamp, friend.avatar, friend.month, friend.day, true)
                             }
 
                         }

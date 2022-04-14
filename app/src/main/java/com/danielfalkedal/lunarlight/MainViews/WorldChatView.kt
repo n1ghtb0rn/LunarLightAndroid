@@ -104,7 +104,7 @@ fun WorldChatView(
                     ) {
                         items(listOfWorldMessages) {
 
-                            MessageView(it.username, it.message, it.timestamp, it.month, it.day, false)
+                            MessageView(it.username, it.message, it.timestamp, it.avatar, it.month, it.day, false)
 
                         }
                     }
