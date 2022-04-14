@@ -33,9 +33,9 @@ fun ProfileView(user: User) {
                 Text("Add friend")
             }
         }
-        Text(user.avatar)
+
         Text(user.username)
-        Text("Background color index = ${User.getStoneIndex(user.month.toInt(), user.day.toInt())}")
+        Text(user.avatar)
 
     }
 
