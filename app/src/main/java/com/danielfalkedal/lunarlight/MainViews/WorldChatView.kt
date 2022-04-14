@@ -43,7 +43,9 @@ fun WorldChatView(
     Column() {
 
         Column(
-            modifier = Modifier.weight(0.6f).fillMaxSize(),
+            modifier = Modifier
+                .weight(0.6f)
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -94,7 +96,8 @@ fun WorldChatView(
                 listOfWorldMessages?.let {
 
                     LazyColumn(
-                        modifier = Modifier.clip(RoundedCornerShape(12.dp))
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(12.dp))
                             .background(BlackTransparent)
                             .weight(3f)
                             .fillMaxWidth()
@@ -119,40 +122,46 @@ fun WorldChatView(
         }
 
         Row(
-            modifier = Modifier.weight(0.5f),
+            modifier = Modifier
+                .weight(0.5f)
+                .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
 
             ) {
-            TextField(
-                value = inputMessage.value,
-                onValueChange = {
-                    inputMessage.value = it
+
+            Column(Modifier.weight(0.8f)) {
+                TextField(
+                    value = inputMessage.value,
+                    onValueChange = {
+                        inputMessage.value = it
+                    }
+                )
+            }
+
+            Column(Modifier.weight(0.2f)) {
+                Button(onClick = {
+
+                    val currentUser = AppIndexManager.loggedInUser
+
+                    val id = UUID.randomUUID().toString()
+                    val userId = currentUser.id
+                    val username = currentUser.username
+                    val timestamp: Long = System.currentTimeMillis().toLong()
+                    val avatar = currentUser.avatar
+                    val month: Long = currentUser.month
+                    val day: Long = currentUser.day
+                    val message = inputMessage.value.text
+
+
+                    val newWorldMessage = WorldMessage(id, userId, username, timestamp, avatar,month,day, message)
+                    val worldMessagesRepo = WorldMessageModel()
+                    worldMessagesRepo.createWorldMessage(newWorldMessage)
+
+                    inputMessage.value = TextFieldValue("")
+                }) {
+                    Text("Send")
                 }
-            )
-
-            Button(onClick = {
-
-                val currentUser = AppIndexManager.loggedInUser
-
-                val id = UUID.randomUUID().toString()
-                val userId = currentUser.id
-                val username = currentUser.username
-                val timestamp: Long = System.currentTimeMillis().toLong()
-                val avatar = currentUser.avatar
-                val month: Long = currentUser.month
-                val day: Long = currentUser.day
-                val message = inputMessage.value.text
-
-
-                val newWorldMessage = WorldMessage(id, userId, username, timestamp, avatar,month,day, message)
-                val worldMessagesRepo = WorldMessageModel()
-                worldMessagesRepo.createWorldMessage(newWorldMessage)
-
-                inputMessage.value = TextFieldValue("")
-            }) {
-                Text("Send")
             }
         }
-
     }
 }

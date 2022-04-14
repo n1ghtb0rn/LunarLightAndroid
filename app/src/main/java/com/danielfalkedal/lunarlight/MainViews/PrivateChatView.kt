@@ -49,12 +49,14 @@ fun PrivateChatView(
 
     Column(
         modifier = Modifier
-            .background(brush = Brush.verticalGradient(
-                colors = listOf(
-                    getUserBackgroundColor(friend.month, friend.day),
-                    getUserBackgroundColor(currentUser.month, currentUser.day)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        getUserBackgroundColor(friend.month, friend.day),
+                        getUserBackgroundColor(currentUser.month, currentUser.day)
+                    )
                 )
-            ))
+            )
             .padding(8.dp)
     ) {
 
@@ -125,34 +127,42 @@ fun PrivateChatView(
 
         Row(
             modifier = Modifier
+                .padding(8.dp)
                 .weight(0.5f)
                 .clip(RoundedCornerShape(12.dp))
                 .background(BlackTransparent),
             verticalAlignment = Alignment.CenterVertically
 
             ) {
-            TextField(
-                value = inputMessage.value,
-                onValueChange = {
-                    inputMessage.value = it
-                }
-            )
 
-            Button(onClick = {
-
-                val id = UUID.randomUUID().toString()
-                val senderId = currentUser.id
-                val receiverId = friend.id
-                val message = inputMessage.value.text
-                val timestamp: Long = System.currentTimeMillis().toLong()
-
-                val newPrivateMessage = PrivateMessage(id, senderId, receiverId, message, timestamp)
-                PrivateMessageModel().createPrivateMessage(newPrivateMessage)
-
-                inputMessage.value = TextFieldValue("")
-            }) {
-                Text("Send")
+            Column(Modifier.weight(0.8f)) {
+                TextField(
+                    value = inputMessage.value,
+                    onValueChange = {
+                        inputMessage.value = it
+                    },
+                )
             }
+
+            Column(Modifier.weight(0.2f)) {
+                Button(onClick = {
+
+                    val id = UUID.randomUUID().toString()
+                    val senderId = currentUser.id
+                    val receiverId = friend.id
+                    val message = inputMessage.value.text
+                    val timestamp: Long = System.currentTimeMillis().toLong()
+
+                    val newPrivateMessage = PrivateMessage(id, senderId, receiverId, message, timestamp)
+                    PrivateMessageModel().createPrivateMessage(newPrivateMessage)
+
+                    inputMessage.value = TextFieldValue("")
+                }) {
+                    Text("Send")
+                }
+            }
+
+
         }
 
     }

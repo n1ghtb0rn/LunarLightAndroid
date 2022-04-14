@@ -53,7 +53,7 @@ fun MessageView(username: String, message: String, timestamp: Long, avatar: Stri
 
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(0.12f)
+                        .fillMaxSize(0.16f)
                         .padding(8.dp)
                 ) {
                     Image(
