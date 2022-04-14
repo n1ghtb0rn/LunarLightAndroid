@@ -2,10 +2,7 @@ package com.danielfalkedal.lunarlight.MainViews
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -32,15 +29,23 @@ fun ProfileView(user: User) {
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(brush = Brush.verticalGradient(
-                colors = listOf(
-                    Color.White,
-                    getUserBackgroundColor(user.month, user.day)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color.White,
+                        getUserBackgroundColor(user.month, user.day)
+                    )
                 )
-            ))
+            )
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Text(
+            text = user.username,
+            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
+            modifier = Modifier.padding(16.dp)
+        )
 
         if (AppIndexManager.loggedInUser.id != user.id) {
             Button(onClick = {
@@ -51,18 +56,14 @@ fun ProfileView(user: User) {
             }
         }
 
-        Spacer(modifier = Modifier.weight(0.5f))
-
-        Text(
-            text = user.username,
-            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
-            modifier = Modifier.padding(16.dp)
-        )
-
-        Image(
-            painter = painterResource(User.getAvatarResource(user.avatar)),
-            contentDescription = "Contact profile picture",
-        )
+        Column(Modifier.fillMaxSize(0.5f),
+                horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(User.getAvatarResource(user.avatar)),
+                contentDescription = "Contact profile picture",
+            )
+        }
 
         Spacer(modifier = Modifier.weight(0.5f))
 

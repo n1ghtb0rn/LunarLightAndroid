@@ -73,10 +73,14 @@ fun PrivateChatView(
                 modifier = Modifier.padding(16.dp)
             )
 
-            Button(onClick = {
-                AppIndexManager.setIndex(AppIndex.lobbyTabView)
-            }) {
-                Text("Back")
+            Row() {
+                Button(onClick = {
+                    AppIndexManager.setIndex(AppIndex.lobbyTabView)
+                }, Modifier.weight(0.3f)) {
+                    Text("Back")
+                }
+
+                Spacer(Modifier.weight(0.7f))
             }
 
         }
