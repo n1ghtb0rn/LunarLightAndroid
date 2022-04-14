@@ -80,12 +80,18 @@ fun RegisterView() {
         )
 
         Button(onClick = {
+
+            val stoneIndex = User.getStoneIndex(month.value.toInt(), day.value.toInt())
+            val stoneCategory = LocalData.profileBackground[stoneIndex]
+            val avatars = LocalData.stoneImages[stoneCategory]
+            val avatar = avatars!![0]
+
             val newUser: User = User(
                 UUID.randomUUID().toString(),
                 username.value,
                 password.value,
                 email.value,
-                "leo_1",
+                avatar,
                 year.value.toLong(),
                 month.value.toLong(),
                 day.value.toLong()
