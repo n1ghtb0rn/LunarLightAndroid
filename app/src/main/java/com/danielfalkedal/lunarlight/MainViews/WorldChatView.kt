@@ -29,6 +29,7 @@ import com.danielfalkedal.lunarlight.Responses.OnErrorWorldMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessWorldMsgs
 import com.danielfalkedal.lunarlight.SubViews.MessageView
 import com.danielfalkedal.lunarlight.ViewModels.WorldMessagesViewModel
+import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.*
 
@@ -98,7 +99,7 @@ fun WorldChatView(
 
                     LazyColumn(
                         modifier = Modifier.clip(RoundedCornerShape(12.dp))
-                            .background(Color.LightGray)
+                            .background(BlackTransparent)
                             .weight(3f)
                             .padding(vertical = 8.dp)
                         //modifier = Modifier

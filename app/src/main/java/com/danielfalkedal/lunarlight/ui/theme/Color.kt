@@ -10,6 +10,8 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
+val BlackTransparent = Color(0, 0, 0, 75)
+
 val Aquarius = Color(159, 236, 255, 255)
 val Aries = Color(250, 170, 61, 255)
 val Cancer = Color(255, 85, 0, 255)
@@ -22,6 +24,13 @@ val Sagittarius = Color(255, 249, 146, 255)
 val Scorpio = Color(73, 228, 66, 255)
 val Taurus = Color(130, 255, 142, 255)
 val Virgo = Color(255, 177, 165, 255)
+
+fun getUserBackgroundColor(month: Long, day: Long): Color {
+    val colorIndex = User.getStoneIndex(month.toInt(), day.toInt())
+    val colorName = LocalData.profileBackground[colorIndex]
+    val color = getColorByUser(null, colorName)
+    return color
+}
 
 fun getColorByUser(user: User? = null, string: String? = null): Color {
 

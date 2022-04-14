@@ -1,10 +1,13 @@
 package com.danielfalkedal.lunarlight.MainViews
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.Friend
@@ -16,14 +19,19 @@ import java.util.*
 fun ProfileView(user: User) {
 
     Column(
-        modifier = Modifier.background(User.getColor(user))
+        modifier = Modifier
+            .background(User.getColor(user))
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Button(onClick = {
-            val friend = Friend(user.id)
-            AppIndexManager.friendModel.addFriend(friend)
-        }) {
-            Text("Add friend")
+        if (AppIndexManager.currentUser.id != user.id) {
+            Button(onClick = {
+                val friend = Friend(user.id)
+                AppIndexManager.friendModel.addFriend(friend)
+            }) {
+                Text("Add friend")
+            }
         }
         Text(user.avatar)
         Text(user.username)

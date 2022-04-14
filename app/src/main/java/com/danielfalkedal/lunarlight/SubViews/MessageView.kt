@@ -22,6 +22,7 @@ import com.danielfalkedal.lunarlight.Documents.WorldMessage
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import com.danielfalkedal.lunarlight.Utils.TimestampConverter
 import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
+import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -34,9 +35,9 @@ fun MessageView(username: String, message: String, timestamp: Long, month: Long,
 
     val timestampConverter = TimestampConverter()
 
-    val backgroundColor: Color = MessageExtension().getUserBackgroundColor(month, day)
+    val backgroundColor: Color = getUserBackgroundColor(month, day)
 
-    Column(modifier = Modifier.background(MessageExtension().getUserBackgroundColor(month, day)).clickable {
+    Column(modifier = Modifier.background(getUserBackgroundColor(month, day)).clickable {
         showMessageDescription = showMessageDescription.not()
     }) {
         Row(modifier = Modifier.padding(12.dp)) {
@@ -68,18 +69,6 @@ fun MessageView(username: String, message: String, timestamp: Long, month: Long,
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
             )
         }
-    }
-
-}
-
-class MessageExtension {
-
-    fun getUserBackgroundColor(month: Long, day: Long): Color {
-        val colorIndex = User.getStoneIndex(month.toInt(), day.toInt())
-        val colorName = LocalData.profileBackground[colorIndex]
-        val color = getColorByUser(null, colorName)
-        return color
-
     }
 
 }

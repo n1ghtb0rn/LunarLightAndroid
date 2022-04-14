@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +27,8 @@ import com.danielfalkedal.lunarlight.Responses.OnErrorPrivateMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessPrivateMsgs
 import com.danielfalkedal.lunarlight.SubViews.MessageView
 import com.danielfalkedal.lunarlight.ViewModels.PrivateMessagesViewModel
+import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
+import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.*
 
@@ -45,10 +48,21 @@ fun PrivateChatView(
 
     val inputMessage = remember { mutableStateOf(TextFieldValue()) }
 
-    Column() {
+    Column(
+        modifier = Modifier
+            .background(brush = Brush.verticalGradient(
+                colors = listOf(
+                    getUserBackgroundColor(currentUser.month, currentUser.day),
+                    getUserBackgroundColor(friend.month, friend.day)
+                )
+            ))
+            .padding(8.dp)
+    ) {
 
         Column(
-            modifier = Modifier.weight(0.6f).fillMaxSize(),
+            modifier = Modifier
+                .weight(0.6f)
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -78,8 +92,9 @@ fun PrivateChatView(
                 listOfPrivateMessages?.let {
 
                     LazyColumn(
-                        modifier = Modifier.clip(RoundedCornerShape(12.dp))
-                            .background(Color.LightGray)
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(BlackTransparent)
                             .weight(3f)
                             .padding(vertical = 8.dp)
                         //modifier = Modifier
@@ -115,9 +130,14 @@ fun PrivateChatView(
 
         }
 
+        Spacer(Modifier.height(8.dp))
+
         Row(
-            modifier = Modifier.weight(0.5f),
-            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .weight(0.5f)
+                .clip(RoundedCornerShape(12.dp))
+                .background(BlackTransparent),
+            verticalAlignment = Alignment.CenterVertically
 
             ) {
             TextField(
