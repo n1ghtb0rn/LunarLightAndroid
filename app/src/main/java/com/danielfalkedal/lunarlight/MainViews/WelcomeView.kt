@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -22,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
+import com.danielfalkedal.lunarlight.ui.theme.WhiteTransparent
 import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
@@ -63,8 +67,12 @@ fun WelcomeView() {
                     }
                     Button(onClick = {
                         selectedImage.value = imageString
-                    }, colors = ButtonDefaults.buttonColors(
-                        backgroundColor = if (selectedImage.value == imageString) Color.LightGray else Color.White
+                    }, Modifier
+                        .padding(8.dp)
+                        .size(75.dp),
+                        shape = CircleShape,
+                        colors = ButtonDefaults.buttonColors(
+                        backgroundColor = if (selectedImage.value == imageString) BlackTransparent else WhiteTransparent
                     )) {
                         Image(
                             painter = painterResource(User.getAvatarResource(imageString)),
