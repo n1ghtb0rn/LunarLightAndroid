@@ -1,10 +1,8 @@
 package com.danielfalkedal.lunarlight
 
-import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.danielfalkedal.lunarlight.Collections.FriendModel
-import com.danielfalkedal.lunarlight.Collections.PrivateMessageModel
 import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Realm.RealmUserDao
@@ -13,6 +11,7 @@ import io.realm.RealmConfiguration
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 object AppIndexManager: ViewModel() {
 
