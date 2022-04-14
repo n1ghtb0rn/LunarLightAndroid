@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 object AppIndexManager: ViewModel() {
 
-    private var _appIndex: MutableStateFlow<Int> = MutableStateFlow(AppIndex.welcomeView)
+    private var _appIndex: MutableStateFlow<Int> = MutableStateFlow(AppIndex.startView)
     val appIndex = _appIndex.asStateFlow()
 
     lateinit var realmUserDao: RealmUserDao

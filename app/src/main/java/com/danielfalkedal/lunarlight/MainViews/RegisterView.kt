@@ -11,6 +11,8 @@ import androidx.compose.ui.Alignment
 import com.danielfalkedal.lunarlight.Collections.FriendModel
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Realm.RealmUserDao
+import com.danielfalkedal.lunarlight.Realm.UserRealm
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import java.util.*
 import javax.security.auth.login.LoginException
@@ -122,6 +124,21 @@ class RegisterViewExtension {
 
         val userModel = UserModel()
         userModel.createOrUpdateUser(newUser)
+
+        val realmUserDao = RealmUserDao()
+        val userRealm = UserRealm(
+            newUser.id,
+            newUser.username,
+            newUser.password,
+            newUser.email,
+            newUser.avatar,
+            newUser.year,
+            newUser.month,
+            newUser.day,
+            newUser.profile_info
+
+        )
+        realmUserDao.createUser(userRealm)
 
     }
 
