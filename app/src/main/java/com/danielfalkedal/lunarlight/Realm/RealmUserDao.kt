@@ -22,12 +22,16 @@ class RealmUserDao {
         database = Realm.getDefaultInstance()
     }
 
-    fun addUser(newUser: UserRealm) {
+    fun createUser(newUser: UserRealm) {
 
         database.executeTransaction{
             it.insert(newUser)
         }
 
+    }
+
+    fun updateUser(user: UserRealm) {
+        //TODO:
     }
 
     fun deleteAllUsers() {

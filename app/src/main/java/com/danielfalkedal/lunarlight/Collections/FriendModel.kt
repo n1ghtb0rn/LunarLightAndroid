@@ -3,7 +3,6 @@ package com.danielfalkedal.lunarlight.Collections
 import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.Friend
-import com.danielfalkedal.lunarlight.Documents.UserOnline
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.ArrayList
@@ -16,7 +15,7 @@ class FriendModel {
 
     fun addFriend(newFriend: Friend){
 
-        val currentUserId = AppIndexManager.currentUser.id
+        val currentUserId = AppIndexManager.loggedInUser.id
 
         firestore
             .collection(LocalData.USERS_COLLECTION_KEY).document(currentUserId)
@@ -28,7 +27,7 @@ class FriendModel {
 
     fun listenToUserFriends() {
 
-        val currentUserId = AppIndexManager.currentUser.id
+        val currentUserId = AppIndexManager.loggedInUser.id
 
         firestore
             .collection(LocalData.USERS_COLLECTION_KEY).document(currentUserId).collection(LocalData.FRIENDS_COLLECTION_KEY)

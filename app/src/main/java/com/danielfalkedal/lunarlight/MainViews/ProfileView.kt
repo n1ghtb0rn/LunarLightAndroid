@@ -19,9 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.Friend
 import com.danielfalkedal.lunarlight.Documents.User
-import com.danielfalkedal.lunarlight.MainActivity
 import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
-import java.util.*
 
 
 @Composable
@@ -40,7 +38,7 @@ fun ProfileView(user: User) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        if (AppIndexManager.currentUser.id != user.id) {
+        if (AppIndexManager.loggedInUser.id != user.id) {
             Button(onClick = {
                 val friend = Friend(user.id)
                 AppIndexManager.friendModel.addFriend(friend)

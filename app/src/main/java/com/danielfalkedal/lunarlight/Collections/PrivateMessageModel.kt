@@ -19,7 +19,7 @@ class PrivateMessageModel {
 
     fun createPrivateMessage(newPrivateMessage: PrivateMessage) {
 
-        val userId = AppIndexManager.currentUser.id
+        val userId = AppIndexManager.loggedInUser.id
         val friendId = AppIndexManager.privateChatUser.id
 
         if (userId == friendId) {
@@ -75,7 +75,7 @@ class PrivateMessageModel {
 
             val filteredMessages = ArrayList<PrivateMessage>()
 
-            val userId = AppIndexManager.currentUser.id
+            val userId = AppIndexManager.loggedInUser.id
             val friendId = AppIndexManager.privateChatUser.id
 
             for (document in value) {

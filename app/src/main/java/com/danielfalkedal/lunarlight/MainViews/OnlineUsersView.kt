@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -18,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
@@ -26,7 +24,6 @@ import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Factories.UserViewModelFactory
-import com.danielfalkedal.lunarlight.MainActivity
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
@@ -98,7 +95,7 @@ fun OnlineUsersView(
                                 //    .fillMaxHeight()
                             ) {
                                 items(listOfUsers) {
-                                    if (it.id != AppIndexManager.currentUser.id &&
+                                    if (it.id != AppIndexManager.loggedInUser.id &&
                                             AppIndexManager.userOnlineModel.usersOnlineIds.contains(it.id)) {
 
                                         Button(onClick = {

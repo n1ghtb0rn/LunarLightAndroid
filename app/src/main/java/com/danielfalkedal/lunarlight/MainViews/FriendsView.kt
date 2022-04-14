@@ -20,7 +20,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Collections.UserModel
-import com.danielfalkedal.lunarlight.Documents.Friend
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Factories.UserViewModelFactory
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
@@ -72,7 +71,7 @@ fun FriendsView(
 
                             Log.d("DanneX", "Local val friends count = ${friends.size}")
 
-                            if (it.id != AppIndexManager.currentUser.id &&
+                            if (it.id != AppIndexManager.loggedInUser.id &&
                                     it.id in AppIndexManager.friendModel.friendsIds) {
 
                                 Button(onClick = {

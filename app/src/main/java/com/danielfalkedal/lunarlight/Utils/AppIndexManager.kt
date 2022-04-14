@@ -6,12 +6,12 @@ import com.danielfalkedal.lunarlight.Collections.FriendModel
 import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Realm.RealmUserDao
+import com.danielfalkedal.lunarlight.Realm.UserRealm
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 object AppIndexManager: ViewModel() {
 
@@ -27,7 +27,8 @@ object AppIndexManager: ViewModel() {
     var profileUser: User
     var privateChatUser: User
 
-    var currentUser: User
+    var loggedInUser: User
+    var userRealm: UserRealm
 
     val testUser: User = User(
         "02ea7ee1-571d-40fb-9c90-4e12a6b7ba69",
@@ -42,9 +43,23 @@ object AppIndexManager: ViewModel() {
     )
 
     init {
-        currentUser = testUser
+        loggedInUser = testUser
         profileUser = testUser
         privateChatUser = testUser
+
+        val _userRealm = UserRealm(
+            testUser.id,
+            testUser.username,
+            testUser.password,
+            testUser.email,
+            testUser.avatar,
+            testUser.year,
+            testUser.month,
+            testUser.day,
+            testUser.profile_info
+        )
+        userRealm = _userRealm
+
         userOnlineModel.listenToUsersOnline()
     }
 

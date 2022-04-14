@@ -1,6 +1,5 @@
 package com.danielfalkedal.lunarlight.MainViews
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,7 +7,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -23,16 +21,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
+import com.danielfalkedal.lunarlight.Collections.FriendModel
+import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
 import com.danielfalkedal.lunarlight.ui.theme.WhiteTransparent
-import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
 @Composable
 fun WelcomeView() {
 
-    val stoneImages: List<String> = User.getStoneImages(AppIndexManager.currentUser).toList()
+    val stoneImages: List<String> = User.getStoneImages(AppIndexManager.loggedInUser).toList()
 
     var selectedImage = remember { mutableStateOf("") }
 
@@ -41,7 +40,7 @@ fun WelcomeView() {
             .background(brush = Brush.verticalGradient(
                 colors = listOf(
                     Color.White,
-                    getUserBackgroundColor(AppIndexManager.currentUser.month, AppIndexManager.currentUser.day)
+                    getUserBackgroundColor(AppIndexManager.loggedInUser.month, AppIndexManager.loggedInUser.day)
                 )
             ))
             .fillMaxWidth(),
@@ -53,7 +52,7 @@ fun WelcomeView() {
             modifier = Modifier.weight(3.0f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Welcome, ${AppIndexManager.currentUser.username}!")
+            Text(text = "Welcome, ${AppIndexManager.loggedInUser.username}!")
 
             Text(text = "Choose your avatar")
 
@@ -67,6 +66,9 @@ fun WelcomeView() {
                     }
                     Button(onClick = {
                         selectedImage.value = imageString
+                        AppIndexManager.loggedInUser.avatar = imageString
+                        val userModel = UserModel()
+                        userModel.createOrUpdateUser(AppIndexManager.loggedInUser)
                     }, Modifier
                         .padding(8.dp)
                         .size(75.dp),
@@ -88,6 +90,11 @@ fun WelcomeView() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(onClick = {
+
+                //TODO: REMOVE THE FOLLOWING THREE LINES (FOR TESTING ONLY)
+                AppIndexManager.friendModel = FriendModel()
+                AppIndexManager.friendModel.listenToUserFriends()
+
                 AppIndexManager.setIndex(AppIndex.lobbyTabView)
             }) {
                 Text("Enter the world of Lunar Light")

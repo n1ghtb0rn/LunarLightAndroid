@@ -27,7 +27,7 @@ fun LoginView() {
     val userModel = UserModel()
     userModel.listenToUsers()
 
-    val username = remember { mutableStateOf(TextFieldValue("danne")) }
+    val username = remember { mutableStateOf(TextFieldValue("android")) }
     val password = remember { mutableStateOf(TextFieldValue("12345")) }
 
     Column(
@@ -103,13 +103,13 @@ class LoginViewExtention {
             user.profile_info
         )
         AppIndexManager.realmUserDao.deleteAllUsers()
-        AppIndexManager.realmUserDao.addUser(userRealm)
+        AppIndexManager.realmUserDao.createUser(userRealm)
 
         val userOnline = UserOnline(user.id, true, user.username)
         val userOnlineModel = UserOnlineModel()
         userOnlineModel.updateUserOnline(userOnline)
 
-        AppIndexManager.currentUser = user
+        AppIndexManager.loggedInUser = user
 
         AppIndexManager.friendModel = FriendModel()
         AppIndexManager.friendModel.listenToUserFriends()

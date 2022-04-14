@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -43,7 +42,7 @@ fun PrivateChatView(
 
     //Log.d("DanneB", "privateMessages = ${privateMessages?.size}")
 
-    val currentUser = AppIndexManager.currentUser
+    val currentUser = AppIndexManager.loggedInUser
     val friend = AppIndexManager.privateChatUser
 
     val inputMessage = remember { mutableStateOf(TextFieldValue()) }

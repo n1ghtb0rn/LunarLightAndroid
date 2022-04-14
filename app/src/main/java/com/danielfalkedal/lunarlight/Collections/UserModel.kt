@@ -21,7 +21,7 @@ class UserModel {
     //Only for "background" data (not a state-var)
     var users = ArrayList<User>()
 
-    fun createUser(newUser: User) {
+    fun createOrUpdateUser(newUser: User) {
 
         firestore.collection(LocalData.USERS_COLLECTION_KEY).document(newUser.id).set(newUser)
             .addOnSuccessListener { Log.d("Danne", "DocumentSnapshot successfully written!") }

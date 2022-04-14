@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import com.danielfalkedal.lunarlight.Collections.FriendModel
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.Utils.LocalData
@@ -99,6 +100,7 @@ fun RegisterView() {
             )
             RegisterViewExtension().createUser(newUser)
             LoginViewExtention().login(newUser)
+
             AppIndexManager.setIndex(AppIndex.welcomeView)
         }) {
             Text("Sign up")
@@ -119,7 +121,7 @@ class RegisterViewExtension {
         newUser.avatar = avatar
 
         val userModel = UserModel()
-        userModel.createUser(newUser)
+        userModel.createOrUpdateUser(newUser)
 
     }
 
