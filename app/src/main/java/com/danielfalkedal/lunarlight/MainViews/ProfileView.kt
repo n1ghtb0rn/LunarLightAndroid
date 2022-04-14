@@ -12,12 +12,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Documents.Friend
 import com.danielfalkedal.lunarlight.Documents.User
 import com.danielfalkedal.lunarlight.MainActivity
+import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 import java.util.*
 
 
@@ -27,8 +30,12 @@ fun ProfileView(user: User) {
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(User.getColor(user))
-            .fillMaxWidth()
+            .background(brush = Brush.verticalGradient(
+                colors = listOf(
+                    Color.White,
+                    getUserBackgroundColor(user.month, user.day)
+                )
+            ))
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

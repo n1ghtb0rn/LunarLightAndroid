@@ -15,7 +15,7 @@ import java.lang.Exception
 
 object AppIndexManager: ViewModel() {
 
-    private var _appIndex: MutableStateFlow<Int> = MutableStateFlow(AppIndex.startView)
+    private var _appIndex: MutableStateFlow<Int> = MutableStateFlow(AppIndex.welcomeView)
     val appIndex = _appIndex.asStateFlow()
 
     lateinit var realmUserDao: RealmUserDao
