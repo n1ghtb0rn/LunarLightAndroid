@@ -94,7 +94,8 @@ fun RegisterView() {
                 avatar,
                 year.value.toLong(),
                 month.value.toLong(),
-                day.value.toLong()
+                day.value.toLong(),
+                "My profile info."
             )
             RegisterViewExtension().createUser(newUser)
             LoginViewExtention().login(newUser)
