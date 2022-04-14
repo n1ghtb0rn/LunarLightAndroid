@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.AppIndexManager
@@ -21,7 +22,25 @@ fun LobbyTabView() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Row() {
+        Row(
+            modifier = Modifier.weight(3.0f)
+        ) {
+            when (tabIndex.value) {
+
+                1 -> WorldChatView()
+
+                2 -> FriendsView()
+
+                3 -> ProfileView(AppIndexManager.currentUser)
+
+            }
+        }
+
+
+
+        Row(
+            modifier = Modifier.weight(0.3f)
+        ) {
             Button(onClick = {
                 tabIndex.value = 1
             }) {
@@ -43,16 +62,6 @@ fun LobbyTabView() {
             }) {
                 Text("Profile")
             }
-        }
-
-        when (tabIndex.value) {
-
-            1 -> WorldChatView()
-
-            2 -> FriendsView()
-
-            3 -> ProfileView(AppIndexManager.currentUser)
-
         }
 
     }
