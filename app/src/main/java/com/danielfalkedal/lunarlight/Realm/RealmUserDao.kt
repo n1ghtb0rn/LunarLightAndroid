@@ -32,6 +32,8 @@ class RealmUserDao {
 
     fun updateUser(user: UserRealm) {
 
+        return
+
         database.executeTransaction{
             val userRealm = it.where(UserRealm::class.java)
                 .equalTo("id", user.id)

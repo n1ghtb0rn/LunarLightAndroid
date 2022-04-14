@@ -56,7 +56,7 @@ fun ProfileView(user: User) {
             }
         }
 
-        Column(Modifier.fillMaxSize(0.5f),
+        Column(Modifier.fillMaxSize(0.3f),
                 horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
@@ -65,7 +65,17 @@ fun ProfileView(user: User) {
             )
         }
 
-        Spacer(modifier = Modifier.weight(0.5f))
+        Row() {
+            Button(onClick = { /*TODO*/ }) {
+                Text("About me")
+            }
+
+            Button(onClick = { /*TODO*/ }) {
+                Text("Stone name")
+            }
+        }
+
+        Spacer(Modifier.fillMaxHeight())
 
     }
 
