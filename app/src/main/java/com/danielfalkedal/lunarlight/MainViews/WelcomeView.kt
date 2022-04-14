@@ -24,12 +24,16 @@ import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Collections.FriendModel
 import com.danielfalkedal.lunarlight.Collections.UserModel
 import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Realm.RealmUserDao
 import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
 import com.danielfalkedal.lunarlight.ui.theme.WhiteTransparent
 import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
 @Composable
 fun WelcomeView() {
+
+    val userModel = UserModel()
+    val realmUserDao = RealmUserDao()
 
     val stoneImages: List<String> = User.getStoneImages(AppIndexManager.loggedInUser).toList()
 
@@ -66,9 +70,12 @@ fun WelcomeView() {
                     }
                     Button(onClick = {
                         selectedImage.value = imageString
+
                         AppIndexManager.loggedInUser.avatar = imageString
-                        val userModel = UserModel()
+                        AppIndexManager.userRealm.avatar = imageString
+
                         userModel.createOrUpdateUser(AppIndexManager.loggedInUser)
+                        realmUserDao.updateUser(AppIndexManager.userRealm)
                     }, Modifier
                         .padding(8.dp)
                         .size(75.dp),

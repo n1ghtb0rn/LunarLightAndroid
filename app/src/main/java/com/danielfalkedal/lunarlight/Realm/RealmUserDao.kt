@@ -32,6 +32,13 @@ class RealmUserDao {
 
     fun updateUser(user: UserRealm) {
         //TODO:
+        database.executeTransaction{
+            val userRealm = it.where(UserRealm::class.java)
+                .equalTo("id", user.id)
+                .findFirst()
+            userRealm!!.avatar = user.avatar
+            userRealm.profile_info = user.profile_info
+        }
     }
 
     fun deleteAllUsers() {
