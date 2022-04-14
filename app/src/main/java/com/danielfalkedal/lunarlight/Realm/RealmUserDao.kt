@@ -31,7 +31,7 @@ class RealmUserDao {
     }
 
     fun updateUser(user: UserRealm) {
-        //TODO:
+
         database.executeTransaction{
             val userRealm = it.where(UserRealm::class.java)
                 .equalTo("id", user.id)
@@ -39,6 +39,7 @@ class RealmUserDao {
             userRealm!!.avatar = user.avatar
             userRealm.profile_info = user.profile_info
         }
+
     }
 
     fun deleteAllUsers() {
