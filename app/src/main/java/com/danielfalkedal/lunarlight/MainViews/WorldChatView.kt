@@ -97,22 +97,14 @@ fun WorldChatView(
                         modifier = Modifier.clip(RoundedCornerShape(12.dp))
                             .background(BlackTransparent)
                             .weight(3f)
+                            .fillMaxWidth()
                             .padding(vertical = 8.dp)
                         //modifier = Modifier
                         //    .fillMaxHeight()
                     ) {
                         items(listOfWorldMessages) {
 
-
-                            Card(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
-                                shape = RoundedCornerShape(16.dp)
-                            ) {
-                                MessageView(it.username, it.message, it.timestamp, it.month, it.day)
-                            }
-
+                            MessageView(it.username, it.message, it.timestamp, it.month, it.day, false)
 
                         }
                     }

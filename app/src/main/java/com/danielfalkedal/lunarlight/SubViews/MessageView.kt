@@ -5,9 +5,9 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -26,7 +26,7 @@ import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MessageView(username: String, message: String, timestamp: Long, month: Long, day: Long) {
+fun MessageView(username: String, message: String, timestamp: Long, month: Long, day: Long, isPrivate: Boolean) {
     var showMessageDescription by remember { mutableStateOf(false) }
     val worldMessageCoverImageSize by animateDpAsState(
         targetValue =
@@ -37,38 +37,52 @@ fun MessageView(username: String, message: String, timestamp: Long, month: Long,
 
     val backgroundColor: Color = getUserBackgroundColor(month, day)
 
-    Column(modifier = Modifier.background(getUserBackgroundColor(month, day)).clickable {
-        showMessageDescription = showMessageDescription.not()
-    }) {
-        Row(modifier = Modifier.padding(12.dp)) {
+    Card(
+        modifier = Modifier
+            .padding(16.dp)
+            .widthIn(0.dp, 400.dp),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+
+        Column(modifier = Modifier
+            .background(getUserBackgroundColor(month, day))
+            .clickable {
+                showMessageDescription = showMessageDescription.not()
+            }) {
+            Row(modifier = Modifier.padding(12.dp)) {
 
 
-            Column {
-                Text(
-                    text = username, style = TextStyle(
-                        fontWeight = FontWeight.Light,
-                        fontSize = 12.sp
+                Column {
+                    if (!isPrivate) {
+                        Text(
+                            text = username, style = TextStyle(
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 16.sp
+                            )
+                        )
+                    }
+
+                    Text(
+                        text = message, style = TextStyle(
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 14.sp
+                        )
                     )
-                )
+                }
+            }
 
+            AnimatedVisibility(visible = showMessageDescription) {
                 Text(
-                    text = message, style = TextStyle(
+                    text = timestampConverter.getDateTime(timestamp.toString())!!, style = TextStyle(
                         fontWeight = FontWeight.Light,
+                        fontStyle = FontStyle.Italic,
                         fontSize = 12.sp
-                    )
+                    ),
+                    modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
                 )
             }
         }
 
-        AnimatedVisibility(visible = showMessageDescription) {
-            Text(
-                text = timestampConverter.getDateTime(timestamp.toString())!!, style = TextStyle(
-                    fontWeight = FontWeight.SemiBold,
-                    fontStyle = FontStyle.Italic
-                ),
-                modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
-            )
-        }
     }
 
 }

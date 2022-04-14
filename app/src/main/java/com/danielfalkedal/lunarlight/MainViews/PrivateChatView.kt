@@ -95,27 +95,19 @@ fun PrivateChatView(
                             .clip(RoundedCornerShape(12.dp))
                             .background(BlackTransparent)
                             .weight(3f)
+                            .fillMaxWidth()
                             .padding(vertical = 8.dp)
                         //modifier = Modifier
                         //    .fillMaxHeight()
                     ) {
                         items(listOfPrivateMessages) {
 
-
-                            Card(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
-                                shape = RoundedCornerShape(16.dp)
-                            ) {
-                                if (it.sender_id == currentUser.id) {
-                                    MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.month, currentUser.day)
-                                }
-                                else {
-                                    MessageView(friend.username, it.my_message, it.timestamp, friend.month, friend.day)
-                                }
+                            if (it.sender_id == currentUser.id) {
+                                MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.month, currentUser.day, true)
                             }
-
+                            else {
+                                MessageView(friend.username, it.my_message, it.timestamp, friend.month, friend.day, true)
+                            }
 
                         }
                     }
