@@ -14,10 +14,11 @@ data class User(
     var avatar: String,
     val year: Long,
     val month: Long,
-    val day: Long
+    val day: Long,
+    var profile_info: String
 
 ){
-    constructor() : this("", "", "", "", "", 2010, 1, 1)
+    constructor() : this("", "", "", "", "", 2010, 1, 1, "")
 
     companion object {
 

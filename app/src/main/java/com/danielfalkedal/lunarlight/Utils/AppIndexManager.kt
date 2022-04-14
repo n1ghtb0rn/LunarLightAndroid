@@ -39,6 +39,7 @@ object AppIndexManager: ViewModel() {
         2010,
         1,
         1,
+        "Hi, I am a test user."
     )
 
     init {

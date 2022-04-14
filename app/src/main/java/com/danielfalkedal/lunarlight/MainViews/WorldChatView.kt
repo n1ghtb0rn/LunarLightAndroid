@@ -68,8 +68,6 @@ fun WorldChatView(
                 Button(onClick = {
 
                     AppIndexManager.realmUserDao.deleteAllUsers()
-                    val users = AppIndexManager.realmUserDao.getUsers()
-                    Log.d("Danne", "realm users count = ${users.size}")
 
                     val currentUser = AppIndexManager.currentUser
                     val userOnline = UserOnline(currentUser.id, false, currentUser.username)

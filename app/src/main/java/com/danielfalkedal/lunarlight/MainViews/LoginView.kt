@@ -22,7 +22,7 @@ import com.danielfalkedal.lunarlight.Realm.UserRealm
 @Composable
 fun LoginView() {
 
-    LoginViewExtention().checkAutoLogin()
+    //LoginViewExtention().checkAutoLogin()
 
     val userModel = UserModel()
     userModel.listenToUsers()
@@ -100,6 +100,7 @@ class LoginViewExtention {
             user.year,
             user.month,
             user.day,
+            user.profile_info
         )
         AppIndexManager.realmUserDao.addUser(userRealm)
 
@@ -134,6 +135,7 @@ class LoginViewExtention {
             userRealm.year,
             userRealm.month,
             userRealm.day,
+            userRealm.profile_info
         )
 
         login(user)

@@ -17,6 +17,7 @@ open class UserRealm(
     var avatar: String = "",
     var year: Long = 2010,
     var month: Long = 1,
-    var day: Long = 1
+    var day: Long = 1,
+    var profile_info: String = ""
 
 ): RealmObject() {}
