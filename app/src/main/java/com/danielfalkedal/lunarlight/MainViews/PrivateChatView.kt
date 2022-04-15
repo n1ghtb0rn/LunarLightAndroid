@@ -44,10 +44,6 @@ fun PrivateChatView(
     val currentUser = AppIndexManager.loggedInUser
     val friend = AppIndexManager.privateChatUser
 
-    //val privateMessages: MutableList<PrivateMessage>? = SharedPrivateMessagesViewModel.privateMessages
-
-    //Log.d("DanneB", "privateMessages = ${privateMessages?.size}")
-
     val inputMessage = remember { mutableStateOf(TextFieldValue()) }
 
     Column(
@@ -98,12 +94,6 @@ fun PrivateChatView(
 
                 val listOfPrivateMessages = privateMessagesList.querySnapshot?.toObjects(PrivateMessage::class.java)
                 listOfPrivateMessages?.let {
-
-                    Button(onClick = {
-                        Log.d("DanneDebug", "${listOfPrivateMessages}")
-                    }) {
-                        Text("DEBUG")
-                    }
 
                     LazyColumn(
                         modifier = Modifier
