@@ -27,11 +27,15 @@ import com.danielfalkedal.lunarlight.Firebase.Repos.Models.Friend
 import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
 import com.danielfalkedal.lunarlight.Firebase.Repos.UserDao
 import com.danielfalkedal.lunarlight.Realm.Repos.RealmUserDao
+import com.danielfalkedal.lunarlight.Utils.LocalData
 import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
 
 @Composable
 fun ProfileView(user: User) {
+
+    val stoneIndex = User.getStoneIndex(user.month.toInt(), user.day.toInt())
+    val stoneName = LocalData.stoneArray[stoneIndex]
 
     val infoIndex = remember { mutableStateOf(0) }
 
@@ -87,7 +91,7 @@ fun ProfileView(user: User) {
             Button(onClick = {
                 infoIndex.value = 1
             }) {
-                Text("Stone name")
+                Text(stoneName)
             }
         }
 
