@@ -1,8 +1,8 @@
-package com.danielfalkedal.lunarlight.Collections
+package com.danielfalkedal.lunarlight.Firebase.Repos
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.danielfalkedal.lunarlight.Collections.Documents.WorldMessage
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.WorldMessage
 import com.danielfalkedal.lunarlight.Responses.OnErrorWorldMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessWorldMsgs
 import com.danielfalkedal.lunarlight.Utils.LocalData

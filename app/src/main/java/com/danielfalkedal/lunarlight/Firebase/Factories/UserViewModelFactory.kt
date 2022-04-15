@@ -1,10 +1,10 @@
-package com.danielfalkedal.lunarlight.Factories
+package com.danielfalkedal.lunarlight.Firebase.Factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.danielfalkedal.lunarlight.Collections.UserDao
-import com.danielfalkedal.lunarlight.ViewModels.UsersViewModel
-import com.danielfalkedal.lunarlight.ViewModels.userCategory
+import com.danielfalkedal.lunarlight.Firebase.Repos.UserDao
+import com.danielfalkedal.lunarlight.Firebase.ViewModels.UsersViewModel
+import com.danielfalkedal.lunarlight.Firebase.ViewModels.userCategory
 import java.lang.IllegalStateException
 
 //Factory class to prevent ViewModel from being re-instantiated every time the View updates its state

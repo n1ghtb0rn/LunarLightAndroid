@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import com.danielfalkedal.lunarlight.Collections.UserDao
-import com.danielfalkedal.lunarlight.Collections.Documents.User
-import com.danielfalkedal.lunarlight.Realm.RealmUserDao
-import com.danielfalkedal.lunarlight.Realm.UserRealm
+import com.danielfalkedal.lunarlight.Firebase.Repos.UserDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
+import com.danielfalkedal.lunarlight.Realm.Repos.RealmUserDao
+import com.danielfalkedal.lunarlight.Realm.Repos.Models.UserRealm
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import java.util.*
 

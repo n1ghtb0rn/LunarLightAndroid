@@ -1,7 +1,8 @@
-package com.danielfalkedal.lunarlight.Realm
+package com.danielfalkedal.lunarlight.Realm.Repos
 
 import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
+import com.danielfalkedal.lunarlight.Realm.Repos.Models.UserRealm
 import io.realm.Realm
 import io.realm.RealmConfiguration
 

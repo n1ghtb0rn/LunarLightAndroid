@@ -2,11 +2,11 @@ package com.danielfalkedal.lunarlight
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.danielfalkedal.lunarlight.Collections.FriendDao
-import com.danielfalkedal.lunarlight.Collections.UserOnlineDao
-import com.danielfalkedal.lunarlight.Collections.Documents.User
-import com.danielfalkedal.lunarlight.Realm.RealmUserDao
-import com.danielfalkedal.lunarlight.Realm.UserRealm
+import com.danielfalkedal.lunarlight.Firebase.Repos.FriendDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.UserOnlineDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
+import com.danielfalkedal.lunarlight.Realm.Repos.RealmUserDao
+import com.danielfalkedal.lunarlight.Realm.Repos.Models.UserRealm
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.coroutines.flow.MutableStateFlow

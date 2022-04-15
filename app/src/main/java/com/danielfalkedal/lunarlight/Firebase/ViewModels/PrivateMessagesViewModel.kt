@@ -1,8 +1,8 @@
-package com.danielfalkedal.lunarlight.ViewModels
+package com.danielfalkedal.lunarlight.Firebase.ViewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.danielfalkedal.lunarlight.Collections.PrivateMessageDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.PrivateMessageDao
 import com.danielfalkedal.lunarlight.Responses.PrivateMessagesResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

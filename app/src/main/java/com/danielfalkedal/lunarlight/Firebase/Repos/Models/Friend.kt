@@ -1,4 +1,4 @@
-package com.danielfalkedal.lunarlight.Collections.Documents
+package com.danielfalkedal.lunarlight.Firebase.Repos.Models
 
 data class Friend(
     val id: String

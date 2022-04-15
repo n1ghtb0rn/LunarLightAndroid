@@ -1,8 +1,8 @@
-package com.danielfalkedal.lunarlight.Collections
+package com.danielfalkedal.lunarlight.Firebase.Repos
 
 import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.Documents.PrivateMessage
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.PrivateMessage
 import com.danielfalkedal.lunarlight.Responses.OnErrorPrivateMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessPrivateMsgs
 import com.danielfalkedal.lunarlight.Utils.LocalData
@@ -49,7 +49,7 @@ class PrivateMessageDao {
                 Log.d("DanneB", "1. Value = $value")
 
                 //Filter to get only relevant chat dialogue (between current user and current friend)
-                val filteredMessages = PrivateMessageDao.getFilteredMessages(value!!)
+                val filteredMessages = getFilteredMessages(value!!)
 
                 OnSuccessPrivateMsgs(filteredMessages)
             } else {

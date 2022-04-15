@@ -21,10 +21,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.FriendDao
-import com.danielfalkedal.lunarlight.Collections.UserDao
-import com.danielfalkedal.lunarlight.Collections.Documents.User
-import com.danielfalkedal.lunarlight.Realm.RealmUserDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.FriendDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.UserDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
+import com.danielfalkedal.lunarlight.Realm.Repos.RealmUserDao
 import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
 import com.danielfalkedal.lunarlight.ui.theme.WhiteTransparent
 import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor

@@ -1,14 +1,14 @@
-package com.danielfalkedal.lunarlight.Collections
+package com.danielfalkedal.lunarlight.Firebase.Repos
 
 import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.google.firebase.firestore.FirebaseFirestore
-import com.danielfalkedal.lunarlight.Collections.Documents.User
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.Utils.LocalData
-import com.danielfalkedal.lunarlight.ViewModels.ONLINE_USERS
-import com.danielfalkedal.lunarlight.ViewModels.userCategory
+import com.danielfalkedal.lunarlight.Firebase.ViewModels.ONLINE_USERS
+import com.danielfalkedal.lunarlight.Firebase.ViewModels.userCategory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow

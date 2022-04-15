@@ -12,12 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.danielfalkedal.lunarlight.Collections.FriendDao
-import com.danielfalkedal.lunarlight.Collections.UserDao
-import com.danielfalkedal.lunarlight.Collections.UserOnlineDao
-import com.danielfalkedal.lunarlight.Collections.Documents.User
-import com.danielfalkedal.lunarlight.Collections.Documents.UserOnline
-import com.danielfalkedal.lunarlight.Realm.UserRealm
+import com.danielfalkedal.lunarlight.Firebase.Repos.FriendDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.UserDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.UserOnlineDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.UserOnline
+import com.danielfalkedal.lunarlight.Realm.Repos.Models.UserRealm
 
 @Composable
 fun LoginView() {

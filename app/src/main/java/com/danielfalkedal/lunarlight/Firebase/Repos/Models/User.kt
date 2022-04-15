@@ -1,4 +1,4 @@
-package com.danielfalkedal.lunarlight.Collections.Documents
+package com.danielfalkedal.lunarlight.Firebase.Repos.Models
 
 import androidx.compose.ui.graphics.Color
 import com.danielfalkedal.lunarlight.MainActivity

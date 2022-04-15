@@ -18,8 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.Documents.Friend
-import com.danielfalkedal.lunarlight.Collections.Documents.User
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.Friend
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
 import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
 

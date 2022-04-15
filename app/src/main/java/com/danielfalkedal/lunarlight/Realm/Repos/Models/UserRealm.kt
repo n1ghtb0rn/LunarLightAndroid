@@ -1,4 +1,4 @@
-package com.danielfalkedal.lunarlight.Realm
+package com.danielfalkedal.lunarlight.Realm.Repos.Models
 
 import io.realm.RealmModel
 import io.realm.RealmObject

@@ -1,8 +1,8 @@
-package com.danielfalkedal.lunarlight.Collections
+package com.danielfalkedal.lunarlight.Firebase.Repos
 
 import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.Documents.Friend
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.Friend
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.ArrayList

@@ -1,8 +1,8 @@
-package com.danielfalkedal.lunarlight.ViewModels
+package com.danielfalkedal.lunarlight.Firebase.ViewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.danielfalkedal.lunarlight.Collections.UserDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.UserDao
 import com.danielfalkedal.lunarlight.Responses.UsersResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

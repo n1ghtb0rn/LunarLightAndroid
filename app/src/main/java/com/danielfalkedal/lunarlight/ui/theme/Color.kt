@@ -1,7 +1,7 @@
 package com.danielfalkedal.lunarlight.ui.theme
 
 import androidx.compose.ui.graphics.Color
-import com.danielfalkedal.lunarlight.Collections.Documents.User
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
 import com.danielfalkedal.lunarlight.Utils.LocalData
 
 val Purple200 = Color(0xFFBB86FC)

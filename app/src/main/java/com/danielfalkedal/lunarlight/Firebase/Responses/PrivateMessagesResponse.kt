@@ -1,6 +1,6 @@
 package com.danielfalkedal.lunarlight.Responses
 
-import com.danielfalkedal.lunarlight.Collections.Documents.PrivateMessage
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.PrivateMessage
 import com.google.firebase.firestore.FirebaseFirestoreException
 
 sealed class PrivateMessagesResponse

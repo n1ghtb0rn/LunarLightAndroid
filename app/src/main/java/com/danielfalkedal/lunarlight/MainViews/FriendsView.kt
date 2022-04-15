@@ -22,13 +22,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.UserDao
-import com.danielfalkedal.lunarlight.Collections.Documents.User
-import com.danielfalkedal.lunarlight.Factories.UserViewModelFactory
+import com.danielfalkedal.lunarlight.Firebase.Repos.UserDao
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
+import com.danielfalkedal.lunarlight.Firebase.Factories.UserViewModelFactory
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
-import com.danielfalkedal.lunarlight.ViewModels.USER_FRIENDS
-import com.danielfalkedal.lunarlight.ViewModels.UsersViewModel
+import com.danielfalkedal.lunarlight.Firebase.ViewModels.USER_FRIENDS
+import com.danielfalkedal.lunarlight.Firebase.ViewModels.UsersViewModel
 import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 import kotlinx.coroutines.flow.asStateFlow
 
