@@ -1,6 +1,5 @@
-package com.danielfalkedal.lunarlight.Documents
+package com.danielfalkedal.lunarlight.Collections.Documents
 
-import android.util.Log
 import androidx.compose.ui.graphics.Color
 import com.danielfalkedal.lunarlight.MainActivity
 import com.danielfalkedal.lunarlight.Utils.LocalData

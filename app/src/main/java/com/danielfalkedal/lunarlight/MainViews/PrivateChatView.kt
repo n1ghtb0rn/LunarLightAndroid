@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.PrivateMessageModel
-import com.danielfalkedal.lunarlight.Documents.PrivateMessage
+import com.danielfalkedal.lunarlight.Collections.PrivateMessageDao
+import com.danielfalkedal.lunarlight.Collections.Documents.PrivateMessage
 import com.danielfalkedal.lunarlight.Factories.PrivateMessageViewModelFactory
 import com.danielfalkedal.lunarlight.Responses.OnErrorPrivateMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessPrivateMsgs
@@ -34,7 +34,7 @@ import java.util.*
 @Composable
 fun PrivateChatView(
     privateMessagesViewModel: PrivateMessagesViewModel = viewModel(
-        factory = PrivateMessageViewModelFactory(PrivateMessageModel())
+        factory = PrivateMessageViewModelFactory(PrivateMessageDao())
     )
 ) {
 
@@ -158,7 +158,7 @@ fun PrivateChatView(
                     val timestamp: Long = System.currentTimeMillis().toLong()
 
                     val newPrivateMessage = PrivateMessage(id, senderId, receiverId, message, timestamp)
-                    PrivateMessageModel().createPrivateMessage(newPrivateMessage)
+                    PrivateMessageDao().createPrivateMessage(newPrivateMessage)
 
                     inputMessage.value = TextFieldValue("")
                 }) {

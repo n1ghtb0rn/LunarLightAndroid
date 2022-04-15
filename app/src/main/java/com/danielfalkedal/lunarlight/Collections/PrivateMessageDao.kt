@@ -2,7 +2,7 @@ package com.danielfalkedal.lunarlight.Collections
 
 import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Documents.PrivateMessage
+import com.danielfalkedal.lunarlight.Collections.Documents.PrivateMessage
 import com.danielfalkedal.lunarlight.Responses.OnErrorPrivateMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessPrivateMsgs
 import com.danielfalkedal.lunarlight.Utils.LocalData
@@ -13,7 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 
-class PrivateMessageModel {
+class PrivateMessageDao {
 
     private val firestore = FirebaseFirestore.getInstance()
 
@@ -49,7 +49,7 @@ class PrivateMessageModel {
                 Log.d("DanneB", "1. Value = $value")
 
                 //Filter to get only relevant chat dialogue (between current user and current friend)
-                val filteredMessages = PrivateMessageModel.getFilteredMessages(value!!)
+                val filteredMessages = PrivateMessageDao.getFilteredMessages(value!!)
 
                 OnSuccessPrivateMsgs(filteredMessages)
             } else {

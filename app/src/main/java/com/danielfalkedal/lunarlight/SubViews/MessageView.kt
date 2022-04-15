@@ -12,18 +12,14 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.danielfalkedal.lunarlight.Documents.User
-import com.danielfalkedal.lunarlight.Documents.WorldMessage
-import com.danielfalkedal.lunarlight.Utils.LocalData
+import com.danielfalkedal.lunarlight.Collections.Documents.User
 import com.danielfalkedal.lunarlight.Utils.TimestampConverter
-import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
 @OptIn(ExperimentalAnimationApi::class)

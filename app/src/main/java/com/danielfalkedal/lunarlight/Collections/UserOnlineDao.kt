@@ -1,16 +1,14 @@
 package com.danielfalkedal.lunarlight.Collections
 
-import android.os.Handler
 import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.google.firebase.firestore.FirebaseFirestore
-import com.danielfalkedal.lunarlight.Documents.UserOnline
+import com.danielfalkedal.lunarlight.Collections.Documents.UserOnline
 import com.danielfalkedal.lunarlight.Utils.LocalData
-import kotlinx.coroutines.flow.toSet
 import java.util.*
 
-class UserOnlineModel {
+class UserOnlineDao {
 
     private val firestore = FirebaseFirestore.getInstance()
 

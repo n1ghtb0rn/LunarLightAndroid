@@ -21,9 +21,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.FriendModel
-import com.danielfalkedal.lunarlight.Collections.UserModel
-import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Collections.FriendDao
+import com.danielfalkedal.lunarlight.Collections.UserDao
+import com.danielfalkedal.lunarlight.Collections.Documents.User
 import com.danielfalkedal.lunarlight.Realm.RealmUserDao
 import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
 import com.danielfalkedal.lunarlight.ui.theme.WhiteTransparent
@@ -32,7 +32,7 @@ import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 @Composable
 fun WelcomeView() {
 
-    val userModel = UserModel()
+    val userModel = UserDao()
     val realmUserDao = RealmUserDao()
 
     val stoneImages: List<String> = User.getStoneImages(AppIndexManager.loggedInUser).toList()
@@ -99,8 +99,8 @@ fun WelcomeView() {
             Button(onClick = {
 
                 //TODO: REMOVE THE FOLLOWING THREE LINES (FOR TESTING ONLY)
-                AppIndexManager.friendModel = FriendModel()
-                AppIndexManager.friendModel.listenToUserFriends()
+                AppIndexManager.friendDao = FriendDao()
+                AppIndexManager.friendDao.listenToUserFriends()
 
                 AppIndexManager.setIndex(AppIndex.lobbyTabView)
             }) {

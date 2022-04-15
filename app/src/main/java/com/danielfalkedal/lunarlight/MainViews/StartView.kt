@@ -11,15 +11,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Collections.Documents.User
 import com.danielfalkedal.lunarlight.ui.theme.FullTransparent
-import com.danielfalkedal.lunarlight.ui.theme.Purple200
 import com.danielfalkedal.lunarlight.ui.theme.Purple700
-import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
 
 @Composable

@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.UserModel
-import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Collections.UserDao
+import com.danielfalkedal.lunarlight.Collections.Documents.User
 import com.danielfalkedal.lunarlight.Factories.UserViewModelFactory
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
@@ -37,7 +37,7 @@ import kotlinx.coroutines.flow.asStateFlow
 @Composable
 fun OnlineUsersView(
     usersViewModel: UsersViewModel = viewModel(
-        factory = UserViewModelFactory(UserModel(), ONLINE_USERS)
+        factory = UserViewModelFactory(UserDao(), ONLINE_USERS)
     )
 ) {
 

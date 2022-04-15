@@ -18,8 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Documents.Friend
-import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Collections.Documents.Friend
+import com.danielfalkedal.lunarlight.Collections.Documents.User
 import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
 
 
@@ -50,7 +50,7 @@ fun ProfileView(user: User) {
         if (AppIndexManager.loggedInUser.id != user.id) {
             Button(onClick = {
                 val friend = Friend(user.id)
-                AppIndexManager.friendModel.addFriend(friend)
+                AppIndexManager.friendDao.addFriend(friend)
             }) {
                 Text("Add friend")
             }

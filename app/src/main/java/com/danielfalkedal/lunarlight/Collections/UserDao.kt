@@ -3,7 +3,7 @@ package com.danielfalkedal.lunarlight.Collections
 import android.util.Log
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.google.firebase.firestore.FirebaseFirestore
-import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Collections.Documents.User
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.Utils.LocalData
@@ -14,7 +14,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import java.util.ArrayList
 
-class UserModel {
+class UserDao {
 
     private val firestore = FirebaseFirestore.getInstance()
 
@@ -39,7 +39,7 @@ class UserModel {
             Log.d("Danne", "Users category = ONLINE_USERS")
         }
         else {
-            userIds = AppIndexManager.friendModel.friendsIds
+            userIds = AppIndexManager.friendDao.friendsIds
             Log.d("Danne", "Users category = USER_FRIENDS")
         }
 

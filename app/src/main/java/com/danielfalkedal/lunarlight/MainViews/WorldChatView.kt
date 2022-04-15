@@ -18,10 +18,10 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
-import com.danielfalkedal.lunarlight.Documents.WorldMessage
-import com.danielfalkedal.lunarlight.Collections.WorldMessageModel
-import com.danielfalkedal.lunarlight.Documents.UserOnline
+import com.danielfalkedal.lunarlight.Collections.UserOnlineDao
+import com.danielfalkedal.lunarlight.Collections.Documents.WorldMessage
+import com.danielfalkedal.lunarlight.Collections.WorldMessageDao
+import com.danielfalkedal.lunarlight.Collections.Documents.UserOnline
 import com.danielfalkedal.lunarlight.Factories.WorldMessageViewModelFactory
 import com.danielfalkedal.lunarlight.Responses.OnErrorWorldMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessWorldMsgs
@@ -34,7 +34,7 @@ import java.util.*
 @Composable
 fun WorldChatView(
     worldMessagesViewModel: WorldMessagesViewModel = viewModel(
-        factory = WorldMessageViewModelFactory(WorldMessageModel())
+        factory = WorldMessageViewModelFactory(WorldMessageDao())
     )
 ) {
 
@@ -71,7 +71,7 @@ fun WorldChatView(
 
                     val currentUser = AppIndexManager.loggedInUser
                     val userOnline = UserOnline(currentUser.id, false, currentUser.username)
-                    val userOnlineModel = UserOnlineModel()
+                    val userOnlineModel = UserOnlineDao()
                     userOnlineModel.updateUserOnline(userOnline)
 
                     AppIndexManager.setIndex(AppIndex.startView)
@@ -154,7 +154,7 @@ fun WorldChatView(
 
 
                     val newWorldMessage = WorldMessage(id, userId, username, timestamp, avatar,month,day, message)
-                    val worldMessagesRepo = WorldMessageModel()
+                    val worldMessagesRepo = WorldMessageDao()
                     worldMessagesRepo.createWorldMessage(newWorldMessage)
 
                     inputMessage.value = TextFieldValue("")

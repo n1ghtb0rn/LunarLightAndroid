@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
-import com.danielfalkedal.lunarlight.Collections.UserModel
-import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Collections.UserDao
+import com.danielfalkedal.lunarlight.Collections.Documents.User
 import com.danielfalkedal.lunarlight.Factories.UserViewModelFactory
 import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.asStateFlow
 @Composable
 fun FriendsView(
     usersViewModel: UsersViewModel = viewModel(
-        factory = UserViewModelFactory(UserModel(), USER_FRIENDS)
+        factory = UserViewModelFactory(UserDao(), USER_FRIENDS)
     )
 ) {
 
@@ -75,12 +75,12 @@ fun FriendsView(
                     ) {
                         items(listOfUserFriends) {
 
-                            val friends = AppIndexManager.friendModel.friendsIds
+                            val friends = AppIndexManager.friendDao.friendsIds
 
                             Log.d("DanneX", "Local val friends count = ${friends.size}")
 
                             if (it.id != AppIndexManager.loggedInUser.id &&
-                                    it.id in AppIndexManager.friendModel.friendsIds) {
+                                    it.id in AppIndexManager.friendDao.friendsIds) {
 
                                 Button(onClick = {
                                     AppIndexManager.privateChatUser = it

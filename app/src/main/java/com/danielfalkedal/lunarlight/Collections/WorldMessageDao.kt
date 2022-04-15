@@ -2,7 +2,7 @@ package com.danielfalkedal.lunarlight.Collections
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.danielfalkedal.lunarlight.Documents.WorldMessage
+import com.danielfalkedal.lunarlight.Collections.Documents.WorldMessage
 import com.danielfalkedal.lunarlight.Responses.OnErrorWorldMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessWorldMsgs
 import com.danielfalkedal.lunarlight.Utils.LocalData
@@ -10,7 +10,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 
-class WorldMessageModel {
+class WorldMessageDao {
 
     private val firestore = FirebaseFirestore.getInstance()
 

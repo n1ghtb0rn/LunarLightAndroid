@@ -2,9 +2,9 @@ package com.danielfalkedal.lunarlight
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.danielfalkedal.lunarlight.Collections.FriendModel
-import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
-import com.danielfalkedal.lunarlight.Documents.User
+import com.danielfalkedal.lunarlight.Collections.FriendDao
+import com.danielfalkedal.lunarlight.Collections.UserOnlineDao
+import com.danielfalkedal.lunarlight.Collections.Documents.User
 import com.danielfalkedal.lunarlight.Realm.RealmUserDao
 import com.danielfalkedal.lunarlight.Realm.UserRealm
 import io.realm.Realm
@@ -21,8 +21,8 @@ object AppIndexManager: ViewModel() {
     lateinit var realmUserDao: RealmUserDao
     lateinit var config: RealmConfiguration
 
-    val userOnlineModel = UserOnlineModel()
-    lateinit var friendModel: FriendModel
+    val userOnlineModel = UserOnlineDao()
+    lateinit var friendDao: FriendDao
 
     var profileUser: User
     var privateChatUser: User

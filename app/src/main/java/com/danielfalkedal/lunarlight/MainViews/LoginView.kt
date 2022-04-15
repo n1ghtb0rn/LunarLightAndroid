@@ -12,11 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.danielfalkedal.lunarlight.Collections.FriendModel
-import com.danielfalkedal.lunarlight.Collections.UserModel
-import com.danielfalkedal.lunarlight.Collections.UserOnlineModel
-import com.danielfalkedal.lunarlight.Documents.User
-import com.danielfalkedal.lunarlight.Documents.UserOnline
+import com.danielfalkedal.lunarlight.Collections.FriendDao
+import com.danielfalkedal.lunarlight.Collections.UserDao
+import com.danielfalkedal.lunarlight.Collections.UserOnlineDao
+import com.danielfalkedal.lunarlight.Collections.Documents.User
+import com.danielfalkedal.lunarlight.Collections.Documents.UserOnline
 import com.danielfalkedal.lunarlight.Realm.UserRealm
 
 @Composable
@@ -24,7 +24,7 @@ fun LoginView() {
 
     LoginViewExtention().checkAutoLogin()
 
-    val userModel = UserModel()
+    val userModel = UserDao()
     userModel.listenToUsers()
 
     val username = remember { mutableStateOf(TextFieldValue("android")) }
@@ -106,13 +106,13 @@ class LoginViewExtention {
         AppIndexManager.realmUserDao.createUser(userRealm)
 
         val userOnline = UserOnline(user.id, true, user.username)
-        val userOnlineModel = UserOnlineModel()
+        val userOnlineModel = UserOnlineDao()
         userOnlineModel.updateUserOnline(userOnline)
 
         AppIndexManager.loggedInUser = user
 
-        AppIndexManager.friendModel = FriendModel()
-        AppIndexManager.friendModel.listenToUserFriends()
+        AppIndexManager.friendDao = FriendDao()
+        AppIndexManager.friendDao.listenToUserFriends()
 
         AppIndexManager.setIndex(AppIndex.lobbyTabView)
 
