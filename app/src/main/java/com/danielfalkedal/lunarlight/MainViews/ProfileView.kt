@@ -1,9 +1,13 @@
 package com.danielfalkedal.lunarlight.MainViews
 
+import android.widget.ScrollView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -36,11 +40,11 @@ fun ProfileView(user: User) {
 
     val stoneIndex = User.getStoneIndex(user.month.toInt(), user.day.toInt())
     val stoneName = LocalData.stoneArray[stoneIndex]
+    val stoneInfo = LocalData.stonesInfo[stoneName] ?: "Failed to load stone info."
+
+    val profileInfo = remember { mutableStateOf(user.profile_info)}
 
     val infoIndex = remember { mutableStateOf(0) }
-
-    val stoneInfo = "A great stone!"
-    val profileInfo = remember { mutableStateOf(user.profile_info)}
 
     Column(
         modifier = Modifier
@@ -124,7 +128,13 @@ fun ProfileView(user: User) {
             }
         }
         else {
-            Text(stoneInfo)
+            Column(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Text(stoneInfo.trimIndent())
+            }
         }
 
 
