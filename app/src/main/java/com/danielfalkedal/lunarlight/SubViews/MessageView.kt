@@ -11,13 +11,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
 import com.danielfalkedal.lunarlight.Utils.TimestampConverter
 import com.danielfalkedal.lunarlight.ui.theme.getUserBackgroundColor
@@ -37,7 +40,7 @@ fun MessageView(username: String, message: String, timestamp: Long, avatar: Stri
         modifier = Modifier
             .padding(16.dp)
             .widthIn(0.dp, 400.dp),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.dp),
     ) {
 
         Column(modifier = Modifier
@@ -58,7 +61,7 @@ fun MessageView(username: String, message: String, timestamp: Long, avatar: Stri
                     )
                 }
 
-                Column {
+                Column() {
                     if (!isPrivate) {
                         Text(
                             modifier = Modifier

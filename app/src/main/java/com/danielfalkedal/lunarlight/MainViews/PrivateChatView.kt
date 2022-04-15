@@ -108,13 +108,19 @@ fun PrivateChatView(
                     ) {
                         items(listOfPrivateMessages) {
 
-                            if (it.sender_id == currentUser.id) {
-                                MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.avatar, currentUser.month, currentUser.day, true)
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = if (it.sender_id == AppIndexManager.loggedInUser.id)
+                                    Arrangement.End else
+                                    Arrangement.Start
+                            ) {
+                                if (it.sender_id == currentUser.id) {
+                                    MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.avatar, currentUser.month, currentUser.day, true)
+                                }
+                                else {
+                                    MessageView(friend.username, it.my_message, it.timestamp, friend.avatar, friend.month, friend.day, true)
+                                }
                             }
-                            else {
-                                MessageView(friend.username, it.my_message, it.timestamp, friend.avatar, friend.month, friend.day, true)
-                            }
-
                         }
                     }
 

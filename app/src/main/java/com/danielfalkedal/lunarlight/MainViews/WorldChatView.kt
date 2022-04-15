@@ -107,7 +107,14 @@ fun WorldChatView(
                     ) {
                         items(listOfWorldMessages) {
 
-                            MessageView(it.username, it.message, it.timestamp, it.avatar, it.month, it.day, false)
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = if (it.user_id == AppIndexManager.loggedInUser.id)
+                                    Arrangement.End else
+                                    Arrangement.Start
+                            ) {
+                                MessageView(it.username, it.message, it.timestamp, it.avatar, it.month, it.day, false)
+                            }
 
                         }
                     }
