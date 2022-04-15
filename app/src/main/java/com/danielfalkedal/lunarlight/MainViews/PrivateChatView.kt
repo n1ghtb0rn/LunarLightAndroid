@@ -1,5 +1,6 @@
 package com.danielfalkedal.lunarlight.MainViews
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,6 +23,8 @@ import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Firebase.Repos.PrivateMessageDao
 import com.danielfalkedal.lunarlight.Firebase.Repos.Models.PrivateMessage
 import com.danielfalkedal.lunarlight.Firebase.Factories.PrivateMessageViewModelFactory
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
+import com.danielfalkedal.lunarlight.Firebase.Repos.Models.WorldMessage
 import com.danielfalkedal.lunarlight.Responses.OnErrorPrivateMsgs
 import com.danielfalkedal.lunarlight.Responses.OnSuccessPrivateMsgs
 import com.danielfalkedal.lunarlight.SubViews.MessageView
@@ -35,15 +38,15 @@ import java.util.*
 fun PrivateChatView(
     privateMessagesViewModel: PrivateMessagesViewModel = viewModel(
         factory = PrivateMessageViewModelFactory(PrivateMessageDao())
-    )
-) {
+    ))
+{
+
+    val currentUser = AppIndexManager.loggedInUser
+    val friend = AppIndexManager.privateChatUser
 
     //val privateMessages: MutableList<PrivateMessage>? = SharedPrivateMessagesViewModel.privateMessages
 
     //Log.d("DanneB", "privateMessages = ${privateMessages?.size}")
-
-    val currentUser = AppIndexManager.loggedInUser
-    val friend = AppIndexManager.privateChatUser
 
     val inputMessage = remember { mutableStateOf(TextFieldValue()) }
 
@@ -93,8 +96,14 @@ fun PrivateChatView(
 
             is OnSuccessPrivateMsgs -> {
 
-                val listOfPrivateMessages = privateMessagesList.privateMessages
+                val listOfPrivateMessages = privateMessagesList.querySnapshot?.toObjects(PrivateMessage::class.java)
                 listOfPrivateMessages?.let {
+
+                    Button(onClick = {
+                        Log.d("DanneDebug", "${listOfPrivateMessages}")
+                    }) {
+                        Text("DEBUG")
+                    }
 
                     LazyColumn(
                         modifier = Modifier
@@ -108,19 +117,24 @@ fun PrivateChatView(
                     ) {
                         items(listOfPrivateMessages) {
 
-                            Row(
-                                Modifier.fillMaxWidth(),
-                                horizontalArrangement = if (it.sender_id == AppIndexManager.loggedInUser.id)
-                                    Arrangement.End else
-                                    Arrangement.Start
-                            ) {
-                                if (it.sender_id == currentUser.id) {
+                            if (it.sender_id == currentUser.id && it.receiver_id == friend.id) {
+                                Row(
+                                    Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.End
+                                ) {
                                     MessageView(currentUser.username, it.my_message, it.timestamp, currentUser.avatar, currentUser.month, currentUser.day, true)
                                 }
-                                else {
+                            }
+                            else if (it.sender_id == friend.id && it.receiver_id == currentUser.id) {
+                                Row(
+                                    Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.Start
+                                ) {
                                     MessageView(friend.username, it.my_message, it.timestamp, friend.avatar, friend.month, friend.day, true)
                                 }
                             }
+
+
                         }
                     }
 

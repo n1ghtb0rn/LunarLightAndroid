@@ -49,9 +49,9 @@ class PrivateMessageDao {
                 Log.d("DanneB", "1. Value = $value")
 
                 //Filter to get only relevant chat dialogue (between current user and current friend)
-                val filteredMessages = getFilteredMessages(value!!)
+                //val filteredMessages = getFilteredMessages(value!!)
 
-                OnSuccessPrivateMsgs(filteredMessages)
+                OnSuccessPrivateMsgs(value)
             } else {
                 Log.d("DanneB", "2. Error = $error")
                 OnErrorPrivateMsgs(error)
