@@ -1,7 +1,9 @@
 package com.danielfalkedal.lunarlight
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import com.danielfalkedal.lunarlight.MainViews.LobbyTabView
 import com.danielfalkedal.lunarlight.MainViews.OnlineUsersView
 import com.danielfalkedal.lunarlight.MainViews.PrivateChatView
