@@ -43,6 +43,7 @@ fun LoginView() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        Text("Username / Email")
         TextField(
             value = username.value,
             onValueChange = {
@@ -51,6 +52,7 @@ fun LoginView() {
             Modifier.background(WhiteTransparent).widthIn(250.dp)
         )
 
+        Text("Password")
         Row() {
             TextField(
                 value = password.value,
