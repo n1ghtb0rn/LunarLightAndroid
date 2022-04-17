@@ -1,6 +1,7 @@
 package com.danielfalkedal.lunarlight
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -18,6 +19,7 @@ import com.danielfalkedal.lunarlight.Firebase.Repos.UserOnlineDao
 import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
 import com.danielfalkedal.lunarlight.Firebase.Repos.Models.UserOnline
 import com.danielfalkedal.lunarlight.Realm.Repos.Models.UserRealm
+import com.danielfalkedal.lunarlight.ui.theme.WhiteTransparent
 
 @Composable
 fun LoginView() {
@@ -39,14 +41,16 @@ fun LoginView() {
             value = username.value,
             onValueChange = {
                 username.value = it
-            }
+            },
+            Modifier.background(WhiteTransparent)
         )
 
         TextField(
             value = password.value,
             onValueChange = {
                 password.value = it
-            }
+            },
+            Modifier.background(WhiteTransparent)
         )
 
        Column(

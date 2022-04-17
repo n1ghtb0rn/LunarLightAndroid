@@ -139,6 +139,7 @@ fun OnlineUsersView(
 
                 ) {
                     Column(
+                        Modifier.background(Color.White),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Button(onClick = {

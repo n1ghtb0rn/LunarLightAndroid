@@ -1,19 +1,24 @@
 package com.danielfalkedal.lunarlight
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.danielfalkedal.lunarlight.Firebase.Repos.UserDao
 import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
 import com.danielfalkedal.lunarlight.Realm.Repos.RealmUserDao
 import com.danielfalkedal.lunarlight.Realm.Repos.Models.UserRealm
 import com.danielfalkedal.lunarlight.Utils.LocalData
+import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
+import com.danielfalkedal.lunarlight.ui.theme.WhiteTransparent
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -40,7 +45,8 @@ fun RegisterView() {
             value = username.value,
             onValueChange = {
                 username.value = it
-            }
+            },
+            Modifier.background(WhiteTransparent)
         )
 
         Text("Year")
@@ -48,7 +54,8 @@ fun RegisterView() {
             value = year.value,
             onValueChange = {
                 year.value = it
-            }
+            },
+            Modifier.background(WhiteTransparent)
         )
 
         Text("Month")
@@ -56,7 +63,8 @@ fun RegisterView() {
             value = month.value,
             onValueChange = {
                 month.value = it
-            }
+            },
+            Modifier.background(WhiteTransparent)
         )
 
         Text("Day")
@@ -64,7 +72,8 @@ fun RegisterView() {
             value = day.value,
             onValueChange = {
                 day.value = it
-            }
+            },
+            Modifier.background(WhiteTransparent)
         )
 
         Text("Email")
@@ -72,7 +81,8 @@ fun RegisterView() {
             value = email.value,
             onValueChange = {
                 email.value = it
-            }
+            },
+            Modifier.background(WhiteTransparent)
         )
 
         Text("Password")
@@ -80,7 +90,8 @@ fun RegisterView() {
             value = password.value,
             onValueChange = {
                 password.value = it
-            }
+            },
+            Modifier.background(WhiteTransparent)
         )
 
         Button(onClick = {
