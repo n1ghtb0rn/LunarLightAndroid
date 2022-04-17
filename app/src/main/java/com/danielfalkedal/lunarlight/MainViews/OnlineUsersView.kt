@@ -55,43 +55,10 @@ fun OnlineUsersView(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        /* TODO: use this for sheet
-        AnimatedVisibility(
-            visible = showProfileViewSheet.value,
-            enter = slideInVertically {
-                // Slide in from 40 dp from the top.
-                with(density) { 500.dp.roundToPx() }
-            },
-            exit = slideOutVertically {
-                with(density) { 500.dp.roundToPx() }
-            }
 
-        ) {
+        Box() {
 
-        }
-
-         */
-
-
-
-        when (showProfileViewSheet.value) {
-
-            true -> {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Button(onClick = {
-                        showProfileViewSheet.value = false
-                    }) {
-                        Text("Close")
-                    }
-
-                    ProfileView(AppIndexManager.profileUser!!)
-
-                }
-            }
-
-            false -> {
+            Column() {
 
                 Text(
                     text = "Online users",
@@ -134,7 +101,7 @@ fun OnlineUsersView(
                             ) {
                                 items(listOfUsers) {
                                     if (it.id != AppIndexManager.loggedInUser.id &&
-                                            AppIndexManager.userOnlineModel.usersOnlineIds.contains(it.id)) {
+                                        AppIndexManager.userOnlineModel.usersOnlineIds.contains(it.id)) {
 
                                         Button(onClick = {
                                             AppIndexManager.profileUser = it
@@ -156,9 +123,36 @@ fun OnlineUsersView(
                         Text(text = "Please try after sometime")
                     }
                 }
+
+            }
+
+            Column() {
+                AnimatedVisibility(
+                    visible = showProfileViewSheet.value,
+                    enter = slideInVertically {
+                        // Slide in from 40 dp from the top.
+                        with(density) { 500.dp.roundToPx() }
+                    },
+                    exit = slideOutVertically {
+                        with(density) { 500.dp.roundToPx() }
+                    }
+
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Button(onClick = {
+                            showProfileViewSheet.value = false
+                        }) {
+                            Text("Close")
+                        }
+
+                        ProfileView(AppIndexManager.profileUser!!)
+
+                    }
+                }
             }
         }
-
 
     }
 
