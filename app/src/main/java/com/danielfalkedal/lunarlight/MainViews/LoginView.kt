@@ -146,17 +146,12 @@ class LoginViewExtention {
 
     fun checkAutoLogin() {
 
-        Log.d("Danne1", "1")
-
         val users = AppIndexManager.realmUserDao.getUsers()
         if (users.isEmpty()) {
-            Log.d("Danne1", "2: empty")
             return
         }
 
         val userRealm = users[0]
-
-        Log.d("Danne1", "3: ${userRealm}")
 
         val user = User(
             userRealm.id,
