@@ -8,10 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.ProgressIndicatorDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +19,7 @@ import com.danielfalkedal.lunarlight.AppIndex
 import com.danielfalkedal.lunarlight.AppIndexManager
 import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
 import com.danielfalkedal.lunarlight.R
+import kotlinx.coroutines.delay
 import java.util.*
 import kotlin.concurrent.timerTask
 
@@ -30,27 +28,22 @@ fun SplashView(
 
 ) {
 
-    val isComplete = remember { mutableStateOf(true)} //TODO: Set to false
+    val splashName = "llsplashscreen_"
 
-    val progress = remember { mutableStateOf (0.0f) }
-    val animatedProgress = animateFloatAsState(
-        targetValue = progress.value,
-        animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
-    ).value
+    val timerRunning = remember { mutableStateOf(true)} //TODO: Set to false
 
-    if (!isComplete.value) {
-        Timer().schedule( timerTask{
-            progress.value = 0.5f
-        }, 1000)
+    val currentFrame = remember { mutableStateOf(0) }
 
-        Timer().schedule( timerTask{
-            progress.value = 1.0f
-        }, 2000)
 
-        Timer().schedule( timerTask{
-            isComplete.value = true
-            AppIndexManager.setIndex(AppIndex.startView)
-        }, 2100)
+    LaunchedEffect(key1 = currentFrame.value, key2 = timerRunning.value) {
+        if(currentFrame.value < 59 && timerRunning.value) {
+            delay(25L)
+            currentFrame.value += 1
+            if (currentFrame.value >= 59 && timerRunning.value) {
+                timerRunning.value = false
+                AppIndexManager.setIndex(AppIndex.startView)
+            }
+        }
     }
 
     Box(modifier = Modifier
@@ -60,17 +53,11 @@ fun SplashView(
     ){
         Column(){
             Image(
-                painter = painterResource(R.drawable.lunarlight_splashscreen),
+                painter = painterResource(User.getAvatarResource(splashName+currentFrame.value)),
                 contentDescription = "Contact profile picture",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(150.dp)
+                modifier = Modifier.size(200.dp)
             )
-
-            Row(modifier = Modifier
-                .width(150.dp)
-                .background(Color.Blue)) {
-                LinearProgressIndicator(progress = animatedProgress)
-            }
         }
     }
 
