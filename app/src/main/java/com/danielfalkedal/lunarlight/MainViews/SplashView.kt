@@ -30,7 +30,7 @@ fun SplashView(
 
     val splashName = "llsplashscreen_"
 
-    val timerRunning = remember { mutableStateOf(true)} //TODO: Set to false
+    val timerRunning = remember { mutableStateOf(true)}
 
     val currentFrame = remember { mutableStateOf(0) }
 
