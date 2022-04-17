@@ -21,12 +21,12 @@ import java.util.regex.Pattern
 @Composable
 fun RegisterView() {
 
-    var username = remember { mutableStateOf("") }
-    var year = remember { mutableStateOf("") }
-    var month = remember { mutableStateOf("") }
-    var day = remember { mutableStateOf("") }
-    var email = remember { mutableStateOf("") }
-    var password = remember { mutableStateOf("") }
+    val username = remember { mutableStateOf("") }
+    val year = remember { mutableStateOf("") }
+    val month = remember { mutableStateOf("") }
+    val day = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
 
     Column(
         //modifier = Modifier.fillMaxSize(),
@@ -85,7 +85,7 @@ fun RegisterView() {
 
         Button(onClick = {
 
-            val newUser: User = User(
+            val newUser = User(
                 UUID.randomUUID().toString(),
                 username.value,
                 password.value,
@@ -137,9 +137,9 @@ class RegisterViewExtension {
             return
         }
 
-        val p: Pattern = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
-        val m: Matcher = p.matcher(newUser.username);
-        val usernameInvalid: Boolean = m.find();
+        val p: Pattern = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE)
+        val m: Matcher = p.matcher(newUser.username)
+        val usernameInvalid: Boolean = m.find()
 
         if (usernameInvalid || newUser.username.length < 5 || newUser.username.length > 12) {
             Log.d("Danne", "Username invalid!")
@@ -163,7 +163,7 @@ class RegisterViewExtension {
     fun createUser(newUser: User) {
 
         val stoneIndex = User.getStoneIndex(newUser.month.toInt(), newUser.day.toInt())
-        var stoneType = LocalData.profileBackground[stoneIndex]
+        val stoneType = LocalData.profileBackground[stoneIndex]
         val avatar = stoneType.lowercase() + "_1"
 
         newUser.avatar = avatar
