@@ -40,8 +40,11 @@ fun RegisterView() {
     val month = remember { mutableStateOf("") }
     val day = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
+
     val password = remember { mutableStateOf("") }
     val passwordSecured = remember { mutableStateOf(true) }
+
+    val passwordReenter = remember { mutableStateOf("") }
 
     Column(
         //modifier = Modifier.fillMaxSize(),
@@ -92,7 +95,8 @@ fun RegisterView() {
             onValueChange = {
                 email.value = it
             },
-            Modifier.background(WhiteTransparent).widthIn(250.dp)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            modifier = Modifier.background(WhiteTransparent).widthIn(250.dp)
         )
 
         Text("Password")
@@ -117,6 +121,17 @@ fun RegisterView() {
                 )
             }
         }
+
+        Text("Re-enter password")
+        TextField(
+            value = passwordReenter.value,
+            onValueChange = {
+                passwordReenter.value = it
+            },
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            modifier = Modifier.background(WhiteTransparent).widthIn(250.dp)
+        )
 
         Button(onClick = {
 
@@ -152,7 +167,7 @@ fun RegisterView() {
             newUser.day = dayInt.toLong()
             newUser.avatar = avatar
 
-            RegisterViewExtension().checkInput(newUser)
+            RegisterViewExtension().checkInput(newUser, passwordReenter.value)
 
 
         }) {
@@ -165,7 +180,12 @@ fun RegisterView() {
 
 class RegisterViewExtension {
 
-    fun checkInput(newUser: User){
+    fun checkInput(newUser: User, passwordReenter: String){
+
+        if (passwordReenter != newUser.password) {
+            Log.d("Danne", "Password re-enter does not match!")
+            return
+        }
 
         if (newUser.password.length < 5) {
             Log.d("Danne", "Password invalid!")
