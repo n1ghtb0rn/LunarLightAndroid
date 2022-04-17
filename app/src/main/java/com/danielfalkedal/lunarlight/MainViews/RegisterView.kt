@@ -1,5 +1,6 @@
 package com.danielfalkedal.lunarlight
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -14,6 +15,8 @@ import com.danielfalkedal.lunarlight.Realm.Repos.RealmUserDao
 import com.danielfalkedal.lunarlight.Realm.Repos.Models.UserRealm
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 @Composable
 fun RegisterView() {
@@ -82,26 +85,41 @@ fun RegisterView() {
 
         Button(onClick = {
 
-            val stoneIndex = User.getStoneIndex(month.value.toInt(), day.value.toInt())
-            val stoneCategory = LocalData.profileBackground[stoneIndex]
-            val avatars = LocalData.stoneImages[stoneCategory]
-            val avatar = avatars!![0]
-
             val newUser: User = User(
                 UUID.randomUUID().toString(),
                 username.value,
                 password.value,
                 email.value,
-                avatar,
-                year.value.toLong(),
-                month.value.toLong(),
-                day.value.toLong(),
+                "leo_1",
+                0,
+                0,
+                0,
                 "My profile info."
             )
-            RegisterViewExtension().createUser(newUser)
-            LoginViewExtention().login(newUser)
 
-            AppIndexManager.setIndex(AppIndex.welcomeView)
+            var yearInt = 0
+            var monthInt = 0
+            var dayInt = 0
+
+            try {
+                yearInt = year.value.toInt()
+                monthInt = month.value.toInt()
+                dayInt = day.value.toInt()
+            } catch (e: Exception) {}
+
+            val stoneIndex = User.getStoneIndex(monthInt, dayInt)
+            val stoneCategory = LocalData.profileBackground[stoneIndex]
+            val avatars = LocalData.stoneImages[stoneCategory]
+            val avatar = avatars!![0]
+
+            newUser.year = yearInt.toLong()
+            newUser.month = monthInt.toLong()
+            newUser.day = dayInt.toLong()
+            newUser.avatar = avatar
+
+            RegisterViewExtension().checkInput(newUser)
+
+
         }) {
             Text("Sign up")
         }
@@ -112,7 +130,33 @@ fun RegisterView() {
 
 class RegisterViewExtension {
 
-    fun checkInput() {
+    fun checkInput(newUser: User){
+
+        if (newUser.password.length < 5) {
+            Log.d("Danne", "Password invalid!")
+            return
+        }
+
+        val p: Pattern = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
+        val m: Matcher = p.matcher(newUser.username);
+        val usernameInvalid: Boolean = m.find();
+
+        if (usernameInvalid || newUser.username.length < 5 || newUser.username.length > 12) {
+            Log.d("Danne", "Username invalid!")
+            return
+        }
+
+        Log.d("Danne", "${android.util.Patterns.EMAIL_ADDRESS.matcher(newUser.email).matches()}")
+
+        if (newUser.email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(newUser.email).matches()) {
+            Log.d("Danne", "Email invalid!")
+            return
+        }
+
+        RegisterViewExtension().createUser(newUser)
+        LoginViewExtention().login(newUser)
+
+        AppIndexManager.setIndex(AppIndex.welcomeView)
 
     }
 

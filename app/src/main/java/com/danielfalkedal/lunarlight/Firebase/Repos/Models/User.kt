@@ -7,13 +7,13 @@ import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 
 data class User(
     val id: String,
-    val username: String,
-    val password: String,
-    val email: String,
+    var username: String,
+    var password: String,
+    var email: String,
     var avatar: String,
-    val year: Long,
-    val month: Long,
-    val day: Long,
+    var year: Long,
+    var month: Long,
+    var day: Long,
     var profile_info: String
 
 ){

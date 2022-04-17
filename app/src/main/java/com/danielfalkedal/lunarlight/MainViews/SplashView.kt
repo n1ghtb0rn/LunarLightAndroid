@@ -30,7 +30,7 @@ fun SplashView(
 
 ) {
 
-    val isComplete = remember { mutableStateOf(false)}
+    val isComplete = remember { mutableStateOf(true)} //TODO: Set to false
 
     val progress = remember { mutableStateOf (0.0f) }
     val animatedProgress = animateFloatAsState(
