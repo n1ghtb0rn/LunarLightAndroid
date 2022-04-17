@@ -56,7 +56,7 @@ fun RegisterView() {
             onValueChange = {
                 username.value = it
             },
-            Modifier.background(WhiteTransparent)
+            Modifier.background(WhiteTransparent).widthIn(250.dp)
         )
 
         Text("Year")
@@ -65,7 +65,7 @@ fun RegisterView() {
             onValueChange = {
                 year.value = it
             },
-            Modifier.background(WhiteTransparent)
+            Modifier.background(WhiteTransparent).widthIn(250.dp)
         )
 
         Text("Month")
@@ -74,7 +74,7 @@ fun RegisterView() {
             onValueChange = {
                 month.value = it
             },
-            Modifier.background(WhiteTransparent)
+            Modifier.background(WhiteTransparent).widthIn(250.dp)
         )
 
         Text("Day")
@@ -83,7 +83,7 @@ fun RegisterView() {
             onValueChange = {
                 day.value = it
             },
-            Modifier.background(WhiteTransparent)
+            Modifier.background(WhiteTransparent).widthIn(250.dp)
         )
 
         Text("Email")
@@ -92,7 +92,7 @@ fun RegisterView() {
             onValueChange = {
                 email.value = it
             },
-            Modifier.background(WhiteTransparent)
+            Modifier.background(WhiteTransparent).widthIn(250.dp)
         )
 
         Text("Password")
