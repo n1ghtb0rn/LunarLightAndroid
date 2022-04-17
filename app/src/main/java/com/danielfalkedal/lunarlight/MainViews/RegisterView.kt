@@ -112,6 +112,10 @@ fun RegisterView() {
 
 class RegisterViewExtension {
 
+    fun checkInput() {
+
+    }
+
     fun createUser(newUser: User) {
 
         val stoneIndex = User.getStoneIndex(newUser.month.toInt(), newUser.day.toInt())

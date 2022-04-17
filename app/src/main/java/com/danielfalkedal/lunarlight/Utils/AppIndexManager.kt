@@ -1,5 +1,6 @@
 package com.danielfalkedal.lunarlight
 
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.danielfalkedal.lunarlight.Firebase.Repos.FriendDao
@@ -85,5 +86,6 @@ object AppIndex {
     val onlineUsersView = 2
     val privateChatView = 3
     val welcomeView = 4
+    val splashView = 5
 
 }

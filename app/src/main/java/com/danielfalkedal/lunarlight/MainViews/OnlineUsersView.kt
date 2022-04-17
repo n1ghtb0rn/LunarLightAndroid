@@ -1,6 +1,9 @@
 package com.danielfalkedal.lunarlight.MainViews
 
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -44,11 +48,31 @@ fun OnlineUsersView(
     Log.d("DanneX", "Users online count = ${AppIndexManager.userOnlineModel.usersOnlineIds.size}")
 
     val showProfileViewSheet = remember { mutableStateOf(false) }
+    val density = LocalDensity.current
 
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        /* TODO: use this for sheet
+        AnimatedVisibility(
+            visible = showProfileViewSheet.value,
+            enter = slideInVertically {
+                // Slide in from 40 dp from the top.
+                with(density) { 500.dp.roundToPx() }
+            },
+            exit = slideOutVertically {
+                with(density) { 500.dp.roundToPx() }
+            }
+
+        ) {
+
+        }
+
+         */
+
+
 
         when (showProfileViewSheet.value) {
 

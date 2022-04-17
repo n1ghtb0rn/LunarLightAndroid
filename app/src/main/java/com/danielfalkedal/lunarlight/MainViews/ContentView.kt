@@ -4,10 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.danielfalkedal.lunarlight.MainViews.LobbyTabView
-import com.danielfalkedal.lunarlight.MainViews.OnlineUsersView
-import com.danielfalkedal.lunarlight.MainViews.PrivateChatView
-import com.danielfalkedal.lunarlight.MainViews.WelcomeView
+import com.danielfalkedal.lunarlight.MainViews.*
 
 @Composable
 fun ContentView() {
@@ -23,6 +20,8 @@ fun ContentView() {
         AppIndex.privateChatView -> PrivateChatView()
 
         AppIndex.welcomeView -> WelcomeView()
+
+        AppIndex.splashView -> SplashView()
 
     }
 
