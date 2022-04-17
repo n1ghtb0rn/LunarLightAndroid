@@ -1,17 +1,22 @@
 package com.danielfalkedal.lunarlight
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.danielfalkedal.lunarlight.Firebase.Repos.FriendDao
 import com.danielfalkedal.lunarlight.Firebase.Repos.UserDao
@@ -31,6 +36,7 @@ fun LoginView() {
 
     val username = remember { mutableStateOf(TextFieldValue("android")) }
     val password = remember { mutableStateOf(TextFieldValue("12345")) }
+    val passwordSecured = remember { mutableStateOf(true) }
 
     Column(
         //modifier = Modifier.fillMaxSize(),
@@ -42,16 +48,30 @@ fun LoginView() {
             onValueChange = {
                 username.value = it
             },
-            Modifier.background(WhiteTransparent)
+            Modifier.background(WhiteTransparent).widthIn(250.dp)
         )
 
-        TextField(
-            value = password.value,
-            onValueChange = {
-                password.value = it
-            },
-            Modifier.background(WhiteTransparent)
-        )
+        Row() {
+            TextField(
+                value = password.value,
+                onValueChange = {
+                    password.value = it
+                },
+                visualTransformation = if (passwordSecured.value) PasswordVisualTransformation() else VisualTransformation.None,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier.background(WhiteTransparent).widthIn(200.dp)
+            )
+
+            Button(onClick = {
+                passwordSecured.value = !passwordSecured.value
+
+            }, modifier = Modifier.widthIn(50.dp)) {
+                Image(
+                    painter = if (passwordSecured.value) painterResource(R.drawable.eye_slash) else painterResource(R.drawable.eye),
+                    contentDescription = "Contact profile picture",
+                )
+            }
+        }
 
        Column(
            modifier = Modifier
