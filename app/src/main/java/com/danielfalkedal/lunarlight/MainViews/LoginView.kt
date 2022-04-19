@@ -24,6 +24,7 @@ import com.danielfalkedal.lunarlight.Firebase.Repos.UserOnlineDao
 import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
 import com.danielfalkedal.lunarlight.Firebase.Repos.Models.UserOnline
 import com.danielfalkedal.lunarlight.Realm.Repos.Models.UserRealm
+import com.danielfalkedal.lunarlight.Utils.Encryption
 import com.danielfalkedal.lunarlight.ui.theme.WhiteTransparent
 
 @Composable
@@ -89,9 +90,11 @@ fun LoginView() {
 
                 var loginUser: User? = null
 
+                val token = Encryption().getToken(password.value.text)
+
                 for (user in users) {
                     if ( (user.username == username.value.text || user.email == username.value.text)
-                        && user.password == password.value.text
+                        && user.password == token
                     ) {
                         loginUser = user
                         break

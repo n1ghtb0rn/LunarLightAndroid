@@ -25,6 +25,7 @@ import com.danielfalkedal.lunarlight.Firebase.Repos.UserDao
 import com.danielfalkedal.lunarlight.Firebase.Repos.Models.User
 import com.danielfalkedal.lunarlight.Realm.Repos.RealmUserDao
 import com.danielfalkedal.lunarlight.Realm.Repos.Models.UserRealm
+import com.danielfalkedal.lunarlight.Utils.Encryption
 import com.danielfalkedal.lunarlight.Utils.LocalData
 import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
 import com.danielfalkedal.lunarlight.ui.theme.WhiteTransparent
@@ -135,10 +136,12 @@ fun RegisterView() {
 
         Button(onClick = {
 
+            val token = Encryption().getToken(password.value)
+
             val newUser = User(
                 UUID.randomUUID().toString(),
                 username.value,
-                password.value,
+                password = token,
                 email.value,
                 "leo_1",
                 0,
@@ -182,7 +185,9 @@ class RegisterViewExtension {
 
     fun checkInput(newUser: User, passwordReenter: String){
 
-        if (passwordReenter != newUser.password) {
+        val token = Encryption().getToken(passwordReenter)
+
+        if (token != newUser.password) {
             Log.d("Danne", "Password re-enter does not match!")
             return
         }
