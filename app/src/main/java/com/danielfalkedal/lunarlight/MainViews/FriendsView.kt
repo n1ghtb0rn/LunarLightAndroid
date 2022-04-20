@@ -29,6 +29,7 @@ import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.Firebase.ViewModels.USER_FRIENDS
 import com.danielfalkedal.lunarlight.Firebase.ViewModels.UsersViewModel
+import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
 import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -65,7 +66,7 @@ fun FriendsView(
                     LazyColumn(
                         modifier = Modifier
                             .clip(RoundedCornerShape(12.dp))
-                            .background(Color.LightGray)
+                            .background(BlackTransparent)
                             .weight(3f)
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),

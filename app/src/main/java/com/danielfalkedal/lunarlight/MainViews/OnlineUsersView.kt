@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,8 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -35,6 +39,9 @@ import com.danielfalkedal.lunarlight.Responses.OnErrorUsers
 import com.danielfalkedal.lunarlight.Responses.OnSuccessUsers
 import com.danielfalkedal.lunarlight.Firebase.ViewModels.ONLINE_USERS
 import com.danielfalkedal.lunarlight.Firebase.ViewModels.UsersViewModel
+import com.danielfalkedal.lunarlight.ui.theme.BlackTransparent
+import com.danielfalkedal.lunarlight.ui.theme.FullTransparent
+import com.danielfalkedal.lunarlight.ui.theme.Purple700
 import com.danielfalkedal.lunarlight.ui.theme.getColorByUser
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -56,7 +63,29 @@ fun OnlineUsersView(
     ) {
 
 
-        Box() {
+        Box(modifier = Modifier.fillMaxSize()) {
+
+            Column(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                FullTransparent,
+                                Purple700
+                            )
+                        )
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {}
+
+            Image(
+                painter = painterResource(User.getAvatarResource("star_heaven")),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+            )
 
             Column() {
 
@@ -91,7 +120,7 @@ fun OnlineUsersView(
                             LazyColumn(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(12.dp))
-                                    .background(Color.LightGray)
+                                    .background(BlackTransparent)
                                     .weight(3f)
                                     .fillMaxWidth()
                                     .padding(vertical = 8.dp),
