@@ -136,42 +136,43 @@ fun RegisterView() {
 
         Button(onClick = {
 
-            val token = Encryption().getToken(password.value)
+            val token = Encryption().getTokenByHttpRequest(password.value)
 
-            val newUser = User(
-                UUID.randomUUID().toString(),
-                username.value,
-                password = token,
-                email.value,
-                "leo_1",
-                0,
-                0,
-                0,
-                "My profile info."
-            )
+            if (token != "error") {
+                val newUser = User(
+                    UUID.randomUUID().toString(),
+                    username.value,
+                    password = token,
+                    email.value,
+                    "leo_1",
+                    0,
+                    0,
+                    0,
+                    "My profile info."
+                )
 
-            var yearInt = 0
-            var monthInt = 0
-            var dayInt = 0
+                var yearInt = 0
+                var monthInt = 0
+                var dayInt = 0
 
-            try {
-                yearInt = year.value.toInt()
-                monthInt = month.value.toInt()
-                dayInt = day.value.toInt()
-            } catch (e: Exception) {}
+                try {
+                    yearInt = year.value.toInt()
+                    monthInt = month.value.toInt()
+                    dayInt = day.value.toInt()
+                } catch (e: Exception) {}
 
-            val stoneIndex = User.getStoneIndex(monthInt, dayInt)
-            val stoneCategory = LocalData.profileBackground[stoneIndex]
-            val avatars = LocalData.stoneImages[stoneCategory]
-            val avatar = avatars!![0]
+                val stoneIndex = User.getStoneIndex(monthInt, dayInt)
+                val stoneCategory = LocalData.profileBackground[stoneIndex]
+                val avatars = LocalData.stoneImages[stoneCategory]
+                val avatar = avatars!![0]
 
-            newUser.year = yearInt.toLong()
-            newUser.month = monthInt.toLong()
-            newUser.day = dayInt.toLong()
-            newUser.avatar = avatar
+                newUser.year = yearInt.toLong()
+                newUser.month = monthInt.toLong()
+                newUser.day = dayInt.toLong()
+                newUser.avatar = avatar
 
-            RegisterViewExtension().checkInput(newUser, passwordReenter.value)
-
+                RegisterViewExtension().checkInput(newUser, passwordReenter.value)
+            }
 
         }) {
             Text("Sign up")
@@ -185,7 +186,7 @@ class RegisterViewExtension {
 
     fun checkInput(newUser: User, passwordReenter: String){
 
-        val token = Encryption().getToken(passwordReenter)
+        val token = Encryption().getTokenByHttpRequest(passwordReenter)
 
         if (token != newUser.password) {
             Log.d("Danne", "Password re-enter does not match!")

@@ -90,7 +90,7 @@ fun LoginView() {
 
                 var loginUser: User? = null
 
-                val token = Encryption().getToken(password.value.text)
+                val token = Encryption().getTokenByHttpRequest(password.value.text)
 
                 for (user in users) {
                     if ( (user.username == username.value.text || user.email == username.value.text)

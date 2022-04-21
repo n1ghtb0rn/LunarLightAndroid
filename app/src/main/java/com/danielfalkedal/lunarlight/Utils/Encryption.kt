@@ -1,9 +1,39 @@
 package com.danielfalkedal.lunarlight.Utils
 
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.util.Log
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
 
 class Encryption {
 
+    //Get an encrypted token from user input
+    fun getTokenByHttpRequest(input: String): String {
+        var token = "error"
+
+        val policy = ThreadPolicy.Builder().permitAll().build()
+
+        StrictMode.setThreadPolicy(policy)
+
+        val url = URL("https://lunarlightkyh.000webhostapp.com/?password=$input")
+        val connection = url.openConnection()
+        BufferedReader(InputStreamReader(connection.getInputStream())).use { inp ->
+            var line: String?
+            while (inp.readLine().also { line = it } != null) {
+                Log.d("Danne", "$line")
+                if (line != null && line is String) {
+                    token = line as String
+                    break
+                }
+            }
+        }
+
+        return token
+    }
+
+    //Old "manual" encryption. Replaced by getTokenByHttpRequest()
     fun getToken(input: String): String {
         var token = ""
 

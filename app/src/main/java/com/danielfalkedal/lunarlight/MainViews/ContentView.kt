@@ -25,7 +25,7 @@ fun ContentView() {
 
         AppIndex.lobbyTabView -> LobbyTabView()
 
-        AppIndex.onlineUsersView -> ProfileView(AppIndexManager.profileUser!!)
+        AppIndex.onlineUsersView -> OnlineUsersView()
 
         AppIndex.privateChatView -> PrivateChatView()
 
