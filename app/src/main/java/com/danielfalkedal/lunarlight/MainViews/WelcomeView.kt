@@ -98,7 +98,6 @@ fun WelcomeView() {
         ) {
             Button(onClick = {
 
-                //TODO: REMOVE THE FOLLOWING THREE LINES (FOR TESTING ONLY)
                 AppIndexManager.friendDao = FriendDao()
                 AppIndexManager.friendDao.listenToUserFriends()
 
