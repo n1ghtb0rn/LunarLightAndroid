@@ -35,8 +35,8 @@ fun LoginView() {
     val userModel = UserDao()
     userModel.listenToUsers()
 
-    val username = remember { mutableStateOf(TextFieldValue("android")) }
-    val password = remember { mutableStateOf(TextFieldValue("12345")) }
+    val username = remember { mutableStateOf(TextFieldValue("")) }
+    val password = remember { mutableStateOf(TextFieldValue("")) }
     val passwordSecured = remember { mutableStateOf(true) }
 
     Column(

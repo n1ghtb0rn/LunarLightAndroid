@@ -33,8 +33,8 @@ class MainActivity : ComponentActivity() {
 
     companion object {
 
-        var resources: Resources? = null
-        var packageName: String = ""
+        lateinit var resources: Resources
+        lateinit var packageName: String
 
         fun initContentReferences(context: MainActivity) {
             resources = context.resources
